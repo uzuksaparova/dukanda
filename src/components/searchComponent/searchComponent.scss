@@ -1,0 +1,93 @@
+$primary_color: #e9601f;
+
+.search-component {
+    background-color: white;
+    font-size: 13px !important;
+    color: #666 !important;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    .jss64 {
+        padding: 0 important;
+    }
+    .jss9 {
+        padding: 0 important;
+    }
+
+    .search-input {
+        font-size: 13px;
+        border: 0;
+        font-family: arial;
+        padding: 0 10px;
+        width: 90% !important;
+        height: 32px;
+        position: relative;
+        border: 2px solid $primary_color;
+        border-right: 0;
+        border-radius: 4px 0 0 4px;
+        max-width: 500px;
+        &:focus {
+            outline: none;
+        }
+    }
+    .MuiOutlinedInput-input {
+        padding: 0;
+    }
+
+    .search-icon-div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 32px;
+        background-color: $primary_color;
+        border-radius: 0 4px 4px 0;
+        .search-icon {
+            color: white;
+            width: 20px;
+            height: 20px;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .MuiIconButton-root {
+        padding: 8px;
+    }
+    .icon {
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        background-color: #fff !important;
+        svg {
+            color: $primary_color;
+            font-size: 1.2rem;
+        }
+        margin: 0 5px;
+    }
+}
+
+@media (max-width: 950px) {
+    .search-component {
+        .search-input {
+            height: 24px;
+        }
+        .search-icon-div {
+            height: 24px;
+            width: 30px;
+            .search-icon {
+                width: 14px;
+            }
+        }
+        .icon {
+            svg {
+                font-size: 1rem;
+            }
+        }
+        // .MuiButtonBase-root {
+        //     padding: 5px !important;
+        // }
+    }
+}

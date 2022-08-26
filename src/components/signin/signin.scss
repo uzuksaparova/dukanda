@@ -1,0 +1,12 @@
+.Toastify__progress-bar--default {
+    background: red !important;
+    opacity: 0.6 !important;
+}
+.password {
+    display: flex;
+    align-items: center;
+    flex-direction: row !important;
+    .password-eye {
+        margin-left: -45px;
+    }
+}

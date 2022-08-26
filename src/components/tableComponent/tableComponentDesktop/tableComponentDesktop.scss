@@ -1,0 +1,44 @@
+$primary_color: #e9601f;
+
+.table-component-desktop {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    transition: margin 0.2s, width 0.2s;
+    display: flex;
+    justify-content: flex-end;
+
+    .MuiPaper-root {
+        height: 100%;
+
+        .MuiTableCell-stickyHeader {
+            font-weight: bolder;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .MuiAvatar-root {
+            width: 28px;
+            height: 28px;
+        }
+        .MuiAvatar-colorDefault {
+            background-color: $primary_color;
+            color: white;
+            width: 28px;
+            height: 28px;
+            font-size: 12px;
+        }
+        a {
+            text-decoration: none;
+        }
+        .MuiTableContainer-root {
+            height: 100%;
+        }
+    }
+}
+
+@media (min-width: 950px) {
+    .sidebar-open {
+        width: calc(100% - 275px);
+        margin-left: 275px;
+    }
+}

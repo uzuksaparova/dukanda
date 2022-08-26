@@ -1,0 +1,31 @@
+$primary_color: #e9601f;
+
+.history-message-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    width: 95%;
+    height: auto;
+    max-height: 90vh;
+    overflow: auto;
+    padding: 15px;
+    background-color: #f2f2f2;
+    .close {
+        position: sticky;
+        background-color: white;
+        z-index: 1;
+        width: 100%;
+        top: -10px;
+        svg {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            float: right;
+            color: $primary_color;
+        }
+    }
+}
+
+

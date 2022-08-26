@@ -1,0 +1,17 @@
+.group-tab {
+    .MuiPaper-elevation4 {
+        box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5) !important;
+        margin-bottom: 10px;
+    }
+    .MuiTabs-root {
+        width: 95%;
+        margin: 0 auto;
+        min-height: unset !important;
+    }
+    .MuiTypography-root {
+        width: 95%;
+        margin: 0 auto !important;
+        height: 100%;
+        overflow: auto;
+    }
+}

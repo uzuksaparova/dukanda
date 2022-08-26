@@ -1,0 +1,76 @@
+$primary_color: #e9601f;
+$primary_icon_color: #938f8f;
+
+.mobile-with-image {
+    border-top: 1px solid #dad7d7;
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    .mobile-with-image-item {
+        width: 100%;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+
+        background-color: #fff;
+        margin: 0px auto 5px;
+        padding: 15px;
+        position: relative;
+        border-bottom: 1px solid #d1cfcf;
+        .one-row {
+            display: flex;
+            align-items: center;
+            line-height: 2;
+            .left {
+                color: #666;
+                font-weight: 700;
+                width: 125px !important;
+            }
+            .right {
+                width: calc(100% - 90px);
+                word-break: break-all;
+            }
+        }
+        .image-section {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        .table-edit-button {
+            display: flex;
+            justify-content: flex-end;
+            .MuiFab-root {
+                background-color: $primary_color;
+                width: 35px;
+                height: 35px;
+                svg {
+                    width: 1em;
+                    height: 1em;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 600px) {
+    .mobile-with-image {
+        .mobile-with-image-item {
+            flex-direction: row;
+
+            .image-section {
+                width: 200px;
+                border-right: 1px solid #dad7d7;
+                margin-right: 10px;
+                img {
+                    width: 200px;
+                }
+            }
+        }
+    }
+}

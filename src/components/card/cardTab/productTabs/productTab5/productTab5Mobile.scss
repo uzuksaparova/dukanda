@@ -1,0 +1,119 @@
+$primary_icon_color: #938f8f;
+$primary_color: #e9601f;
+
+.mobile-product-tab5-images {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    height: 100%;
+    .mobile-sections {
+        box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5);
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .mobile-image-all {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            overflow: scroll;
+            width: 100%;
+            padding: 10px 0;
+            img {
+                padding: 5px;
+                border: 1px solid $primary_icon_color;
+                border-radius: 4px 4px 0 0;
+                margin-right: 0;
+                width: 120px;
+                height: 100px;
+            }
+        }
+        .mobile-image-hover {
+            height: auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            border-radius: 8px;
+            margin-right: 10px;
+            flex-direction: column;
+            .mobile-edit-hover {
+                opacity: 1;
+                position: relative;
+                margin-right: 0;
+                width: 120px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                flex-direction: row;
+                height: 30px;
+                background: rgba(0, 0, 0, 0.8);
+
+                .mobile-edit-icon-hover {
+                    margin-bottom: 0;
+                    padding: 3px;
+                    width: 1.3rem;
+                    height: 1.3rem;
+                    border: 1px solid white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 10%;
+                    color: white !important;
+                    &:first-child {
+                        background: url('../../../../../images/edit.png')
+                            no-repeat center;
+                        background-size: 1.2rem;
+                        cursor: pointer;
+                    }
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                .mobile-preview-icon-hover {
+                    margin-bottom: 0;
+                    padding: 3px;
+                    width: 1.3rem;
+                    height: 1.3rem;
+                    border: 1px solid white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 10%;
+                    color: white !important;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .mobile-main-star {
+            color: $primary_color;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+        .mobile-image-replace-input {
+            cursor: pointer;
+            opacity: 0;
+        }
+        .mobile-add-image {
+            width: 120px !important;
+            height: 100px;
+            margin-right: 10px;
+            border: 1px dashed $primary_icon_color;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+}

@@ -1,0 +1,77 @@
+$primary_color: #e9601f;
+$primary_icon_color: #938f8f;
+
+.sync-schedules {
+    height: calc(100vh - 69px);
+    width: 100%;
+    margin-bottom: 5px;
+    position: absolute;
+    right: 0;
+    top: 69px;
+    background-color: #fff;
+    transition: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    .MuiPaper-root {
+        height: 100%;
+        width: 98%;
+        margin: auto;
+        .MuiTableCell-stickyHeader {
+            font-weight: bolder;
+            // background-color: #ebcfc2;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .MuiAvatar-root {
+            width: 28px;
+            height: 28px;
+        }
+        .MuiAvatar-colorDefault {
+            background-color: $primary_color;
+            color: white;
+            width: 28px;
+            height: 28px;
+            font-size: 12px;
+        }
+        a {
+            text-decoration: none;
+        }
+        .MuiTableContainer-root {
+            height: 100%;
+            margin-bottom: 20px;
+        }
+    }
+    .passive {
+        color: rgb(165, 162, 162);
+    }
+    .role {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .role-icon {
+            color: $primary_icon_color;
+            margin-right: 8px;
+        }
+    }
+
+    .MuiIconButton-root:hover {
+        background-color: unset !important;
+    }
+
+    .date-display {
+        display: flex;
+        flex-direction: row;
+        max-width: 250px;
+        flex-wrap: wrap;
+    }
+    .chip-div {
+        width: 62px;
+        height: 25px;
+        text-align: center;
+        color: white;
+        font-weight: normal;
+        padding: 2px 5px;
+        border-radius: 5px;
+        margin-right: 2px;
+        margin: 5px;
+    }
+}

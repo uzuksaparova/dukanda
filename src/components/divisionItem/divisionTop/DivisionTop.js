@@ -1,0 +1,251 @@
+import React, { useRef } from 'react';
+import { connect } from 'react-redux';
+import {
+    BACKEND_URL,
+    deleteForAdmin,
+    fetchForAdminWithUpdateToast,
+    notification,
+} from '../../../functions';
+import {
+    setDivisionData,
+    setDivisionItemSendInfo,
+    setDivisionsData,
+} from '../../../redux/actions/divisionActions';
+import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import './divisionTop.scss';
+import TopButtons from '../../topButtons/TopButtons';
+
+var token = Cookies.get('admin_token');
+var bearer = 'Bearer ' + token;
+
+function DivisionTop(props) {
+    const { id } = useParams();
+
+    const {
+        divisionImage,
+        setDivisionImage,
+        divisionItemSendInfo,
+        divisionsData,
+        fetchDivisionId,
+        divisionData,
+        setDivisionItemSendInfo,
+        fetchWarehouse,
+        warehouseChip,
+        setDivisionsData,
+    } = props;
+    const divisionImageRef = useRef(null);
+
+    const divisionImageChange = (e, id) => {
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            const url = URL.createObjectURL(file);
+            setDivisionImage({
+                local: true,
+                send: url,
+                image: file,
+            });
+        }
+    };
+    const handleDivisionImageDeleteButton = () => {
+        deleteForAdmin(
+            {
+                url: `${BACKEND_URL}/admin/admin/division/image/${divisionItemSendInfo.id}`,
+                notifyMessage: 'Ulanyjy suraty pozulýar',
+                updateMessage: 'Ulanyjy suraty pozuldy',
+            },
+            (data) => {
+                var tempo = divisionImage;
+                tempo.image = '';
+                setDivisionImage({ local: false, image: data.image, send: '' });
+
+                var tempAdminDivisionInfo = data;
+                tempAdminDivisionInfo.forEach((div, i) => {
+                    if (div.id === divisionItemSendInfo.id) {
+                        tempAdminDivisionInfo[i]['image'] = null;
+                    }
+                });
+                setDivisionsData({
+                    ...divisionsData,
+                    data: tempAdminDivisionInfo,
+                });
+            }
+        );
+    };
+    const addDivisionImageClickReferencing = () => {
+        divisionImageRef.current.click();
+    };
+
+    const onDivisionSaveClick = () => {
+        if (
+            !divisionItemSendInfo.code ||
+            !divisionItemSendInfo.nr ||
+            !divisionItemSendInfo.name ||
+            !divisionItemSendInfo.address ||
+            !divisionItemSendInfo.defaultWarehouse ||
+            !divisionItemSendInfo.type ||
+            !divisionItemSendInfo.clientId ||
+            !divisionItemSendInfo.discountForProductId ||
+            !divisionItemSendInfo.discountForClientId ||
+            !divisionItemSendInfo.discountForReceiptId ||
+            !divisionItemSendInfo.minOrderPrice ||
+            !divisionItemSendInfo.minOrderPriceCurrencyId ||
+            !divisionItemSendInfo.deliveryCardId ||
+            !divisionItemSendInfo.expressDeliveryPrice ||
+            !divisionItemSendInfo.expressDeliveryPriceCurrencyId
+        ) {
+            notification('Boş ýerleri dolduruň');
+        } else {
+            const formData = new FormData();
+            if (divisionImage.local) {
+                formData.append('image', divisionImage.image);
+            }
+            for (var key in divisionItemSendInfo) {
+                if (key !== 'warehouses' && key !== 'client') {
+                    if (!divisionItemSendInfo.id) {
+                        if (key !== 'id') {
+                            formData.append(key, divisionItemSendInfo[key]);
+                        }
+                    } else {
+                        formData.append(key, divisionItemSendInfo[key]);
+                    }
+                }
+            }
+
+            let tempWarehouse = [...warehouseChip];
+            tempWarehouse.forEach((f, i) => {
+                delete f.name;
+            });
+
+            formData.append('warehouses', JSON.stringify(tempWarehouse));
+            fetchForAdminWithUpdateToast(
+                {
+                    url: `${BACKEND_URL}/admin/divisions/${
+                        id === '0' ? '' : id
+                    }`,
+                    method: id === '0' ? 'POST' : 'PUT',
+                    notifyMessage: 'Saving...',
+                    updateMessage: 'Saved',
+                    body: formData,
+                    headers: {
+                        Authorization: bearer,
+                    },
+                },
+                (data) => {
+                    if (!divisionItemSendInfo.id) {
+                        var dataa = divisionItemSendInfo;
+                        dataa.image = data.data?.image;
+                        let tempDivisionsData = divisionsData;
+                        tempDivisionsData.data.push(data.data);
+                        setDivisionsData(tempDivisionsData);
+                        fetchDivisionId(data.data.id);
+                    } else {
+                        var tempAdminDivisionInfo = divisionsData.data;
+
+                        tempAdminDivisionInfo.forEach((div, i) => {
+                            if (
+                                Number(div.id) ===
+                                Number(divisionItemSendInfo.id)
+                            ) {
+                                tempAdminDivisionInfo[i] = divisionItemSendInfo;
+                                if (data.data.image) {
+                                    tempAdminDivisionInfo[i]['image'] =
+                                        data.data.image;
+                                } else {
+                                    tempAdminDivisionInfo[i]['image'] =
+                                        div.image;
+                                }
+                            }
+                        });
+                        setDivisionsData({
+                            ...divisionsData,
+                            data: tempAdminDivisionInfo,
+                        });
+                        fetchDivisionId(divisionItemSendInfo.id);
+                    }
+                }
+            );
+        }
+    };
+    const handleResetClick = () => {
+        if (divisionItemSendInfo.id) {
+            fetchDivisionId(divisionItemSendInfo.id);
+        } else {
+            setDivisionItemSendInfo({
+                active: false,
+                address: '',
+                clientId: '',
+                code: '',
+                defaultWarehouse: '',
+                deliveryCardId: '',
+                discountForClientId: '',
+                discountForProductId: '',
+                discountForReceiptId: '',
+                email: '',
+                expressAcceptableProductCount: '',
+                expressActive: false,
+                expressDeliveryPrice: '',
+                expressDeliveryPriceCurrencyId: '',
+                expressEndTime: '',
+                expressStartTime: '',
+                id: '',
+                image: '',
+                imo: '',
+                instagram: '',
+                minOrderPrice: '',
+                minOrderPriceCurrencyId: '',
+                name: '',
+                nr: '',
+                phoneNumber: '',
+                phoneNumber2: '',
+                phoneNumber3: '',
+                telegram: '',
+                type: '',
+                warehouses: [],
+            });
+        }
+        fetchWarehouse();
+    };
+    return (
+        <div className="division-header">
+            {/* <CircleImageComponent
+                imageObj={divisionImage}
+                handleImageChange={divisionImageChange}
+                handleImageDeletion={handleDivisionImageDeleteButton}
+                handleButtonClick={addDivisionImageClickReferencing}
+                disabledValue={'updateDivision'}
+                imageRef={divisionImageRef}
+                type="divisions"
+            /> */}
+            <div className="right-header">
+                <div className="top">{divisionData.name}</div>
+                <TopButtons
+                    disabledValue="updateDivision"
+                    handleSaveButton={onDivisionSaveClick}
+                    handleResetButton={handleResetClick}
+                    cancelPath="/divisions"
+                    resetEnable={true}
+                />
+            </div>
+        </div>
+    );
+}
+
+const mapStateToProps = (state) => {
+    return {
+        divisionItemSendInfo: state.divisionItemSendInfo,
+        divisionData: state.divisionData.divisionData,
+        divisionsData: state.divisionsData,
+        warehouseChip: state.warehouseChip.warehouseChip,
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setDivisionItemSendInfo: (info) =>
+            dispatch(setDivisionItemSendInfo(info)),
+        setDivisionsData: (data) => dispatch(setDivisionsData(data)),
+        setDivisionData: (data) => dispatch(setDivisionData(data)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DivisionTop);

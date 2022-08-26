@@ -1,0 +1,40 @@
+$primary_icon_color: #938f8f;
+
+.main-tab3-last-groups {
+    .subgroups-scroll {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        .typographies {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .icon {
+                color: $primary_icon_color;
+                margin-right: 10px;
+            }
+        }
+        a {
+            text-decoration: none !important;
+        }
+    }
+    width: 100%;
+    height: calc(100vh - 180px);
+    overflow: auto;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    .css-17uv7s8-MuiCardMedia-root {
+        object-fit: contain;
+        max-width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 950px) {
+    .main-tab3-last-groups {
+        height: calc(100vh - 300px);
+    }
+}

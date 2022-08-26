@@ -1,0 +1,81 @@
+$primary_icon_color: #938f8f;
+$primary_color: #e9601f;
+
+.division-one-row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+    position: relative;
+    .MuiFormControlLabel-root {
+        margin-left: 0;
+    }
+    .left {
+        width: 350px;
+        color: $primary_icon_color;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+
+        .division-icon {
+            margin-right: 8px;
+        }
+    }
+    .right {
+        display: flex;
+        flex-direction: column;
+        input {
+            border: 1px solid $primary_color;
+            width: 300px;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 1rem;
+            &:focus {
+                outline: none;
+            }
+            &::placeholder {
+                color: #cfcaca;
+            }
+        }
+    }
+}
+.Mui-checked {
+    color: $primary_color !important;
+}
+
+@media (max-width: 950px) {
+    .division-one-row {
+        margin-top: 10px;
+        position: relative;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .left {
+            width: 100%;
+            color: $primary_icon_color;
+            font-size: 13px;
+            margin-bottom: 5px;
+
+            .division-icon {
+                margin-right: 8px;
+            }
+        }
+        .division-qr-tab {
+            align-items: flex-start;
+        }
+        .right {
+            width: 100%;
+            max-width: 350px;
+
+            input {
+                width: auto;
+                max-width: 350px;
+                padding: 5px;
+                font-size: 13px;
+            }
+        }
+    }
+    .Mui-checked {
+        color: $primary_color !important;
+    }
+}

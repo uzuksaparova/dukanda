@@ -1,0 +1,33 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+
+.client-tab {
+    .MuiTypography-root {
+        height: calc(100vh - 190px);
+        overflow: auto;
+        padding: 10px 30px;
+        box-sizing: border-box;
+    }
+    .right {
+        .MuiTypography-root {
+            height: auto !important;
+        }
+    }
+}
+.MuiPaper-elevation4 {
+    box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5) !important;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 950px) {
+    .client-tab {
+        .MuiTypography-root {
+            padding: 0 15px;
+            height: calc(100vh - 300px) !important;
+        }
+    }
+    .MuiTab-wrapper {
+        font-size: 13px;
+    }
+}

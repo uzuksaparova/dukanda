@@ -1,0 +1,130 @@
+$primary_icon_color: #938f8f;
+$primary_color: #e9601f;
+
+.product-tab5-images {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    height: 100%;
+    .sections {
+        box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5);
+        height: auto;
+        padding: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .image-all {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            img {
+                padding: 5px;
+                border: 1px solid $primary_icon_color;
+                border-radius: 4px;
+                margin-right: 20px;
+                width: 150px;
+                height: 120px;
+                // object-fit: contain;
+            }
+        }
+        .image-hover {
+            height: auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            border-radius: 8px;
+            .edit-hover {
+                opacity: 0;
+                backface-visibility: hidden;
+                margin-right: 20px;
+                width: 30px;
+                position: absolute;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                height: 100%;
+                .edit-icon-hover {
+                    margin-bottom: 7px;
+                    padding: 3px;
+                    width: 1.5rem;
+                    height: 1.3rem;
+                    border: 1px solid white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 10%;
+                    color: white !important;
+                    &:first-child {
+                        background: url('../../../../../images/edit.png')
+                            no-repeat center;
+                        background-size: 1.5rem;
+                        cursor: pointer;
+                    }
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                .preview-icon-hover {
+                    margin-bottom: 7px;
+                    padding: 3px;
+                    width: 1.5rem;
+                    height: 1.3rem;
+                    border: 1px solid white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 10%;
+                    color: white !important;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        .image-hover:hover {
+            position: relative;
+            transition: background 1s;
+            .card {
+                opacity: 0.1;
+            }
+            .edit-hover {
+                background: rgba(0, 0, 0, 0.801);
+                opacity: 1 !important;
+                transition: opacity 0.3s;
+                .edit-icon {
+                    width: 2rem !important;
+                    height: 2rem !important;
+                }
+            }
+        }
+        .main-star {
+            color: $primary_color;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+        .image-replace-input {
+            cursor: pointer;
+            opacity: 0;
+        }
+        .add-image {
+            width: 150px;
+            height: 120px;
+            border: 1px dashed $primary_icon_color;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+}

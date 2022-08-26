@@ -1,0 +1,85 @@
+$primary_color: #e9601f;
+$primary_icon_color: #938f8f;
+
+.keyword {
+    .keyword-add {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 500px;
+        height: 40px;
+
+        .keyword-input {
+            margin-left: 10px;
+            height: 100%;
+            width: 300px;
+            overflow: hidden;
+            border: 2px solid #ff4747;
+            border-radius: 4px 0 0 4px;
+            padding: 0 10px;
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .MuiButtonBase-root {
+            font-size: 1rem;
+            min-width: 0px;
+            border-radius: 0 4px 4px 0;
+            background-color: $primary_color;
+            color: white !important;
+            &:hover {
+                background-color: $primary_color;
+            }
+        }
+    }
+    .keyword-display {
+        margin-top: 20px;
+        max-height: 500px;
+        .MuiChip-outlinedSecondary {
+            border: 1px solid $primary_icon_color;
+            color: $primary_icon_color;
+        }
+        .MuiChip-root {
+            height: unset;
+        }
+        .MuiChip-label {
+            white-space: pre-wrap;
+        }
+        .chip {
+            max-width: 500px;
+            margin: 10px;
+            .MuiSvgIcon-root {
+                color: $primary_icon_color !important;
+            }
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .keyword {
+        .keyword-add {
+            width: 100%;
+            max-width: 500px;
+
+            .keyword-input {
+                width: 250px;
+            }
+        }
+        .keyword-display {
+            margin-top: 20px;
+            .MuiChip-outlinedSecondary {
+                border: 1px solid $primary_icon_color;
+                color: $primary_icon_color;
+            }
+            .chip {
+                margin: 10px;
+                max-width: 300px;
+
+                .MuiSvgIcon-root {
+                    color: $primary_icon_color !important;
+                }
+            }
+        }
+    }
+}

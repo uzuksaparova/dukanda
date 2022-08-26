@@ -1,0 +1,6 @@
+{
+	nr: 200,
+	name: "ASHGABAT",
+	code: "AG",
+	QRLocalServerUrl: "http://172.16.3.1:8066"
+}

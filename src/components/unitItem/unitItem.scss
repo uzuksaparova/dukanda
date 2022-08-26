@@ -1,0 +1,60 @@
+$primary_font_color: rgb(55, 53, 47);
+
+.unit-info {
+    height: calc(100vh - 64px);
+    background-color: white;
+    width: 100%;
+    margin: auto;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 64px;
+    background-color: #fff;
+    transition: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 25px;
+        .left {
+            font-size: 20px;
+            color: #666;
+            .tiger-name {
+                color: $primary_font_color;
+                font-size: 25px;
+            }
+            .tiger-code {
+                color: rgba(55, 53, 47, 0.774);
+                font-size: 16px;
+            }
+        }
+    }
+    .bottom {
+        flex-grow: 1;
+        width: 100%;
+    }
+}
+
+@media (max-width: 950px) {
+    .unit-info {
+        .top {
+            align-items: flex-start;
+            padding: 5px 10px;
+            flex-direction: column;
+            .left {
+                .tiger-name {
+                    font-size: 20px;
+                }
+                .tiger-code {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 970px) {
+    .sidebar-open {
+        width: calc(100% - 275px);
+    }
+}

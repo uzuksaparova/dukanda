@@ -1,0 +1,26 @@
+$primary_color: #ff4747;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+
+.units {
+    height: calc(100vh - 69px);
+    width: 100%;
+    margin-bottom: 5px;
+    position: absolute;
+    right: 0;
+    top: 69px;
+    background-color: #fff;
+    transition: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    .MuiPaper-root {
+        height: 100%;
+        width: 98%;
+        margin: auto;
+
+        a {
+            text-decoration: none;
+        }
+    }
+    .passive {
+        color: rgb(165, 162, 162);
+    }
+}

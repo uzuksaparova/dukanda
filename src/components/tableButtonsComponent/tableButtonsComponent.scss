@@ -1,0 +1,50 @@
+$primary_color: #e9601f;
+
+.table-buttons {
+    width: 150px;
+    .MuiIconButton-root {
+        padding: 7px;
+    }
+    svg {
+        height: 0.7em;
+        width: 0.7em;
+    }
+    .first-button {
+        background-color: $primary_color;
+        color: white !important;
+        width: 50px;
+        border-radius: 3px 0 0 3px;
+        border: 1px solid $primary_color;
+        &:hover {
+            background-color: #fff;
+            color: $primary_color;
+            .table-icon {
+                color: $primary_color;
+            }
+        }
+    }
+    .second-button {
+        color: $primary_color !important;
+        width: 50px;
+        border: 1px solid $primary_color;
+        border-radius: 0px;
+        &:hover {
+            border-right: 1px solid $primary_color;
+            border-left: 1px solid $primary_color;
+        }
+    }
+    .third-button {
+        background-color: $primary_color;
+        color: white !important;
+        width: 50px;
+        border-radius: 0 3px 3px 0;
+        border: 1px solid $primary_color;
+        &:hover {
+            background-color: #fff;
+            color: $primary_color;
+            .table-icon {
+                color: $primary_color;
+            }
+        }
+    }
+}

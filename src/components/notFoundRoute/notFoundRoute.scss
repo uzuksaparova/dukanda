@@ -1,0 +1,15 @@
+img {
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.notFoundRoute {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: #fff;
+}

@@ -1,0 +1,29 @@
+$primary_color: #e9601f;
+
+.add-button {
+    position: fixed;
+    bottom: 80px;
+    right: 80px;
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
+    .MuiButton-root {
+        font-size: 2.7rem;
+        min-width: 0px !important;
+        border-radius: 50%;
+        padding: 0px !important;
+        background-color: unset;
+        color: $primary_color !important;
+        &:hover {
+            border-color: $primary_color;
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .add-button {
+        bottom: 20px;
+        right: 20px;
+    }
+}

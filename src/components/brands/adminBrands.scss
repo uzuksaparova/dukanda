@@ -1,0 +1,47 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+$primary_font_color: #666d77;
+
+.brands {
+    width: 100%;
+    height: calc(100vh - 74px);
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
+    top: 74px;
+    background-color: #fff;
+    transition: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    .cards {
+        a {
+            text-decoration: none !important;
+        }
+        width: 95%;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #fff;
+        .css-17uv7s8-MuiCardMedia-root {
+            object-fit: contain;
+            max-width: 100%;
+            padding: 10px;
+        }
+    }
+
+    .typographies {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .icon {
+            color: $primary_icon_color;
+            margin-right: 10px;
+        }
+    }
+}
+
+@media (min-width: 970px) {
+    .sidebar-open {
+        width: calc(100% - 275px);
+    }
+}

@@ -1,0 +1,44 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+$primary_font_color: rgb(61, 60, 55);
+
+.groups {
+    width: 100vw;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: auto;
+    align-items: flex-start;
+    color: $primary_font_color;
+    position: absolute;
+    right: 0;
+    top: 64px;
+    background-color: #fff;
+    transition: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    padding: 10px;
+    img {
+        width: 50px;
+        height: 50px;
+    }
+    // bottom: 0;
+}
+
+.infinite-scroll-component__outerdiv {
+    width: 100%;
+}
+
+.groups-infinite {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100%;
+}
+
+@media (max-width: 950px) {
+    .groups {
+        padding: 0;
+    }
+}

@@ -1,0 +1,24 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+.unit-tab {
+    position: relative;
+
+    .MuiTypography-root {
+        padding: 20px;
+        margin: 0 auto !important;
+    }
+}
+
+.MuiPaper-elevation4 {
+    box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5) !important;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 950px) {
+    .unit-tab {
+        .MuiTypography-root {
+            padding: 10px;
+        }
+    }
+}

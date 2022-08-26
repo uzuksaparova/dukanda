@@ -1,0 +1,45 @@
+$primary_color: #e9601f;
+$primary_icon_color: #938f8f;
+
+.client-qr-modal {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .close {
+        position: sticky;
+        background-color: white;
+        z-index: 1;
+        width: 100%;
+        margin-bottom: 15px;
+        height: 18px;
+        svg {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            float: right;
+            color: $primary_color;
+        }
+    }
+    .division-qr {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .one-row {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 5px;
+        .left {
+            color: $primary_icon_color;
+            display: flex;
+            align-items: center;
+            width: 110px;
+            svg {
+                margin-right: 8px;
+            }
+        }
+        .right {
+            width: calc(100% - 110px);
+        }
+    }
+}

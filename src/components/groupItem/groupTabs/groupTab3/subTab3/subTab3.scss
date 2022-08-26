@@ -1,0 +1,28 @@
+.subgroup-items-tab {
+    .subgroup-items-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    }
+    .sub-tab3-items {
+        height: calc(100vh - 210px);
+        overflow-y: auto;
+        .infinite-scroll-component__outerdiv {
+            width: 100%;
+        }
+        .sub-tab3-items-scroll {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .subgroup-items-tab {
+        .sub-tab3-items {
+            height: calc(100vh - 320px);
+        }
+    }
+}

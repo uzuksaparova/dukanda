@@ -1,0 +1,107 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    height: 100%;
+    .video-react-fluid {
+        width: 500px;
+        padding-top: 25% !important;
+    }
+    .video-react-big-play-button {
+        left: 40%;
+        top: 40%;
+    }
+    .add-video {
+        width: 500px;
+        height: 370px;
+        border: 1px dashed $primary_icon_color;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            width: 60px;
+            height: 60px;
+            color: $primary_color;
+        }
+    }
+    .icon-buttons {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 500px;
+        justify-content: center;
+
+        .group-image-edit {
+            .image-replace-input {
+                cursor: pointer;
+                opacity: 0;
+            }
+            margin-right: 10px;
+            width: 77px;
+            height: 31px;
+            position: relative;
+            padding: 2px;
+            border: 1px solid $primary_color;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid $primary_color;
+            color: $primary_color;
+            &:first-child {
+                &::before {
+                    content: 'Üýtget';
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    top: 0;
+                    left: 0;
+                    font-size: 11px;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                background-size: 1.5rem;
+                background-color: #fff;
+                cursor: pointer;
+            }
+        }
+        .icon-delete-button {
+            font-size: 11px;
+            border-color: $primary_color;
+            color: $primary_color;
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .video-container {
+        margin: 0;
+        .video-react-fluid {
+            width: 100%;
+            max-width: 500px;
+            padding-top: 56% !important;
+        }
+
+        .add-video {
+            width: 100%;
+            max-width: 500px;
+        }
+        .icon-buttons {
+            max-width: 500px;
+            width: 100%;
+        }
+    }
+}

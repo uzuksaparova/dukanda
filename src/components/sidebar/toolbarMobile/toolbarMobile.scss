@@ -1,0 +1,24 @@
+.toolbar-mobile {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    .toolbar-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .MuiSvgIcon-root {
+            width: 0.8em !important;
+            height: 0.8em !important;
+        }
+    }
+    .toolbar-bottom {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+}

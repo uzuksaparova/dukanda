@@ -1,0 +1,27 @@
+$primary_icon_color: #938f8f;
+
+.division-header {
+    width: 95%;
+    margin: auto;
+    font-size: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0;
+
+    .right-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 950px) {
+    .division-header {
+        .right-header {
+            font-size: 18px;
+        }
+    }
+}

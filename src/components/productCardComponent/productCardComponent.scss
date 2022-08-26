@@ -1,0 +1,136 @@
+$primary_icon_color: #938f8f;
+.card-component {
+    border-radius: 8px;
+    width: 590px;
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    background-color: white;
+    position: relative;
+    box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5);
+    margin: 0 10px 10px 0;
+    .MuiButton-root {
+        min-width: 40px !important;
+    }
+    .external-link {
+        width: 20px !important;
+        padding: 10px;
+        height: 20px !important;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        svg {
+            color: $primary_icon_color;
+            font-size: 1.2rem;
+        }
+    }
+
+    .left {
+        border-radius: 4px 4px 0 0;
+        margin-right: 15px;
+        display: flex;
+        height: 130px;
+        align-items: center;
+        position: relative;
+        .card-medium-photo {
+            width: 150px;
+            height: 130px;
+            object-fit: contain;
+            border: 1px solid #ff474769;
+            padding: 3px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .statuses {
+            position: absolute;
+            bottom: 5px;
+            font-size: 0.8em;
+            display: flex;
+            flex-direction: row;
+            left: 5px;
+            .paretto {
+                // width: 50px;
+                // height: 30px;
+                text-align: center;
+                color: white;
+                font-weight: normal;
+                padding: 2px 5px;
+                border-radius: 5px;
+                margin-right: 2px;
+            }
+        }
+    }
+    .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: calc(100% - 150px);
+        .one-line {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 10px;
+            align-items: flex-start;
+            .row-left {
+                width: 130px;
+                color: $primary_icon_color;
+                display: flex;
+                align-items: center;
+                svg {
+                    margin-right: 5px;
+                }
+            }
+            .row-right {
+                width: calc(100% - 130px);
+            }
+        }
+    }
+}
+
+@media (max-width: 670px) {
+    .card-component {
+        width: 100%;
+        padding: 8px;
+        flex-direction: column;
+        margin-bottom: 10px;
+
+        .left {
+            margin-right: 0;
+            height: 150px;
+            margin-bottom: 10px;
+            justify-content: center;
+            border: 1px solid #e9e5e5;
+            .card-medium-photo {
+                width: 150px;
+                height: 150px;
+                border: unset;
+            }
+        }
+        .right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            .one-line {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 10px;
+                align-items: flex-start;
+                .row-left {
+                    width: 100px;
+                    color: $primary_icon_color;
+                    display: flex;
+                    align-items: center;
+                    svg {
+                        margin-right: 5px;
+                    }
+                }
+                .row-right {
+                    width: calc(100% - 100px);
+                }
+            }
+        }
+    }
+}

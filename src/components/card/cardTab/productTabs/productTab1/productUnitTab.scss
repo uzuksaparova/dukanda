@@ -1,0 +1,86 @@
+$primary_color: #e9601f;
+$primary_icon_color: #938f8f;
+
+.unit-tab {
+    .tab-one-row {
+        color: $primary_icon_color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        .MuiTabs-root {
+            width: auto !important;
+        }
+        .tab-left {
+            width: 100px;
+        }
+        .tab-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            input {
+                width: auto !important;
+                padding: 5px !important;
+                font-size: 1rem !important;
+                max-width: 100px;
+                margin: 5px;
+            }
+        }
+    }
+    .MuiTab-wrapper {
+        color: $primary_icon_color !important;
+        font-weight: bolder !important;
+    }
+    .MuiBadge-anchorOriginTopRightRectangle {
+        top: 50% !important;
+        right: -10px !important;
+    }
+    .MuiBadge-dot {
+        height: 5px !important;
+        width: 5px !important;
+        min-width: 5px !important;
+    }
+    .MuiTabs-scroller {
+        display: flex;
+        align-items: center;
+    }
+    .Mui-selected {
+        color: $primary_color;
+    }
+    .MuiTabs-indicator {
+        background-color: $primary_color;
+    }
+    .unit-one-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: $primary_icon_color;
+        font-weight: bolder;
+        margin-bottom: 10px;
+        .unit-left {
+            text-transform: uppercase;
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .unit-tab {
+        .tab-one-row {
+            .MuiTabs-root {
+                width: auto !important;
+            }
+            .tab-right {
+                input {
+                    font-size: 13px !important;
+                    max-width: 50px;
+                }
+            }
+        }
+        .MuiTab-root {
+            min-width: 0;
+        }
+        .MuiBox-root {
+            padding: 10px;
+        }
+    }
+}

@@ -1,0 +1,46 @@
+$primary_color: #e9601f;
+
+.top-buttons {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 20px;
+    z-index: 10;
+    .save-button {
+        margin-right: 20px;
+        color: $primary_color;
+        width: auto;
+        font-size: 1rem;
+    }
+    .cancel-button {
+        font-size: 1rem;
+        margin-right: 20px;
+        border-radius: 3px;
+        border-color: $primary_color;
+        color: $primary_color;
+        a {
+            color: $primary_color;
+            text-decoration: none;
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .top-buttons {
+        position: relative;
+        right: 0;
+        margin-top: 10px;
+
+        .every-button {
+            margin-right: 10px;
+            color: #fff;
+            // width: 80px;
+            font-size: 13px;
+            background-color: $primary_color;
+            padding: 4px 8px;
+            &:hover {
+                background-color: $primary_color;
+            }
+        }
+    }
+}

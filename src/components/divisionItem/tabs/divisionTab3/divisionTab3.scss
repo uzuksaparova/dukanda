@@ -1,0 +1,85 @@
+$primary_color: #e9601f;
+.tab3 {
+    .division-chips {
+        margin: 10px 0 0 350px;
+        .MuiChip-outlinedSecondary {
+            border: none;
+        }
+        .chip {
+            margin-right: 20px;
+            margin-bottom: 10px;
+            background-color: #f2f2f2;
+            color: #020202;
+            font-size: 0.7rem;
+            padding: 5px;
+            position: relative;
+            height: 100%;
+            .warehouse-chip {
+                display: flex;
+                flex-direction: column;
+                .MuiTypography-root {
+                    font-size: 0.7rem;
+                }
+            }
+            .MuiChip-deleteIcon {
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                color: #e9601f;
+            }
+        }
+    }
+    .division-one-row {
+        .left {
+            width: 350px;
+        }
+    }
+    .MuiButton-root {
+        border: 1px solid $primary_color;
+        color: $primary_color;
+        &:hover {
+            border: 1px solid $primary_color;
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .tab3 {
+        .division-chips {
+            margin-top: 10px;
+            margin-left: 0;
+            .MuiChip-outlinedSecondary {
+                border: none;
+            }
+            .chip {
+                margin: 0 10px 10px 0;
+                font-size: 11px;
+                padding: 3px;
+                .warehouse-chip {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    .MuiTypography-root {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+        .division-one-row {
+            .left {
+                width: 100%;
+            }
+            .right {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+        .MuiButton-root {
+            border: 1px solid $primary_color;
+            color: $primary_color;
+            &:hover {
+                border: 1px solid $primary_color;
+            }
+        }
+    }
+}

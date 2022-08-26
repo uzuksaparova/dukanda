@@ -1,0 +1,117 @@
+$primary_color: #e9601f;
+
+.top-banner-item {
+    box-shadow: 0 0px 20px 0px rgba(150, 170, 180, 0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    margin: 0 auto 15px;
+    .top {
+        padding: 0 !important;
+        width: 100%;
+        overflow: hidden;
+        .card-medium-photo {
+            height: 70px;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+    .bottom {
+        font-size: 13px;
+        padding: 15px;
+        width: 100%;
+        margin-left: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: row;
+        .one-row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .left {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: rgba(0, 0, 0, 0.54) !important;
+                .top-banner-bottom-icon {
+                    margin-right: 8px;
+                }
+            }
+            .right {
+                text-transform: uppercase;
+                .color {
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        .top-banner-buttons {
+            bottom: 30px;
+            display: flex;
+            flex-direction: row;
+            .one-button {
+                margin-right: 5px;
+            }
+            .MuiButtonBase-root {
+                font-size: 1rem;
+                min-width: 0px;
+                border-radius: 4px;
+                //   background-color: $primary_color;
+                color: $primary_color !important;
+                &:hover {
+                    border-color: $primary_color;
+                }
+            }
+            button {
+                box-shadow: inset 0px 0px 2px rgba(22, 22, 22, 0.048);
+            }
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .top-banner-item {
+        .top {
+            padding: 0 !important;
+            width: 100%;
+            overflow: hidden;
+            .card-medium-photo {
+                height: 50px;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .bottom {
+            padding: 5px;
+            flex-direction: column;
+            .one-row {
+                flex-direction: row;
+                margin-bottom: 10px;
+
+                .left {
+                    width: 150px;
+                    justify-content: flex-start;
+                }
+                .right {
+                    text-transform: uppercase;
+                    .color {
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+            .top-banner-buttons {
+                justify-content: flex-end;
+                width: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+$primary_font_color: #666d77;
+
+.cards {
+    height: 100%;
+    img {
+        width: 100px;
+        height: 100px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .paretto {
+        text-align: center;
+        color: white;
+        font-weight: normal;
+        padding: 2px 5px;
+        border-radius: 5px;
+        margin-right: 2px;
+        max-width: 100px;
+    }
+}

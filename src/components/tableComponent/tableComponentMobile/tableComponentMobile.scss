@@ -1,0 +1,55 @@
+$primary_color: #e9601f;
+
+.table-component-mobile {
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    .item {
+        // max-width: 500px;
+        background-color: #fff;
+        margin: 0px auto 5px;
+        padding: 15px;
+        position: relative;
+        border-bottom: 1px solid #d1cfcf;
+        .data-item {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            .one-row {
+                display: flex;
+                align-items: center;
+                line-height: 1.5;
+                margin-bottom: 10px;
+                .left {
+                    color: #666;
+                    font-weight: 700;
+                    width: 150px;
+                }
+                .right {
+                    width: calc(100% - 150px);
+                    word-break: break-all;
+                }
+            }
+        }
+
+        .table-button {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .table-edit-button {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            .MuiFab-root {
+                background-color: $primary_color;
+                width: 40px;
+                height: 40px;
+                svg {
+                    width: 0.9em;
+                    height: 0.9em;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,63 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+
+.sidebar {
+    .MuiDrawer-paper {
+        height: calc(100% - 40px);
+    }
+
+    .MuiAppBar-colorPrimary {
+        background-color: #fff !important;
+        color: $primary_color !important;
+    }
+    .MuiPaper-elevation4 {
+        box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5) !important;
+        margin-bottom: 10px;
+    }
+    .makeStyles-content-9 {
+        padding: 0 !important;
+    }
+    .sidebar-icon {
+        width: 1em;
+        height: 1em;
+        font-size: 1.5em;
+    }
+    .MuiIconButton-edgeStart {
+        margin: 0 !important;
+    }
+    .inside-list {
+        padding-left: 10px !important;
+    }
+    .MuiList-root {
+        a:hover {
+            color: $primary_color;
+        }
+    }
+
+    .jss8 {
+        background-color: unset;
+    }
+}
+
+@media (max-width: 950px) {
+    .sidebar {
+        .toolbar {
+            // flex-direction: column;
+            align-items: flex-start;
+            padding: 0 !important;
+            margin-bottom: 5px;
+            .toolbar-right {
+                width: 100%;
+            }
+            .toolbar-left {
+                width: 100%;
+                padding-top: 8px;
+                .MuiIconButton-root {
+                    padding: 0 !important;
+                    padding-right: 8px !important;
+                }
+            }
+        }
+    }
+}

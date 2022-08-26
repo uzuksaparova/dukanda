@@ -1,0 +1,180 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+.card-tabs {
+    .MuiTab-root {
+        font-size: 0.8rem;
+    }
+    .MuiTabs-flexContainer {
+        padding-left: 20px;
+    }
+    .MuiPaper-elevation4 {
+        box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5) !important;
+        margin-bottom: 10px;
+    }
+    .MuiTabs-root {
+        width: 100%;
+        margin: 0 auto;
+        min-height: unset !important;
+    }
+    .MuiTypography-root {
+        width: 95%;
+        margin: 0 auto !important;
+        height: auto;
+        overflow: auto;
+    }
+    img {
+        width: 20px;
+        height: 12px;
+        margin-right: 8px;
+    }
+
+    .ql-editor {
+        height: 250px !important;
+    }
+    .MuiTabs-scrollable {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+    }
+    .MuiTabs-vertical {
+        border-right: 1px solid #c7c4c4;
+    }
+
+    .card-tab {
+        width: 100%;
+        margin: auto;
+        height: calc(100vh - 175px);
+        overflow: auto;
+        .card-tab-one-row {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            margin-top: 20px;
+            position: relative;
+            .left {
+                width: 200px;
+                color: $primary_icon_color;
+                font-size: 1.1rem;
+                display: flex;
+                align-items: center;
+
+                .card-tab-icon {
+                    margin-right: 8px;
+                }
+            }
+            .right {
+                .MuiTypography-root {
+                    width: 100%;
+                }
+                input {
+                    border: 1px solid $primary_color;
+                    padding: 10px;
+                    border-radius: 3px;
+                    font-size: 1rem;
+                    &:focus {
+                        outline: none;
+                    }
+                    &::placeholder {
+                        color: #cfcaca;
+                    }
+                }
+            }
+        }
+        .MuiInput-underline:before {
+            border: none;
+        }
+        .MuiInput-underline:hover:not(.Mui-disabled):before {
+            border: none;
+        }
+        .MuiInput-underline:after {
+            border: none;
+        }
+        .MuiSelect-icon {
+            color: $primary_color;
+        }
+        .MuiSelect-select {
+            border: 1px solid $primary_color;
+            &:focus {
+                background-color: white !important;
+            }
+        }
+
+        .MuiOutlinedInput-input {
+            border: 1px solid $primary_color;
+            min-width: 60px;
+            padding: 8px;
+            svg {
+                color: $primary_color;
+            }
+        }
+        // .MuiOutlinedInput-notchedOutline {
+        //   border-color: $primary_color;
+        // }
+        .MuiInputBase-input {
+            padding: 5px;
+            padding-right: 24px;
+            border-radius: 3px;
+        }
+        .paretto {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: normal;
+            padding: 2px 5px;
+            border-radius: 5px;
+            margin-right: 2px;
+        }
+    }
+}
+
+.PrivateTabIndicator-vertical-14 {
+    left: 0;
+    right: unset;
+}
+
+@media (min-width: 600px) {
+    .MuiTab-root {
+        min-width: 100px !important;
+    }
+}
+
+@media (max-width: 950px) {
+    .card-tabs {
+        .MuiTabs-flexContainer {
+            padding-left: 0;
+        }
+        .card-bottom {
+            height: calc(100vh - 290px);
+            overflow: auto;
+        }
+        .card-tab {
+            height: 100%;
+            .unit-row {
+                flex-direction: column;
+                align-items: flex-start;
+                .left {
+                    margin-bottom: 5px;
+                }
+            }
+            .card-tab-one-row {
+                margin-top: 10px;
+                .left {
+                    width: 140px;
+                    font-size: 13px;
+                    .card-tab-icon {
+                        margin-right: 5px;
+                    }
+                }
+                .right {
+                    .MuiButton-root {
+                        padding: 5px !important;
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+}

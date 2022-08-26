@@ -1,0 +1,11 @@
+.desktop-without-lazy {
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+}
+@media (min-width: 950px) {
+    .sidebar-open {
+        width: calc(100% - 275px);
+        margin-left: 275px;
+    }
+}

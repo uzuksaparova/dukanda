@@ -1,0 +1,28 @@
+$primary_icon_color: #938f8f;
+$primary_color: #e9601f;
+
+.qr-device-tab {
+    .MuiTypography-root {
+        height: calc(100vh - 176px);
+        overflow: auto;
+        padding: 10px 10px 0 30px;
+        box-sizing: border-box !important;
+    }
+}
+.MuiPaper-elevation4 {
+    box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5) !important;
+    margin-bottom: 10px;
+}
+.MuiTabs-scrollButtons.Mui-disabled {
+    opacity: 0.3;
+}
+
+@media (max-width: 950px) {
+    .qr-device-tab {
+        .MuiTypography-root {
+            height: calc(100vh - 253px);
+            padding: 10px;
+            padding-top: 0;
+        }
+    }
+}

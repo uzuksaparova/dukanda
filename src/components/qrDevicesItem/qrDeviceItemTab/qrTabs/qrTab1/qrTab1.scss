@@ -1,0 +1,80 @@
+$primary_color: #e9601f;
+$primary_icon_color: #938f8f;
+
+.qr-device-tab1-one-row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 15px;
+
+    .left {
+        width: 200px;
+        color: $primary_icon_color;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+
+        .qr-device-icon {
+            margin-right: 8px;
+        }
+    }
+    .right {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+        .MuiTypography-root {
+            height: auto !important;
+            padding: unset !important;
+        }
+        input {
+            border: 1px solid $primary_color;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 1rem;
+            &:focus {
+                outline: none;
+            }
+            &::placeholder {
+                color: #cfcaca;
+            }
+        }
+    }
+
+    .MuiInput-underline:before {
+        border: none;
+    }
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+        border: none;
+    }
+    .MuiInput-underline:after {
+        border: none;
+    }
+    .MuiSelect-icon {
+        color: $primary_color;
+    }
+    .MuiSelect-select {
+        border: 1px solid $primary_color;
+        &:focus {
+            background-color: white !important;
+        }
+    }
+
+    .MuiInputBase-input {
+        padding: 5px;
+        padding-right: 24px;
+        border-radius: 3px;
+    }
+}
+
+@media (max-width: 950px) {
+    .qr-device-tab1-one-row {
+        .left {
+            font-size: 13px;
+            width: 140px;
+        }
+    }
+    .MuiTab-root {
+        font-size: 13px;
+    }
+}

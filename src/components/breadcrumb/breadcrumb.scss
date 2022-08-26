@@ -1,0 +1,50 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+
+.sidebar-location {
+    color: $primary_icon_color !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    a {
+        color: $primary_icon_color !important;
+    }
+    .link {
+        display: flex;
+        align-items: center;
+    }
+    .MuiBreadcrumbs-root {
+        display: flex;
+        align-items: center;
+    }
+    .breadcrumb-icon {
+        display: flex;
+        align-items: center;
+        margin-right: 5px;
+    }
+    .breadcrumb-value {
+        font-size: 1rem;
+        text-transform: capitalize;
+    }
+    .MuiTypography-colorTextSecondary {
+        color: $primary_icon_color !important;
+    }
+    svg {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+@media (max-width: 950px) {
+    .sidebar-location {
+        .breadcrumb-value {
+            font-size: 0.8rem;
+        }
+        svg {
+            width: 0.9rem;
+            height: 0.9rem;
+        }
+    }
+}

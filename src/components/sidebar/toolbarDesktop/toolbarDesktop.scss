@@ -1,0 +1,18 @@
+.toolbar-desktop {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 !important;
+
+    .toolbar-left {
+        display: flex;
+        align-items: center;
+        width: 50%;
+    }
+    .toolbar-right {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        justify-content: flex-end;
+    }
+}
