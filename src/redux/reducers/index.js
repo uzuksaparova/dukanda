@@ -9,12 +9,6 @@ import {
 } from './sidebarReducer';
 import { unitsData, unitSendInfo, unitData } from './unitReducer';
 import {
-    devicesData,
-    deviceSendInfo,
-    deviceData,
-    deviceItemSendInfo,
-} from './deviceReducer';
-import {
     clientsData,
     clientSendInfo,
     clientItemSendInfo,
@@ -29,14 +23,6 @@ import {
     rolesSend,
 } from './employeeReducer';
 import { brandsData, brandData, brandIds, brandSendInfo } from './brandReducer';
-import {
-    bannersData,
-    bannerItems,
-    bannerSendInfo,
-    isBannerItemModalOpen,
-    bannerProductsId,
-    bannerData,
-} from './bannerReducer';
 
 import {
     groupsData,
@@ -59,19 +45,6 @@ import {
     cardImagesIndex,
     productInputValues,
 } from './productReducer';
-import {
-    smartSectionsData,
-    smartSectionData,
-    smartSectionSendInfo,
-} from './smartSectionReducer';
-
-import {
-    orderData,
-    ordersData,
-    orderStatuses,
-    orderSendInfo,
-    rightTabInfo,
-} from './orderReducer';
 
 import {
     divisionsData,
@@ -79,8 +52,6 @@ import {
     divisionSendInfo,
     isDivisionClientModalOpen,
     divisionItemSendInfo,
-    deliveryCostSendInfo,
-    warehouseChip,
 } from './divisionReducer';
 
 import {
@@ -96,6 +67,12 @@ import {
     qrDeviceItemSendInfo,
     qrDeviceData,
 } from './qrDeviceReducer';
+
+import {
+    dukandaVersionControlsData,
+    dukandaVersionControlItemSendInfo,
+    dukandaVersionControlSendInfo,
+} from './dukandaVersionControlReducer';
 
 const forParettoState = {};
 const parettoInfo = [
@@ -139,32 +116,21 @@ export default combineReducers({
     unitsData,
     unitSendInfo,
     unitData,
-    devicesData,
-    deviceSendInfo,
-    deviceData,
     clientsData,
     clientSendInfo,
     clientItemSendInfo,
     clientData,
     clientDivisionData,
-    deviceItemSendInfo,
     employeesData,
     employeeData,
     employeeSendInfo,
-    smartSectionsData,
-    smartSectionData,
-    smartSectionSendInfo,
+
     roles,
     brandsData,
     brandData,
     brandIds,
     brandSendInfo,
-    bannersData,
-    bannerItems,
-    bannerSendInfo,
-    isBannerItemModalOpen,
-    bannerProductsId,
-    bannerData,
+
     groupsData,
     groupSendInfo,
     groups,
@@ -182,18 +148,13 @@ export default combineReducers({
     productImages,
     parettoInfoo,
     cardImagesIndex,
-    orderData,
-    ordersData,
-    orderStatuses,
 
-    orderSendInfo,
-    rightTabInfo,
     divisionsData,
     divisionData,
     divisionSendInfo,
-    warehouseChip,
+
     divisionItemSendInfo,
-    deliveryCostSendInfo,
+
     isDivisionClientModalOpen,
     syncHistoryData,
     syncHistoriesData,
@@ -207,4 +168,8 @@ export default combineReducers({
     qrDeviceSendInfo,
     qrDeviceItemSendInfo,
     qrDeviceData,
+
+    dukandaVersionControlsData,
+    dukandaVersionControlItemSendInfo,
+    dukandaVersionControlSendInfo,
 });

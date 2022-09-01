@@ -434,10 +434,15 @@ function SyncScheduleItem(props) {
                 body: JSON.stringify(syncInfoSend),
             },
             (data) => {
-                if (!syncScheduleInfoSend.id) {
-                    fetchSyncScheduleById(data.data.id, 'add');
-                } else {
-                    fetchSyncScheduleById(syncScheduleInfoSend.id, 'update');
+                if (data !== 'err') {
+                    if (!syncScheduleInfoSend.id) {
+                        fetchSyncScheduleById(data.data.id, 'add');
+                    } else {
+                        fetchSyncScheduleById(
+                            syncScheduleInfoSend.id,
+                            'update'
+                        );
+                    }
                 }
             }
         );

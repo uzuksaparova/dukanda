@@ -30,8 +30,6 @@ function DivisionTop(props) {
         fetchDivisionId,
         divisionData,
         setDivisionItemSendInfo,
-        fetchWarehouse,
-        warehouseChip,
         setDivisionsData,
     } = props;
     const divisionImageRef = useRef(null);
@@ -82,17 +80,7 @@ function DivisionTop(props) {
             !divisionItemSendInfo.nr ||
             !divisionItemSendInfo.name ||
             !divisionItemSendInfo.address ||
-            !divisionItemSendInfo.defaultWarehouse ||
-            !divisionItemSendInfo.type ||
-            !divisionItemSendInfo.clientId ||
-            !divisionItemSendInfo.discountForProductId ||
-            !divisionItemSendInfo.discountForClientId ||
-            !divisionItemSendInfo.discountForReceiptId ||
-            !divisionItemSendInfo.minOrderPrice ||
-            !divisionItemSendInfo.minOrderPriceCurrencyId ||
-            !divisionItemSendInfo.deliveryCardId ||
-            !divisionItemSendInfo.expressDeliveryPrice ||
-            !divisionItemSendInfo.expressDeliveryPriceCurrencyId
+            !divisionItemSendInfo.clientId
         ) {
             notification('Boş ýerleri dolduruň');
         } else {
@@ -101,7 +89,7 @@ function DivisionTop(props) {
                 formData.append('image', divisionImage.image);
             }
             for (var key in divisionItemSendInfo) {
-                if (key !== 'warehouses' && key !== 'client') {
+                if (key !== 'client') {
                     if (!divisionItemSendInfo.id) {
                         if (key !== 'id') {
                             formData.append(key, divisionItemSendInfo[key]);
@@ -112,12 +100,6 @@ function DivisionTop(props) {
                 }
             }
 
-            let tempWarehouse = [...warehouseChip];
-            tempWarehouse.forEach((f, i) => {
-                delete f.name;
-            });
-
-            formData.append('warehouses', JSON.stringify(tempWarehouse));
             fetchForAdminWithUpdateToast(
                 {
                     url: `${BACKEND_URL}/admin/divisions/${
@@ -132,36 +114,39 @@ function DivisionTop(props) {
                     },
                 },
                 (data) => {
-                    if (!divisionItemSendInfo.id) {
-                        var dataa = divisionItemSendInfo;
-                        dataa.image = data.data?.image;
-                        let tempDivisionsData = divisionsData;
-                        tempDivisionsData.data.push(data.data);
-                        setDivisionsData(tempDivisionsData);
-                        fetchDivisionId(data.data.id);
-                    } else {
-                        var tempAdminDivisionInfo = divisionsData.data;
+                    if (data !== 'err') {
+                        if (!divisionItemSendInfo.id) {
+                            var dataa = divisionItemSendInfo;
+                            dataa.image = data.data?.image;
+                            let tempDivisionsData = divisionsData;
+                            tempDivisionsData.data.push(data.data);
+                            setDivisionsData(tempDivisionsData);
+                            fetchDivisionId(data.data.id);
+                        } else {
+                            var tempAdminDivisionInfo = divisionsData.data;
 
-                        tempAdminDivisionInfo.forEach((div, i) => {
-                            if (
-                                Number(div.id) ===
-                                Number(divisionItemSendInfo.id)
-                            ) {
-                                tempAdminDivisionInfo[i] = divisionItemSendInfo;
-                                if (data.data.image) {
-                                    tempAdminDivisionInfo[i]['image'] =
-                                        data.data.image;
-                                } else {
-                                    tempAdminDivisionInfo[i]['image'] =
-                                        div.image;
+                            tempAdminDivisionInfo.forEach((div, i) => {
+                                if (
+                                    Number(div.id) ===
+                                    Number(divisionItemSendInfo.id)
+                                ) {
+                                    tempAdminDivisionInfo[i] =
+                                        divisionItemSendInfo;
+                                    if (data.data.image) {
+                                        tempAdminDivisionInfo[i]['image'] =
+                                            data.data.image;
+                                    } else {
+                                        tempAdminDivisionInfo[i]['image'] =
+                                            div.image;
+                                    }
                                 }
-                            }
-                        });
-                        setDivisionsData({
-                            ...divisionsData,
-                            data: tempAdminDivisionInfo,
-                        });
-                        fetchDivisionId(divisionItemSendInfo.id);
+                            });
+                            setDivisionsData({
+                                ...divisionsData,
+                                data: tempAdminDivisionInfo,
+                            });
+                            fetchDivisionId(divisionItemSendInfo.id);
+                        }
                     }
                 }
             );
@@ -176,35 +161,12 @@ function DivisionTop(props) {
                 address: '',
                 clientId: '',
                 code: '',
-                defaultWarehouse: '',
-                deliveryCardId: '',
-                discountForClientId: '',
-                discountForProductId: '',
-                discountForReceiptId: '',
-                email: '',
-                expressAcceptableProductCount: '',
-                expressActive: false,
-                expressDeliveryPrice: '',
-                expressDeliveryPriceCurrencyId: '',
-                expressEndTime: '',
-                expressStartTime: '',
                 id: '',
                 image: '',
-                imo: '',
-                instagram: '',
-                minOrderPrice: '',
-                minOrderPriceCurrencyId: '',
                 name: '',
                 nr: '',
-                phoneNumber: '',
-                phoneNumber2: '',
-                phoneNumber3: '',
-                telegram: '',
-                type: '',
-                warehouses: [],
             });
         }
-        fetchWarehouse();
     };
     return (
         <div className="division-header">
@@ -236,7 +198,6 @@ const mapStateToProps = (state) => {
         divisionItemSendInfo: state.divisionItemSendInfo,
         divisionData: state.divisionData.divisionData,
         divisionsData: state.divisionsData,
-        warehouseChip: state.warehouseChip.warehouseChip,
     };
 };
 const mapDispatchToProps = (dispatch) => {

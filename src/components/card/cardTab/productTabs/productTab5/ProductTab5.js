@@ -59,12 +59,14 @@ function ProductTab5(props) {
                 body: JSON.stringify({ imageId: id, itemId: productData?.id }),
             },
             (data) => {
-                fetchAdminById();
-                var tempo = normalImage;
-                tempo.forEach((image) => {
-                    image.main = image.id === id;
-                });
-                setNormalImage(tempo);
+                if (data !== 'err') {
+                    fetchAdminById();
+                    var tempo = normalImage;
+                    tempo.forEach((image) => {
+                        image.main = image.id === id;
+                    });
+                    setNormalImage(tempo);
+                }
             }
         );
     };
@@ -99,63 +101,65 @@ function ProductTab5(props) {
                         id !== -1 ? 'Surat üýtgedildi' : 'Surat Ýüklendi',
                 },
                 (data) => {
-                    const replacing = (type, data) => {
-                        var tempo = JSON.parse(JSON.stringify(type));
-                        var obj = {
-                            image: data.data.mediumImg,
-                            id: id,
-                            main: false,
+                    if (data !== 'err') {
+                        const replacing = (type, data) => {
+                            var tempo = JSON.parse(JSON.stringify(type));
+                            var obj = {
+                                image: data.data.mediumImg,
+                                id: id,
+                                main: false,
+                            };
+                            return tempo.map((image) => {
+                                if (image.id === id) {
+                                    return obj;
+                                }
+                                return image;
+                            });
                         };
-                        return tempo.map((image) => {
-                            if (image.id === id) {
-                                return obj;
+                        fetchAdminById();
+                        if (id !== -1) {
+                            if (typee === 'normal') {
+                                var statee = replacing(normalImage, data);
+                                setNormalImage(statee);
+                            } else if (typee === 'usage') {
+                                statee = replacing(usageImage, data);
+                                setUsageImage(statee);
+                            } else {
+                                statee = replacing(schemaImage, data);
+                                setSchemaImage(statee);
                             }
-                            return image;
-                        });
-                    };
-                    fetchAdminById();
-                    if (id !== -1) {
-                        if (typee === 'normal') {
-                            var statee = replacing(normalImage, data);
-                            setNormalImage(statee);
-                        } else if (typee === 'usage') {
-                            statee = replacing(usageImage, data);
-                            setUsageImage(statee);
                         } else {
-                            statee = replacing(schemaImage, data);
-                            setSchemaImage(statee);
+                            typee === 'normal'
+                                ? setNormalImage([
+                                      ...normalImage,
+                                      {
+                                          image: data.data.mediumImg,
+                                          id: data.data.id,
+                                          main: false,
+                                          big: data.data.bigImg,
+                                          small: data.data.smallImg,
+                                      },
+                                  ])
+                                : typee === 'usage'
+                                ? setUsageImage([
+                                      ...usageImage,
+                                      {
+                                          image: data.data.mediumImg,
+                                          id: data.data.id,
+                                          big: data.data.bigImg,
+                                          small: data.data.smallImg,
+                                      },
+                                  ])
+                                : setSchemaImage([
+                                      ...schemaImage,
+                                      {
+                                          image: data.data.mediumImg,
+                                          id: data.data.id,
+                                          big: data.data.bigImg,
+                                          small: data.data.smallImg,
+                                      },
+                                  ]);
                         }
-                    } else {
-                        typee === 'normal'
-                            ? setNormalImage([
-                                  ...normalImage,
-                                  {
-                                      image: data.data.mediumImg,
-                                      id: data.data.id,
-                                      main: false,
-                                      big: data.data.bigImg,
-                                      small: data.data.smallImg,
-                                  },
-                              ])
-                            : typee === 'usage'
-                            ? setUsageImage([
-                                  ...usageImage,
-                                  {
-                                      image: data.data.mediumImg,
-                                      id: data.data.id,
-                                      big: data.data.bigImg,
-                                      small: data.data.smallImg,
-                                  },
-                              ])
-                            : setSchemaImage([
-                                  ...schemaImage,
-                                  {
-                                      image: data.data.mediumImg,
-                                      id: data.data.id,
-                                      big: data.data.bigImg,
-                                      small: data.data.smallImg,
-                                  },
-                              ]);
                     }
                 }
             );

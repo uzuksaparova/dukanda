@@ -76,9 +76,11 @@ function ClientsItemModal(props) {
                 updateMessage: 'Saved',
             },
             (data) => {
-                let temp = clientData;
-                temp.comments.push(data);
-                setClientData({ ...temp });
+                if (data !== 'err') {
+                    let temp = clientData;
+                    temp.comments.push(data);
+                    setClientData({ ...temp });
+                }
             }
         );
     };

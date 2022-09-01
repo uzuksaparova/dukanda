@@ -51,13 +51,7 @@ function SyncManual(props) {
                 data.forEach((func, i) => {
                     tempFunctions.push({
                         name: functionTranslator(func),
-                        url: `${
-                            func === 'itemAlternatives'
-                                ? 'items/alternatives'
-                                : func === 'itemUnit'
-                                ? 'units/items'
-                                : func
-                        }`,
+                        url: func,
                         isQuickSync: true,
                     });
                 });
@@ -109,21 +103,35 @@ function SyncManual(props) {
     };
     const handleSyncAllClick = (isQuickSync = false) => {
         let params = isQuickSync ? { isQuickSync: true } : null;
-
-        const result = window.confirm(
-            'Siz hakykatdan hem ähli maglumatlary sinhronlamak isleyärsiňizmi? Bu proses köp wagt alyp biler, şol sebäpden iş wagty sinhronlamagy maslahat bermeýäris'
-        );
-        if (result) {
-            notification(<AllSyncInfo />);
-            fetchWithParams(
+        if (isQuickSync) {
+            fetchForAdminWithUpdateToast(
                 {
                     url: `${BACKEND_URL}/admin/sync/all`,
                     params,
+                    method: 'GET',
+                    notifyMessage: 'Güncelleniyor lütfen bekleyiniz',
+                    updateMessage: 'Başarıyla güncellendi',
                 },
                 (data) => {
                     console.log(data);
                 }
             );
+        } else {
+            const result = window.confirm(
+                'Siz hakykatdan hem ähli maglumatlary sinhronlamak isleyärsiňizmi? Bu proses köp wagt alyp biler, şol sebäpden iş wagty sinhronlamagy maslahat bermeýäris'
+            );
+            if (result) {
+                notification(<AllSyncInfo />);
+                fetchWithParams(
+                    {
+                        url: `${BACKEND_URL}/admin/sync/all`,
+                        params,
+                    },
+                    (data) => {
+                        console.log(data);
+                    }
+                );
+            }
         }
     };
 
@@ -169,7 +177,7 @@ function SyncManual(props) {
             <div className="manual-syncs">
                 <div className="refresh-buttons">
                     <TopButtons
-                        disabledValue="syncAll"
+                        disabledValue="syncAllQuick"
                         syncAllQuick={true}
                         syncAll={true}
                         handleSyncAllClick={handleSyncAllClick}

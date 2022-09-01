@@ -52,17 +52,19 @@ function ClientsDeviceInfoChangeModel(props) {
                 updateMessage: 'Saved',
             },
             (data) => {
-                let temp = clientData.devices;
-                temp = temp.map((cl) => {
-                    if (cl.id === deviceId) {
-                        let obj = cl;
-                        cl.divisionId = deviceSendInfo.divisionId;
-                        return obj;
-                    } else {
-                        return cl;
-                    }
-                });
-                setClientData({ ...clientData, devices: [...temp] });
+                if (data !== 'err') {
+                    let temp = clientData.devices;
+                    temp = temp.map((cl) => {
+                        if (cl.id === deviceId) {
+                            let obj = cl;
+                            cl.divisionId = deviceSendInfo.divisionId;
+                            return obj;
+                        } else {
+                            return cl;
+                        }
+                    });
+                    setClientData({ ...clientData, devices: [...temp] });
+                }
             }
         );
     };

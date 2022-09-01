@@ -29,15 +29,3 @@ export const setDivisionItemSendInfo = (info) => {
         payload: info,
     };
 };
-export const setDeliveryCostSendInfo = (info) => {
-    return {
-        type: 'SET_DELIVERY_COST_SEND_INFO',
-        payload: info,
-    };
-};
-export const setWarehouseChip = (info) => {
-    return {
-        type: 'SET_WAREHOUSE_CHIP',
-        payload: info,
-    };
-};

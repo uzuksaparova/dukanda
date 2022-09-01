@@ -84,7 +84,7 @@ function TopButtons(props) {
                     <Button
                         disabled={
                             !authorization[decodedToken.role].includes(
-                                disabledValue
+                                'syncAll'
                             )
                         }
                         onClick={() => handleSyncAllClick(false)}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import QRCode from 'qrcode.react';
 import { connect } from 'react-redux';
 import './clientQrModal.scss';
@@ -7,39 +7,16 @@ import { FaTimes } from 'react-icons/fa';
 import { BiRename } from 'react-icons/bi';
 import { BsCreditCard2Back } from 'react-icons/bs';
 import { RiDeviceLine } from 'react-icons/ri';
-import { BACKEND_URL, fetchForAdmin } from '../../../../../../functions';
 
 function ClientQrModal(props) {
     const {
         cardInfo,
-        decodedToken,
         isClientQrModalOpen,
         setIsClientQrModalOpen,
         clientData,
+        qrObject,
     } = props;
-    const [qrObject, setQrObject] = useState({});
 
-    useEffect(() => {
-        let bodySend = {
-            employeeId: decodedToken.id,
-            cardNo: cardInfo?.cardNo,
-            clientId: cardInfo?.clientId,
-            clientCardId: cardInfo?.id,
-            firmUUID: clientData?.firmUUID,
-        };
-        if (isClientQrModalOpen && Object.keys(cardInfo).length) {
-            fetchForAdmin(
-                {
-                    url: `${BACKEND_URL}/admin/clients/qrDevice/qrGenerate`,
-                    method: 'POST',
-                    body: bodySend,
-                },
-                (data) => {
-                    setQrObject(data.qrData);
-                }
-            );
-        }
-    }, [cardInfo]);
     const style = {
         position: 'absolute',
         top: '50%',
@@ -111,7 +88,6 @@ function ClientQrModal(props) {
 
 const mapStateToProps = (state) => {
     return {
-        decodedToken: state.decodedToken.decodedToken,
         clientData: state.clientData,
     };
 };

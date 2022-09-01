@@ -9,6 +9,9 @@ import Cookies from 'js-cookie';
 import './App.scss';
 import Loading from './components/Loading';
 
+const DukandaVersionControl = lazy(() =>
+    import('./components/dukandaVersionControl/DukandaVersionControl')
+);
 const GroupItem = lazy(() => import('./components/groupItem/GroupItem'));
 const QrDevicesItem = lazy(() =>
     import('./components/qrDevicesItem/QrDevicesItem')
@@ -198,6 +201,11 @@ const App = () => {
                             <Route
                                 path="/syncs/shistories"
                                 component={SyncScheduleHistory}
+                                exact
+                            />
+                            <Route
+                                path="/dukandaVersionControl"
+                                component={DukandaVersionControl}
                                 exact
                             />
 

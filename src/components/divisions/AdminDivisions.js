@@ -5,7 +5,6 @@ import { fetchDivisionsInfo } from '../../functions';
 import {
     setDivisionData,
     setDivisionItemSendInfo,
-    setWarehouseChip,
 } from '../../redux/actions/divisionActions';
 import { connect } from 'react-redux';
 import ErrorComponent from '../errorComponent/ErrorComponent';
@@ -32,16 +31,10 @@ const columns = [
 ];
 
 function AdminDivisions(props) {
-    const {
-        setDivisionData,
-        isSidebarOpen,
-        divisionsData,
-        isError,
-        setDivisionItemSendInfo,
-        setWarehouseChip,
-    } = props;
+    const { setDivisionData, divisionsData, isError, setDivisionItemSendInfo } =
+        props;
 
-    const { isEnd, data, noData } = divisionsData;
+    const { data, noData } = divisionsData;
 
     useEffect(() => {
         if (!data.length) {
@@ -56,34 +49,11 @@ function AdminDivisions(props) {
             address: '',
             clientId: '',
             code: '',
-            defaultWarehouse: '',
-            deliveryCardId: '',
-            discountForClientId: '',
-            discountForProductId: '',
-            discountForReceiptId: '',
-            email: '',
-            expressAcceptableProductCount: '',
-            expressActive: false,
-            expressDeliveryPrice: '',
-            expressDeliveryPriceCurrencyId: '',
-            expressEndTime: '',
-            expressStartTime: '',
             id: '',
             image: '',
-            imo: '',
-            instagram: '',
-            minOrderPrice: '',
-            minOrderPriceCurrencyId: '',
             name: '',
             nr: '',
-            phoneNumber: '',
-            phoneNumber2: '',
-            phoneNumber3: '',
-            telegram: '',
-            type: '',
-            warehouses: [],
         });
-        setWarehouseChip([]);
         setDivisionData({});
     };
 
@@ -126,7 +96,6 @@ function AdminDivisions(props) {
 const mapStateToProps = (state) => {
     return {
         divisionsData: state.divisionsData,
-        isSidebarOpen: state.isSidebarOpen.isSidebarOpen,
         isError: state.isError.isError,
     };
 };
@@ -136,7 +105,6 @@ const mapDispatchToProps = (dispatch) => {
         setDivisionData: (data) => dispatch(setDivisionData(data)),
         setDivisionItemSendInfo: (info) =>
             dispatch(setDivisionItemSendInfo(info)),
-        setWarehouseChip: (info) => dispatch(setWarehouseChip(info)),
     };
 };
 

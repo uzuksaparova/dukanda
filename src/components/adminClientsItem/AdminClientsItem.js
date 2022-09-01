@@ -89,7 +89,9 @@ function AdminClientsItem(props) {
                 params: { id },
             },
             (data) => {
-                fetchClientById();
+                if (data !== 'err') {
+                    fetchClientById();
+                }
             }
         );
     };
@@ -117,7 +119,9 @@ function AdminClientsItem(props) {
                     updateMessage: 'Saved',
                 },
                 (data) => {
-                    fetchClientById();
+                    if (data !== 'err') {
+                        fetchClientById();
+                    }
                 }
             );
         } else {

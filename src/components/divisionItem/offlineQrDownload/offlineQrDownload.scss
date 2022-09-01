@@ -1,0 +1,24 @@
+$primary_color: #e9601f;
+
+.division-qr {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .MuiButton-root {
+        background-color: $primary_color;
+
+        &:hover {
+            background-color: $primary_color;
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .division-qr {
+        .MuiButton-root {
+            font-size: 13px;
+            padding: 5px;
+        }
+    }
+}

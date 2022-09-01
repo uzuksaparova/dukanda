@@ -119,7 +119,9 @@ function GroupsItem(props) {
                 updateMessage: 'Saved',
             },
             (data) => {
-                fetchGroupItemInfo(id);
+                if (data !== 'err') {
+                    fetchGroupItemInfo(id);
+                }
             }
         );
     };
@@ -136,7 +138,9 @@ function GroupsItem(props) {
                 params: { id },
             },
             (data) => {
-                fetchGroupItemInfo(id);
+                if (data !== 'err') {
+                    fetchGroupItemInfo(id);
+                }
             }
         );
     };

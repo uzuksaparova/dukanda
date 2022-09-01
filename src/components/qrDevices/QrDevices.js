@@ -39,6 +39,12 @@ const columns = [
         minWidth: 170,
         align: 'left',
     },
+    {
+        id: 'sync',
+        label: 'Sinhronlanan',
+        minWidth: 100,
+        align: 'left',
+    },
 
     {
         id: 'createdAt',
@@ -55,14 +61,7 @@ const columns = [
 ];
 
 function QrDevices(props) {
-    const {
-        qrDevicesData,
-        sidebarSearchValue,
-        isError,
-        setQrDeviceSendInfo,
-        setQrDevicesData,
-        qrDeviceSendInfo,
-    } = props;
+    const { qrDevicesData, isError } = props;
     const { noData, data } = qrDevicesData;
 
     useEffect(() => {
@@ -73,7 +72,22 @@ function QrDevices(props) {
     }, []);
 
     const clientDetector = (cid) => {
-        return '- - - -';
+        return cid?.name;
+    };
+
+    const handleSyncCell = (row) => {
+        return (
+            <div
+                className="qr-sync"
+                style={{
+                    backgroundColor: row.sync
+                        ? 'rgba(0, 135, 107, 0.5)'
+                        : 'rgba(255, 0, 26, 0.5)',
+                }}
+            >
+                <span>{row.sync ? 'Hawa' : 'Yok'}</span>
+            </div>
+        );
     };
 
     const handleRowValue = (column, row, i) => {
@@ -96,7 +110,9 @@ function QrDevices(props) {
                   row?.modifiedEmployee?.lastName
                 : ''
             : column.id === 'client'
-            ? clientDetector(row.clientId)
+            ? clientDetector(row?.clientCard?.client)
+            : column.id === 'sync'
+            ? handleSyncCell(row)
             : row[column.id]
             ? row[column.id]
             : '- - - -';

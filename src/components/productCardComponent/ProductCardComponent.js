@@ -8,15 +8,25 @@ import brokenImage from '../../images/brokenImage.png';
 import defaultImage from '../../images/default.png';
 import './productCardComponent.scss';
 import { BiRename } from 'react-icons/bi';
-import { AiOutlineBarcode, AiOutlineSlack } from 'react-icons/ai';
+import {
+    AiOutlineBarcode,
+    AiOutlineSlack,
+    AiOutlineSync,
+} from 'react-icons/ai';
 import { connect } from 'react-redux';
 import {
     setIsProductImageModalOpen,
     setProductImages,
 } from '../../redux/actions/productActions';
+import { BsCreditCardFill } from 'react-icons/bs';
 
 function ProductCardComponent(props) {
-    const { card, setIsProductImageModalOpen, setProductImages } = props;
+    const {
+        card,
+        setIsProductImageModalOpen,
+        setProductImages,
+        inQrDevice = false,
+    } = props;
 
     const oneRow = (icon, name, value) => {
         return (
@@ -44,7 +54,10 @@ function ProductCardComponent(props) {
                 >
                     <FiExternalLink />
                 </Button>
-                <div className="left">
+                <div
+                    className="left"
+                    style={{ height: inQrDevice ? '180px' : '130px' }}
+                >
                     {card?.images?.length ? (
                         <img
                             onError={(e) => {
@@ -55,12 +68,14 @@ function ProductCardComponent(props) {
                             alt="doorhandle"
                             className="card-medium-photo"
                             onClick={(e) => handleImagePreview(e, card.images)}
+                            style={{ height: inQrDevice ? '180px' : '130px' }}
                         />
                     ) : (
                         <img
                             src={defaultImage}
                             alt="doorhandle"
                             className="card-medium-photo"
+                            style={{ height: inQrDevice ? '180px' : '130px' }}
                         />
                     )}
                     <div className="statuses">
@@ -87,13 +102,41 @@ function ProductCardComponent(props) {
                     </div>
                 </div>
                 <div className="right">
-                    {oneRow(<BiRename />, 'Haryt Ady', card.name)}
-                    {oneRow(<AiOutlineBarcode />, 'Haryt Kody', card.code)}
+                    {oneRow(
+                        <BiRename />,
+                        'Haryt Ady',
+                        inQrDevice ? card?.item?.name : card.name
+                    )}
+                    {oneRow(
+                        <AiOutlineBarcode />,
+                        'Haryt Kody',
+                        inQrDevice ? card?.item?.code : card.code
+                    )}
                     {oneRow(
                         <AiOutlineSlack />,
                         'Aktiwlylyk',
-                        card.active ? 'Aktiw' : 'Passiw'
+                        inQrDevice
+                            ? card?.item?.active
+                                ? 'Aktiw'
+                                : 'Passiw'
+                            : card.active
+                            ? 'Aktiw'
+                            : 'Passiw'
                     )}
+                    {inQrDevice ? (
+                        <>
+                            {oneRow(
+                                <AiOutlineSync />,
+                                'Sinhronlanan',
+                                card.sync ? 'Hawa' : 'Yok'
+                            )}
+                            {oneRow(
+                                <BsCreditCardFill />,
+                                'Kart no',
+                                card.cardNo
+                            )}
+                        </>
+                    ) : null}
                 </div>
             </div>
         </Box>

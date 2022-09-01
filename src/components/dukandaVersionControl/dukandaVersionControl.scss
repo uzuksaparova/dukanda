@@ -1,0 +1,70 @@
+$primary_color: #ff4747;
+$background_color: #f2f2f2;
+$primary_icon_color: #938f8f;
+
+.smart-sections {
+    height: calc(100vh - 69px);
+    width: 100%;
+    margin-bottom: 5px;
+    position: absolute;
+    right: 0;
+    top: 69px;
+    background-color: #fff;
+    transition: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    .MuiPaper-root {
+        height: 100%;
+        width: 98%;
+        margin: auto;
+        .MuiTableCell-stickyHeader {
+            font-weight: bolder;
+            // background-color: #ebcfc2;
+            color: #666;
+            text-transform: uppercase;
+        }
+        a {
+            text-decoration: none;
+        }
+        .MuiTableContainer-root {
+            height: 100%;
+            margin-bottom: 20px;
+        }
+    }
+    .passive {
+        color: rgb(165, 162, 162);
+    }
+
+    .MuiIconButton-root:hover {
+        background-color: unset !important;
+    }
+    .smart-order {
+        display: flex;
+        flex-direction: row;
+        min-width: 180px;
+        background-color: rgba(189, 189, 189, 0.5);
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: bolder;
+        border-radius: 5px;
+        padding: 2px 5px;
+        margin: 5px;
+    }
+
+    .status {
+        width: 62px;
+        height: 25px;
+        text-align: center;
+        color: white;
+        font-weight: normal;
+        padding: 2px 5px;
+        border-radius: 5px;
+        margin-right: 2px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 950px) {
+    .smart-sections {
+        .smart-order {
+            min-width: 160px;
+        }
+    }
+}

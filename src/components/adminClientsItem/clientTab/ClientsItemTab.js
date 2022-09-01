@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import './clientsItemTab.scss';
 import { useParams } from 'react-router-dom';
 import ClientsCommentModal from '../clientsCommentModal/ClientsCommentModal';
-import ClientCard from '../../clientCard/ClientCard';
 import { BACKEND_URL, fetchForAdmin } from '../../../functions';
 import { connect } from 'react-redux';
 import {
@@ -19,8 +18,6 @@ import {
 import ClientTab1 from './clientTabs/clientTab1/ClientTab1';
 import ClientTab2 from './clientTabs/clientTab2/ClientTab2';
 import ClientTab3 from './clientTabs/clientTab3/ClientTab3';
-import ClientTab4 from './clientTabs/clientTab4/ClientTab4';
-import EmptyComponent from '../../emptyComponent/EmptyComponent';
 import ClientCardsTab from './clientTabs/clientCardsTab/ClientCardsTab';
 import CardImageModal from '../../cardImageModal/CardImageModal';
 

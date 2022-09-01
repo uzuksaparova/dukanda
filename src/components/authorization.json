@@ -19,7 +19,9 @@
         "updateDivision",
         "updateUnit",
         "updateBrand",
-        "updateSyncSchedule"
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncAll"
     ],
     "moderator": [
         "products",
@@ -37,9 +39,17 @@
         "updateUnit",
         "devices",
         "updateEmployee",
-        "updateSyncSchedule"
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncs"
     ],
-    "seller": ["clients", "updateSyncSchedule", "updateSyncSchedule"],
+    "seller": [
+        "clients",
+        "divisions",
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncs"
+    ],
     "operator": [
         "products",
         "seeProductStock",
@@ -47,12 +57,19 @@
         "groups",
         "clients",
         "updateClient",
-        "devices",
         "divisions",
-        "updateSyncSchedule"
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncs"
     ],
-    "deliverer": ["updateSyncSchedule"],
-    "picker": ["products", "seeProductStock", "updateSyncSchedule"],
+    "deliverer": ["orders", "updateSyncSchedule", "syncAllQuick", "syncs"],
+    "picker": [
+        "products",
+        "seeProductStock",
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncs"
+    ],
     "developer": [
         "products",
         "groups",
@@ -73,8 +90,11 @@
         "updateDivision",
         "updateUnit",
         "updateBrand",
-        "devices",
-        "updateSyncSchedule"
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncAll",
+        "dukandaVersionControl",
+        "updateDukandaVersionControl"
     ],
     "ceo": [
         "products",
@@ -82,10 +102,11 @@
         "seeProductPrice",
         "groups",
         "clients",
-        "devices",
         "employees",
         "divisions",
-        "updateSyncSchedule"
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncs"
     ],
     "designer": [
         "products",
@@ -96,6 +117,8 @@
         "updateGroup",
         "brands",
         "updateBrand",
-        "updateSyncSchedule"
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncs"
     ]
 }

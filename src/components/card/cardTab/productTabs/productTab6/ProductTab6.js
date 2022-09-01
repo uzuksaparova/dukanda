@@ -43,7 +43,12 @@ function ProductTab6(props) {
                     updateMessage: 'Video Ýüklendi',
                 },
                 (data) => {
-                    setProductData({ ...productData, video: data.data.video });
+                    if (data !== 'err') {
+                        setProductData({
+                            ...productData,
+                            video: data.data.video,
+                        });
+                    }
                 }
             );
         }

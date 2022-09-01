@@ -63,7 +63,9 @@ export default function ProfileChangePassword(props) {
                     updateMessage: 'Parol uytgedildi',
                 },
                 (data) => {
-                    resetForm();
+                    if (data !== 'err') {
+                        resetForm();
+                    }
                     // setIsPasswordChangeOpen(false);
                 }
             );

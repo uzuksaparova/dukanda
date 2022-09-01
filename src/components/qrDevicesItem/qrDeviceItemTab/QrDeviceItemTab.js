@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -8,6 +8,8 @@ import './qrDeviceItemTab.scss';
 import CardImageModal from '../../cardImageModal/CardImageModal';
 import QrTab1 from './qrTabs/qrTab1/QrTab1';
 import QrTab2 from './qrTabs/qrTab2/QrTab2';
+import { BACKEND_URL, fetchWithParams } from '../../../functions';
+import { useParams } from 'react-router-dom';
 
 function TabContainer(props) {
     return <Typography component="div">{props.children}</Typography>;
@@ -18,10 +20,62 @@ TabContainer.propTypes = {
 
 function QrDeviceItemTab(props) {
     const [qrDeviceTabValue, setQrDeviceTabValue] = useState(0);
+    const { id } = useParams();
 
     const handleQrDeviceTabChange = (event, value) => {
         setQrDeviceTabValue(value);
     };
+
+    const [qrDeviceItemSendInfo, setQrDeviceItemSendInfo] = useState({
+        limit: 10,
+        offset: 0,
+    });
+    const [qrDeviceItemData, setQrDeviceItemData] = useState({
+        data: [],
+        isEnd: false,
+    });
+
+    const fetchQrDeviceItemInfo = (firstTime = false) => {
+        fetchWithParams(
+            {
+                url: `${BACKEND_URL}/admin/clients/qrDevice/UID/${id}/items`,
+                params: firstTime
+                    ? { ...qrDeviceItemSendInfo, offset: 0 }
+                    : { ...qrDeviceItemSendInfo },
+            },
+            (data) => {
+                let tempQrDeviceItemData = qrDeviceItemData;
+                if (firstTime) {
+                    tempQrDeviceItemData.data = data;
+                    setQrDeviceItemSendInfo({
+                        ...qrDeviceItemSendInfo,
+                        offset: qrDeviceItemSendInfo.limit,
+                    });
+                } else {
+                    tempQrDeviceItemData.data = [
+                        ...tempQrDeviceItemData.data,
+                        ...data,
+                    ];
+                    setQrDeviceItemSendInfo({
+                        ...qrDeviceItemSendInfo,
+                        offset:
+                            qrDeviceItemSendInfo.limit +
+                            qrDeviceItemSendInfo.offset,
+                    });
+                }
+                !data.length || data.length < qrDeviceItemSendInfo.limit
+                    ? (tempQrDeviceItemData.isEnd = true)
+                    : (tempQrDeviceItemData.isEnd = false);
+
+                setQrDeviceItemData(tempQrDeviceItemData);
+            }
+        );
+    };
+
+    useEffect(() => {
+        fetchQrDeviceItemInfo(true);
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <div className="qr-device-tab">
@@ -44,7 +98,10 @@ function QrDeviceItemTab(props) {
             )}
             {qrDeviceTabValue === 1 && (
                 <TabContainer>
-                    <QrTab2 />
+                    <QrTab2
+                        fetchQrDeviceItemInfo={fetchQrDeviceItemInfo}
+                        qrDeviceItemData={qrDeviceItemData}
+                    />
                 </TabContainer>
             )}
 

@@ -10,7 +10,6 @@ import {
 } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { BiCarousel, BiColumns, BiDevices, BiLeftIndent } from 'react-icons/bi';
 import {
     FaBoxOpen,
     FaBuilding,
@@ -19,9 +18,7 @@ import {
     FaUsers,
 } from 'react-icons/fa';
 import { IoIosPeople } from 'react-icons/io';
-import { TiShoppingCart } from 'react-icons/ti';
-import { CgSmartphoneRam } from 'react-icons/cg';
-import { BsFillInboxesFill, BsLayoutSidebarReverse } from 'react-icons/bs';
+import { BsFillInboxesFill } from 'react-icons/bs';
 import { Ri24HoursFill, RiRulerLine } from 'react-icons/ri';
 import './breadcrumb.scss';
 
@@ -33,13 +30,11 @@ function Breadcrumb(props) {
         unitData,
         syncScheduleData,
         clientData,
-        smartSectionData,
-        deviceData,
         qrDeviceData,
-        orderData,
-        bannerData,
         employeeData,
         groupData,
+        sidebarSearchValue,
+        qrDeviceSendInfo,
     } = props;
     const [sidebarLocation, setSidebarLocation] = useState('');
     let useeLocation = useLocation();
@@ -67,9 +62,7 @@ function Breadcrumb(props) {
                 case 'clients':
                     pathNameArray[pathNameArray.length - 1] = 'client';
                     break;
-                case 'devices':
-                    pathNameArray[pathNameArray.length - 1] = 'device';
-                    break;
+
                 case 'qrDevices':
                     pathNameArray[pathNameArray.length - 1] = 'qrDevice';
                     break;
@@ -88,24 +81,15 @@ function Breadcrumb(props) {
                 case 'subgroups':
                     pathNameArray[pathNameArray.length - 1] = 'groupss';
                     break;
-                case 'top':
-                case 'carousel':
-                case 'aside':
-                    pathNameArray[pathNameArray.length - 1] = 'banner';
-                    break;
 
                 case 'sschedules':
                     pathNameArray[pathNameArray.length - 1] = 'schedule';
                     break;
-                case 'smartSections':
-                    pathNameArray[pathNameArray.length - 1] = 'smartSection';
-                    break;
+
                 case 'histories':
                     pathNameArray[pathNameArray.length - 1] = 'history';
                     break;
-                case 'orders':
-                    pathNameArray[pathNameArray.length - 1] = 'order';
-                    break;
+
                 case 'history':
                     pathNameArray[pathNameArray.length - 1] = 'orderHistory';
                     break;
@@ -115,28 +99,24 @@ function Breadcrumb(props) {
                     break;
             }
         } else {
-            pathNameArray[0] === 'qrDevices' && pathNameArray.length === 2
-                ? (pathNameArray[pathNameArray.length - 1] = 'qrDevice')
-                : (pathNameArray[pathNameArray.length - 1] =
-                      pathNameArray[pathNameArray.length - 1]);
+            if (
+                pathNameArray[0] === 'qrDevices' &&
+                pathNameArray.length === 2
+            ) {
+                pathNameArray[pathNameArray.length - 1] = 'qrDevice';
+            } else if (
+                pathNameArray[0] === 'qrDevices' &&
+                qrDeviceSendInfo.search
+            ) {
+                pathNameArray.push(qrDeviceSendInfo.search);
+            } else {
+                pathNameArray[pathNameArray.length - 1] =
+                    pathNameArray[pathNameArray.length - 1];
+            }
         }
         var tempPath = [];
         pathNameArray.forEach((path, i) => {
             switch (path) {
-                case 'top':
-                    tempPath.push({
-                        icon: <BiColumns />,
-                        value: 'Ýokarky-bannerler',
-                        path: '/banners/top',
-                    });
-                    break;
-                case 'banners':
-                    tempPath.push({
-                        icon: <BiLeftIndent />,
-                        value: 'Bannerler',
-                        path: '',
-                    });
-                    break;
                 case 'histories':
                     tempPath.push({
                         icon: <FaHistory />,
@@ -158,27 +138,7 @@ function Breadcrumb(props) {
                         path: '/clients',
                     });
                     break;
-                case 'orders':
-                    tempPath.push({
-                        icon: <TiShoppingCart />,
-                        value: 'Zakazlar',
-                        path: '/orders',
-                    });
-                    break;
-                case 'smartSections':
-                    tempPath.push({
-                        icon: <CgSmartphoneRam />,
-                        value: 'Akylly bölüm',
-                        path: '/smartSections',
-                    });
-                    break;
-                case 'devices':
-                    tempPath.push({
-                        icon: <BiDevices />,
-                        value: 'Enjamlar',
-                        path: '/devices',
-                    });
-                    break;
+
                 case 'qrDevices':
                     tempPath.push({
                         icon: <AiOutlineQrcode />,
@@ -207,20 +167,7 @@ function Breadcrumb(props) {
                         path: '/products',
                     });
                     break;
-                case 'carousel':
-                    tempPath.push({
-                        icon: <BiCarousel />,
-                        value: 'Karusel-bannerler',
-                        path: '/banners/carousel',
-                    });
-                    break;
-                case 'aside':
-                    tempPath.push({
-                        icon: <BsLayoutSidebarReverse />,
-                        value: 'Gapdal-bannerler',
-                        path: '/banners/aside',
-                    });
-                    break;
+
                 case 'notFoundRoute':
                     tempPath.push({
                         icon: <FaBoxOpen />,
@@ -284,12 +231,7 @@ function Breadcrumb(props) {
                         path: '/syncs/shistories',
                     });
                     break;
-                case 'banner':
-                    tempPath.push({
-                        icon: <FaBoxOpen />,
-                        value: `${bannerData?.name}`,
-                    });
-                    break;
+
                 case 'employee':
                     tempPath.push({
                         icon: <FaBoxOpen />,
@@ -332,25 +274,7 @@ function Breadcrumb(props) {
                         )} `,
                     });
                     break;
-                case 'order':
-                    tempPath.push({
-                        icon: <FaBoxOpen />,
-                        value: `${orderData?.name ? orderData?.name : ''} `,
-                    });
-                    break;
-                case 'orderHistory':
-                    tempPath.push({
-                        icon: <FaBoxOpen />,
-                    });
-                    break;
-                case 'device':
-                    tempPath.push({
-                        icon: <FaBoxOpen />,
-                        value: `${
-                            deviceData?.firstName ? deviceData?.firstName : ''
-                        } `,
-                    });
-                    break;
+
                 case 'qrDevice':
                     tempPath.push({
                         icon: <FaBoxOpen />,
@@ -379,16 +303,7 @@ function Breadcrumb(props) {
                         } `,
                     });
                     break;
-                case 'smartSection':
-                    tempPath.push({
-                        icon: <FaBoxOpen />,
-                        value: `${
-                            smartSectionData?.nameTm
-                                ? smartSectionData?.nameTm
-                                : ''
-                        } `,
-                    });
-                    break;
+
                 case 'card':
                     tempPath.push({
                         icon: <FaBoxOpen />,
@@ -398,7 +313,12 @@ function Breadcrumb(props) {
                     });
                     break;
                 default:
-                    return null;
+                    path !== 'adminPage' &&
+                        tempPath.push({
+                            icon: <FaBoxOpen />,
+                            value: path,
+                        });
+                    break;
             }
         });
         setSidebarLocation(tempPath);
@@ -406,18 +326,14 @@ function Breadcrumb(props) {
     }, [
         useeLocation,
         productData,
-        bannerData,
         employeeData,
         divisionData,
         brandData,
         unitData,
         clientData,
-        deviceData,
         qrDeviceData,
         syncScheduleData,
         groupData,
-        smartSectionData,
-        orderData,
     ]);
     return (
         <div className="sidebar-location">
@@ -474,14 +390,11 @@ const mapStateToProps = (state) => {
         divisionData: state.divisionData.divisionData,
         brandData: state.brandData.brandData,
         unitData: state.unitData.unitData,
-        orderData: state.orderData.orderData,
-        deviceData: state.deviceData.deviceData,
         qrDeviceData: state.qrDeviceData.qrDeviceData,
-        bannerData: state.bannerData,
         groupData: state.groupData.groupData,
         syncScheduleData: state.syncScheduleData.syncScheduleData,
         clientData: state.clientData,
-        smartSectionData: state.smartSectionData.smartSectionData,
+        qrDeviceSendInfo: state.qrDeviceSendInfo,
     };
 };
 

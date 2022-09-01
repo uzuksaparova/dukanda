@@ -1,0 +1,15 @@
+.qr-tab2-items-tab {
+    height: 100%;
+    .qr-tab2-items {
+        height: 100%;
+        overflow-y: auto;
+        .infinite-scroll-component__outerdiv {
+            width: 100%;
+        }
+        .qr-tab2-items-scroll {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+    }
+}

@@ -1,26 +1,26 @@
 {
-  "short_name": "Admin Panel",
-  "name": "Admin Panel",
-  "description":"Admin Panel",
-  "icons": [
-    {
-      "src": "admin_logo.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/ico"
-    },
-    {
-      "src": "admin_logo.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "admin_logo.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": "https://timar.com.tm:9443",
-  "display": "standalone",
-  "theme_color": "#e9601f",
-  "background_color": "#ffffff"
+    "short_name": "Admin Panel",
+    "name": "Admin Panel",
+    "description": "Admin Panel",
+    "icons": [
+        {
+            "src": "logo_with_background.ico",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/ico"
+        },
+        {
+            "src": "logo_with_background.ico",
+            "type": "image/ico",
+            "sizes": "192x192"
+        },
+        {
+            "src": "logo_with_background.ico",
+            "type": "image/ico",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#e9601f",
+    "background_color": "#ffffff"
 }

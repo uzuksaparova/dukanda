@@ -283,10 +283,12 @@ function EmployeeItem(props) {
                     method: id === '0' ? 'POST' : 'PUT',
                 },
                 (data) => {
-                    if (!employeeInfoSend.id) {
-                        fetchEmployeeId(data.data.id, 'add');
-                    } else {
-                        fetchEmployeeId(employeeInfoSend.id, 'update');
+                    if (data !== 'err') {
+                        if (!employeeInfoSend.id) {
+                            fetchEmployeeId(data.data.id, 'add');
+                        } else {
+                            fetchEmployeeId(employeeInfoSend.id, 'update');
+                        }
                     }
                 }
             );

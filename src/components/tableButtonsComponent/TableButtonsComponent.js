@@ -9,6 +9,7 @@ import './tableButtonsComponent.scss';
 import { BiDevices } from 'react-icons/bi';
 import { MdQrCode2 } from 'react-icons/md';
 import { CgHome } from 'react-icons/cg';
+import { AiOutlineDownload } from 'react-icons/ai';
 
 const authorization = authorizationn.default;
 
@@ -29,6 +30,7 @@ function TableButtonsComponent(props) {
         handleDevicesClick,
         handleStockClick,
         editPath = '',
+        handleDownloadClick,
     } = props;
 
     return (
@@ -55,6 +57,23 @@ function TableButtonsComponent(props) {
                     to={editPath}
                 >
                     <FaPencilAlt className="table-icon" />
+                </IconButton>
+            ) : null}
+            {handleDownloadClick ? (
+                <IconButton
+                    className="first-button"
+                    disabled={
+                        disabledValue
+                            ? authorization[decodedToken.role].includes(
+                                  disabledValue
+                              )
+                                ? false
+                                : true
+                            : false
+                    }
+                    onClick={() => handleDownloadClick(row)}
+                >
+                    <AiOutlineDownload className="table-icon" />
                 </IconButton>
             ) : null}
             {handleDeleteClick ? (
@@ -190,7 +209,7 @@ function TableButtonsComponent(props) {
                                 : false
                         }
                         onClick={() => handleDevicesClick(row)}
-                        component={Link}
+                        component={row.qrCardDevices.length ? Link : ''}
                         to={`/qrDevices`}
                     >
                         <BiDevices className="table-icon" />

@@ -11,6 +11,14 @@ $primary_icon_color: #938f8f;
     top: 69px;
     background-color: #fff;
     transition: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    .qr-sync {
+        text-align: center;
+        color: white;
+        font-weight: normal;
+        padding: 2px 5px;
+        border-radius: 5px;
+        max-width: 100px;
+    }
     .MuiPaper-root {
         height: 100%;
         width: 98%;

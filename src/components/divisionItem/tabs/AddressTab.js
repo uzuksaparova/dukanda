@@ -1,11 +1,10 @@
 import { Checkbox, FormControlLabel } from '@mui/material';
 import React from 'react';
-import { AiOutlineSlack, AiOutlineQrcode } from 'react-icons/ai';
+import { AiOutlineSlack } from 'react-icons/ai';
 import { BiExclude, BiRename } from 'react-icons/bi';
 import { MdLocationOn } from 'react-icons/md';
 import { connect } from 'react-redux';
 import { setDivisionItemSendInfo } from '../../../redux/actions/divisionActions';
-import DivisionQR from '../divisionQR/DivisionQR';
 import './divisionTabs.scss';
 
 function Tab1({ divisionItemSendInfo, setDivisionItemSendInfo }) {
@@ -82,21 +81,6 @@ function Tab1({ divisionItemSendInfo, setDivisionItemSendInfo }) {
                 'address',
                 'Salgysy'
             )}
-            {divisionTabRow(
-                <MdLocationOn className="division-icon" />,
-                'QR local server url',
-                'QRLocalServerUrl',
-                'http://172.16.3.1:8066'
-            )}
-            <div className="division-one-row">
-                <div className="left">
-                    <AiOutlineQrcode className="division-icon" />
-                    <span>QR kody</span>
-                </div>
-                <div className="right division-qr-tab">
-                    <DivisionQR />
-                </div>
-            </div>
         </div>
     );
 }

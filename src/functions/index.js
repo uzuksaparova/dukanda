@@ -3,10 +3,7 @@ import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import store from '../redux/store';
 import { setUnitsData, setUnitSendInfo } from '../redux/actions/unitActions';
-import {
-    setDevicesData,
-    setDeviceSendInfo,
-} from '../redux/actions/deviceActions';
+
 import dateFormat from 'dateformat';
 import {
     setClientsData,
@@ -17,20 +14,7 @@ import {
     setEmployeeSendInfo,
 } from '../redux/actions/employeeActions';
 import { setBrandsData, setBrandSendInfo } from '../redux/actions/brandActions';
-import { setOrdersData, setOrderSendInfo } from '../redux/actions/orderActions';
 
-import {
-    setSmartSectionsData,
-    setSmartSectionSendInfo,
-} from '../redux/actions/smartSectionActions';
-
-import {
-    setBannerData,
-    setBannerItems,
-    setBannersData,
-    setBannerSendInfo,
-    setBannerProductsId,
-} from '../redux/actions/bannerActions';
 import {
     setGroups,
     setMaingroup,
@@ -57,6 +41,10 @@ import {
     setQrDevicesData,
     setQrDeviceSendInfo,
 } from '../redux/actions/qrDeviceActions';
+import {
+    setDukandaVersionControlsData,
+    setDukandaVersionControlSendInfo,
+} from '../redux/actions/dukandaVersionControlActions';
 
 const forParettoState = {};
 export const parettoInfo = [
@@ -75,7 +63,7 @@ export const BACKEND_URL =
     process.env.NODE_ENV === 'production'
         ? 'https://timar.com.tm/api'
         : 'https://timar.com.tm/api';
-//   'http://172.10.18.15:8053/api';
+//   'http://172.10.18.3:8053/api';
 
 export function newLocation(path) {
     window.location.href = path;
@@ -153,51 +141,6 @@ export const fetchGroupsInfo = (firstTime = false, url, menuSend) => {
     );
 };
 
-export const fetchBannersInfo = (firstTime = false, temp) => {
-    const { bannersData, bannerSendInfo } = store.getState();
-    fetchWithParams(
-        {
-            url: `${BACKEND_URL}/admin/banners`,
-            params: temp ? temp : bannerSendInfo,
-        },
-        (data) => {
-            let bannersDataTemp = { ...bannersData, isError: false };
-            let bannerSendTemp = { ...bannerSendInfo };
-            if (firstTime) {
-                bannersDataTemp.data = [];
-            }
-            data.length && firstTime
-                ? (bannersDataTemp.noData = false)
-                : (bannersDataTemp.noData = true);
-            !data.length || data.length < bannerSendTemp.limit
-                ? (bannersDataTemp.isEnd = true)
-                : (bannersDataTemp.isEnd = false);
-            data.forEach((banner) => {
-                if (banner.startDate) {
-                    banner.startDate = dateFormat(
-                        banner.startDate,
-                        'yyyy-mm-dd'
-                    );
-                }
-                if (banner.endDate) {
-                    banner.endDate = dateFormat(banner.endDate, 'yyyy-mm-dd');
-                }
-            });
-
-            if (firstTime) {
-                bannerSendTemp.offset = bannerSendTemp.limit;
-                bannersDataTemp.data = [...data];
-            } else {
-                bannerSendTemp.offset =
-                    bannerSendTemp.limit + bannerSendTemp.offset;
-                bannersDataTemp.data = [...bannersDataTemp.data, ...data];
-            }
-
-            store.dispatch(setBannersData(bannersDataTemp));
-            store.dispatch(setBannerSendInfo(bannerSendTemp));
-        }
-    );
-};
 export const fetchSyncSchedulesInfo = () => {
     const { syncSchedulesData } = store.getState();
     fetchForAdmin(
@@ -259,7 +202,7 @@ export const fetchSyncScheduleHistoryInfo = (firstTime = false, temp) => {
             params: firstTime
                 ? temp
                     ? temp
-                    : syncHistorySendInfo
+                    : { ...syncHistorySendInfo, offset: 0 }
                 : syncHistorySendInfo,
         },
         (data) => {
@@ -270,6 +213,7 @@ export const fetchSyncScheduleHistoryInfo = (firstTime = false, temp) => {
             let syncHistorySendTemp = { ...syncHistorySendInfo };
             if (firstTime) {
                 syncHistoriesDataTemp.data = [];
+                syncHistorySendTemp.offset = 0;
             }
             data.length && firstTime
                 ? (syncHistoriesDataTemp.noData = false)
@@ -279,12 +223,12 @@ export const fetchSyncScheduleHistoryInfo = (firstTime = false, temp) => {
                 : (syncHistoriesDataTemp.isEnd = false);
 
             data.forEach((history) => {
-                history.createdAt = dateFormat(
-                    history.createdAt,
+                history.beginTime = dateFormat(
+                    history.beginTime,
                     'yyyy-mm-dd HH:MM'
                 );
-                history.updatedAt = dateFormat(
-                    history.updatedAt,
+                history.endTime = dateFormat(
+                    history.endTime,
                     'yyyy-mm-dd HH:MM'
                 );
             });
@@ -302,73 +246,8 @@ export const fetchSyncScheduleHistoryInfo = (firstTime = false, temp) => {
     );
 };
 
-export const handleBannerDeleteButton = (id) => {
-    const { bannersData } = store.getState();
-    deleteForAdmin(
-        {
-            url: `${BACKEND_URL}/admin/banners/${id}`,
-            notifyMessage: 'Banner pozulýar',
-            updateMessage: 'Banner pozuldy',
-        },
-        (data) => {
-            let tempBannersData = bannersData;
-            tempBannersData.data = tempBannersData.data.filter(
-                (temp) => temp.id !== id
-            );
-            if (tempBannersData.data.length === 0) {
-                tempBannersData.isEnd = true;
-                tempBannersData.noData = true;
-            }
-            store.dispatch(setBannersData(tempBannersData));
-        }
-    );
-};
+// //handles the removal of selected products frm chip in banners
 
-export const handleBannerImageDeleteButton = (id) => {
-    const { bannerData } = store.getState();
-    deleteForAdmin(
-        {
-            url: `${BACKEND_URL}/admin/banners/image/${id}`,
-            notifyMessage: 'Banner suraty pozulýar',
-            updateMessage: 'Banner suraty pozuldy',
-        },
-        (data) => {
-            var tempo = bannerData;
-            var filteredImages = tempo.images.filter((temp) => temp.id !== id);
-            store.dispatch(
-                setBannerData({
-                    ...bannerData,
-                    images: filteredImages,
-                })
-            );
-        }
-    );
-};
-
-export const handleBannerAdd = () => {
-    store.dispatch(
-        setBannerData({
-            id: '',
-            type: '',
-            name: '',
-            startDate: '',
-            endDate: '',
-            color: '',
-            active: true,
-            actionType: 'news',
-            priority: '5',
-            images: [],
-        })
-    );
-    store.dispatch(setBannerItems([]));
-};
-// //handles the removal of selected products from chip in banners
-export const handleProductDelete = (id) => {
-    const { bannerItems } = store.getState();
-    var tempBannerItems = bannerItems.bannerItems;
-    tempBannerItems = tempBannerItems.filter((item) => item.id !== id);
-    store.dispatch(setBannerItems([...tempBannerItems]));
-};
 export const fetchFunction = (location) => {
     const forAltGroupState = {};
     const forMainGroupState = {};
@@ -465,8 +344,7 @@ export const fetchProductsInfo = (
     menuSend,
     location = 'products'
 ) => {
-    const { productSendInfo, bannerProductsId, productsData, bannerItems } =
-        store.getState();
+    const { productSendInfo, productsData } = store.getState();
     fetchWithParams(
         {
             url: `${BACKEND_URL}/admin/items`,
@@ -477,36 +355,6 @@ export const fetchProductsInfo = (
                 : productSendInfo,
         },
         (data) => {
-            if (location === 'banner' || location === 'smartSection') {
-                var bannerIds = [];
-                if (bannerItems.bannerItems.length) {
-                    data.forEach((item) => {
-                        var obj = {};
-                        obj[item.id] = false;
-                        bannerItems.bannerItems.forEach((av) => {
-                            if (Number(item.id) === Number(av.id)) {
-                                obj[item.id] = true;
-                            }
-                        });
-                        bannerIds.push(obj);
-                    });
-                } else {
-                    data.forEach((item) => {
-                        var obj = {};
-                        obj[item.id] = false;
-                        bannerIds.push(obj);
-                    });
-                }
-
-                firstTime
-                    ? store.dispatch(setBannerProductsId([...bannerIds]))
-                    : store.dispatch(
-                          setBannerProductsId([
-                              ...bannerProductsId.bannerProductsId,
-                              ...bannerIds,
-                          ])
-                      );
-            }
             let productsDataTemp = { ...productsData, isError: false };
             let productSendTemp = { ...productSendInfo };
             data.length && firstTime
@@ -598,92 +446,6 @@ export const fetchClientsInfo = (firstTime = false, temp) => {
         }
     );
 };
-// ! fetchOrdersInfo function is started here...
-export const fetchOrdersInfo = (obj) => {
-    const { ordersData, orderSendInfo } = store.getState();
-    const { firstTime = false, temp = orderSendInfo, pathname } = obj;
-    let splittedPathname = pathname.split('/');
-    let id = splittedPathname[splittedPathname.length - 1];
-    let tempWithOffset = firstTime ? { ...temp, offset: 0 } : { ...temp };
-    let paramsSend = pathname.includes('clients')
-        ? { ...tempWithOffset, clientId: id }
-        : pathname.includes('devices')
-        ? { ...tempWithOffset, deviceId: id }
-        : { ...tempWithOffset };
-    fetchWithParams(
-        {
-            url: `${BACKEND_URL}/admin/orders`,
-            params: paramsSend,
-        },
-        (data) => {
-            let ordersDataTemp = { ...ordersData, isError: false };
-            let orderSendTemp = { ...orderSendInfo };
-            if (firstTime) {
-                ordersDataTemp.data = [];
-                orderSendTemp.offset = 0;
-            }
-            data.length && firstTime
-                ? (ordersDataTemp.noData = false)
-                : (ordersDataTemp.noData = true);
-            !data.length || data.length < orderSendTemp.limit
-                ? (ordersDataTemp.isEnd = true)
-                : (ordersDataTemp.isEnd = false);
-
-            orderSendTemp.offset = orderSendTemp.limit + orderSendTemp.offset;
-            ordersDataTemp.data = [...ordersDataTemp.data, ...data];
-
-            store.dispatch(setOrdersData(ordersDataTemp));
-            store.dispatch(setOrderSendInfo(orderSendTemp));
-        }
-    );
-};
-// ! smartSection section
-export const fetchSmartSectionsInfo = (firstTime = false, temp) => {
-    const { smartSectionsData, smartSectionSendInfo } = store.getState();
-    fetchWithParams(
-        {
-            url: `${BACKEND_URL}/admin/sections`,
-            params: firstTime
-                ? temp
-                    ? temp
-                    : { ...smartSectionSendInfo, offset: 0 }
-                : smartSectionSendInfo,
-        },
-        (data) => {
-            let smartSectionDataTemp = { ...smartSectionsData, isError: false };
-            let smartSectionSendTemp = { ...smartSectionSendInfo };
-            if (firstTime) {
-                smartSectionDataTemp.data = [];
-            }
-            data.length && firstTime
-                ? (smartSectionDataTemp.noData = false)
-                : (smartSectionDataTemp.noData = true);
-            !data.length || data.length < smartSectionSendTemp.limit
-                ? (smartSectionDataTemp.isEnd = true)
-                : (smartSectionDataTemp.isEnd = false);
-            data.forEach((smartSection) => {
-                if (smartSection.startDate) {
-                    smartSection.startDate = dateFormat(
-                        smartSection.startDate,
-                        'yyyy-mm-dd HH:MM'
-                    );
-                }
-                if (smartSection.endDate) {
-                    smartSection.endDate = dateFormat(
-                        smartSection.endDate,
-                        'yyyy-mm-dd HH:MM'
-                    );
-                }
-            });
-
-            smartSectionSendTemp.offset =
-                smartSectionSendTemp.limit + smartSectionSendTemp.offset;
-            smartSectionDataTemp.data = [...smartSectionDataTemp.data, ...data];
-            store.dispatch(setSmartSectionsData(smartSectionDataTemp));
-            store.dispatch(setSmartSectionSendInfo(smartSectionSendTemp));
-        }
-    );
-};
 
 export const fetchBrandsInfo = (firstTime = false, temp) => {
     const { brandsData, brandSendInfo } = store.getState();
@@ -711,53 +473,6 @@ export const fetchBrandsInfo = (firstTime = false, temp) => {
 
             store.dispatch(setBrandsData(brandsDataTemp));
             store.dispatch(setBrandSendInfo(brandSendTemp));
-        }
-    );
-};
-
-export const fetchDevicesInfo = (firstTime = false, temp) => {
-    const { devicesData, deviceSendInfo } = store.getState();
-
-    fetchWithParams(
-        {
-            url: `${BACKEND_URL}/admin/devices`,
-            params: firstTime
-                ? temp
-                    ? temp
-                    : { ...deviceSendInfo, offset: 0 }
-                : deviceSendInfo,
-        },
-        (data) => {
-            data.forEach((device) => {
-                device.createdAt = dateFormat(
-                    device.createdAt,
-                    'yyyy-mm-dd HH:MM'
-                );
-                device.updatedAt = dateFormat(
-                    device.updatedAt,
-                    'yyyy-mm-dd HH:MM'
-                );
-            });
-            let devicesDataTemp = { ...devicesData, isError: false };
-            let deviceSendTemp = { ...deviceSendInfo };
-
-            data.length && firstTime
-                ? (devicesDataTemp.noData = false)
-                : (devicesDataTemp.noData = true);
-            !data.length || data.length < deviceSendTemp.limit
-                ? (devicesDataTemp.isEnd = true)
-                : (devicesDataTemp.isEnd = false);
-
-            if (firstTime) {
-                deviceSendTemp.offset = deviceSendTemp.limit;
-                devicesDataTemp.data = [...data];
-            } else {
-                deviceSendTemp.offset =
-                    deviceSendTemp.limit + deviceSendTemp.offset;
-                devicesDataTemp.data = [...devicesData.data, ...data];
-            }
-            store.dispatch(setDevicesData(devicesDataTemp));
-            store.dispatch(setDeviceSendInfo(deviceSendTemp));
         }
     );
 };
@@ -805,6 +520,52 @@ export const fetchQrDevicesInfo = (firstTime = false, temp) => {
             }
             store.dispatch(setQrDevicesData(devicesDataTemp));
             store.dispatch(setQrDeviceSendInfo(qrDeviceSendTemp));
+        }
+    );
+};
+export const fetchDukandaVersionControlInfo = (firstTime = false, temp) => {
+    const { dukandaVersionControlsData, dukandaVersionControlSendInfo } =
+        store.getState();
+    console.log('fetching');
+    fetchWithParams(
+        {
+            url: `${BACKEND_URL}/admin/qrApp`,
+            params: firstTime
+                ? temp
+                    ? temp
+                    : { ...dukandaVersionControlSendInfo, offset: 0 }
+                : dukandaVersionControlSendInfo,
+        },
+        (data) => {
+            data.forEach((dvc) => {
+                dvc.createdAt = dateFormat(dvc.createdAt, 'yyyy-mm-dd HH:MM');
+                dvc.updatedAt = dateFormat(dvc.updatedAt, 'yyyy-mm-dd HH:MM');
+            });
+            let dvcDataTemp = {
+                ...dukandaVersionControlsData,
+                isError: false,
+            };
+            let dvcSendTemp = { ...dukandaVersionControlSendInfo };
+
+            data.length && firstTime
+                ? (dvcDataTemp.noData = false)
+                : (dvcDataTemp.noData = true);
+            !data.length || data.length < dvcSendTemp.limit
+                ? (dvcDataTemp.isEnd = true)
+                : (dvcDataTemp.isEnd = false);
+
+            if (firstTime) {
+                dvcSendTemp.offset = dvcSendTemp.limit;
+                dvcDataTemp.data = [...data];
+            } else {
+                dvcSendTemp.offset = dvcSendTemp.limit + dvcSendTemp.offset;
+                dvcDataTemp.data = [
+                    ...dukandaVersionControlsData.data,
+                    ...data,
+                ];
+            }
+            store.dispatch(setDukandaVersionControlsData(dvcDataTemp));
+            store.dispatch(setDukandaVersionControlSendInfo(dvcSendTemp));
         }
     );
 };
@@ -892,6 +653,7 @@ export const fetchForAdminWithUpdateToast = (fetchObj, cb) => {
             }
         })
         .catch((err) => {
+            cb('err');
             if (err.message === 'Network Error') {
                 updateFailure('Serwerde Nasazlyk doredi', idd);
             } else {
@@ -1128,109 +890,6 @@ export const deleteForAdmin = (fetchObj, cb) => {
         });
 };
 
-export const orderStatusTranslator = (status) => {
-    switch (status) {
-        case 'waitingForConfirmation':
-            return {
-                translation: 'Tassyklanmaga garaşylýar',
-                color: '#60CEED',
-            };
-        case 'reviewing':
-            return { translation: 'Gözden geçirilýär', color: '#a6ceff' };
-        case 'picking':
-            return { translation: 'Ýygnalýar', color: '#f7EA4A' };
-        case 'completed':
-            return { translation: 'Tamamlandy', color: '#9CF168' };
-        case 'employeeCanceled':
-            return {
-                translation: 'Işgär goýbolsun etdi',
-                color: '#f898c4',
-            };
-        case 'collected':
-            return {
-                translation: 'Ýygnaldy',
-                color: '#4ae91f99',
-            };
-        case 'delivering':
-            return {
-                translation: 'Dostawka edilýär',
-                color: '#a7e3d7',
-            };
-        case 'clientCanceled':
-            return {
-                translation: 'Müşderi goýbolsun etdi',
-                color: '#FFA7A6',
-            };
-        default:
-            return { translation: status, color: '' };
-    }
-};
-export const orderHistoryStatusTranslator = (status) => {
-    switch (status) {
-        case 'orderFinished':
-            return { translation: 'Sargyt tamamlandy', color: '#60CEED' };
-        case 'employeeTransferred':
-            return {
-                translation: 'Başga işgäre geçirildi',
-                color: '#e4c80a',
-            };
-        case 'operatorChanged':
-            return {
-                translation: 'Operator üýtgedildi',
-                color: '#f5005794',
-            };
-        case 'pickerChanged':
-            return {
-                translation: 'Ýygnaýjy üýtgedildi',
-                color: '#76c7be',
-            };
-        case 'delivererChanged':
-            return {
-                translation: 'Gowşuryjy üýtgedildi',
-                color: '#a7e3d7',
-            };
-
-        case 'employeeCancelOrder':
-            return {
-                translation: 'Işgär goýbolsun etdi',
-                color: '#f898c4',
-            };
-        case 'clientCancelOrder':
-            return {
-                translation: 'Müşderi goýbolsun etdi',
-                color: '#cb5d00',
-            };
-        case 'tigerClientChanged':
-            return {
-                translation: 'Tiger müşderi çalşyldy',
-                color: '#7326d354',
-            };
-        case 'divisionChanged':
-            return { translation: 'Bölüm çalşyldy', color: '#4046ca' };
-        case 'statusChanged':
-            return { translation: 'Status çalşyldy', color: '#bce931' };
-        case 'employeeReviewed':
-            return {
-                translation: 'Işgär gözden geçirdi',
-                color: '#7e84fa',
-            };
-        case 'employeeOpenForReview':
-            return {
-                translation: 'Işgär gözden geçirýär',
-                color: '#147af3',
-            };
-        case 'waitingForEmployee':
-            return { translation: 'Işgäre garaşylýar', color: '#f68511' };
-        case 'waitingForPicker':
-            return { translation: 'Ýygnaýyja garaşylýar', color: '#e8c600' };
-        case 'ordered':
-            return { translation: 'Zakaz edildi', color: '#4ae91f99	' };
-        case 'pickFinished':
-            return { translation: 'Ýygnaldy', color: '#72e06a	' };
-        default:
-            return { translation: status, color: '' };
-    }
-};
 export const commentTypeTranslator = (comment) => {
     switch (comment) {
         case 'financial':
@@ -1356,19 +1015,6 @@ export const discountCalculator = (row) => {
     }
 };
 
-export const bannerRow = (icon, name, value) => {
-    return (
-        <div className="one-row">
-            <div className="left">
-                {icon}
-                <span>{name}</span>
-            </div>
-            <div className="right">
-                <div>{value}</div>
-            </div>
-        </div>
-    );
-};
 export const functionTranslator = (func) => {
     switch (func) {
         case 'items':
@@ -1424,22 +1070,34 @@ export const functionTranslator = (func) => {
             return 'ÄHLISI';
         case 'clientCardsTruncate':
             return 'MÜŞDERI KARTLARYNY POZUP TÄZEDEN SINHRONLAMAK';
+        case 'discountsTruncate':
+            return 'ARZANLADYŞLARY POZUP TÄZEDEN SINHRONLAMAK';
+        case 'mainGroupLanguages':
+            return 'ESASY GRUP DILLERI';
+        case 'lastGroupLanguages':
+            return 'ALT GRUP DILLERI';
+        case 'unitLanguages':
+            return 'BIRIM DILLERI';
+        case 'itemLanguages':
+            return 'HARYT DILLERI';
+        case 'itemImages':
+            return 'HARYT SURATLARY';
+        case 'divisions':
+            return 'BÖLÜMLER';
+        case 'employees':
+            return 'IŞGÄRLER';
+        case 'qrCardDevicesGet':
+            return 'QR KART ENJAMLARY';
+        case 'qrCardDevicesPost':
+            return 'QR KART ENJAMLARY ESASY SERWERE UGRATMAK';
+        case 'qrItemLogsPost':
+            return 'QR OKADYLAN HARYTLARY ESASY SERWERE UGRATMAK';
 
         default:
             return func;
     }
 };
 
-export const deliveryTypeTranslator = (type) => {
-    switch (type) {
-        case 'normalDelivery':
-            return 'Adaty';
-        case 'express':
-            return 'Ekspres';
-        case 'fromStore':
-            return 'Özi gelip alýar';
-    }
-};
 export const infoChangeAuthorizations = {
     admin: ['status', 'client', 'picker', 'operator', 'deliverer', 'division'],
     moderator: [],

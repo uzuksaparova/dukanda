@@ -26,7 +26,7 @@ import './sidebar.scss';
 import { BsFillInboxesFill } from 'react-icons/bs';
 import { IoIosPeople } from 'react-icons/io';
 import { FaLayerGroup, FaUsers, FaBuilding, FaHistory } from 'react-icons/fa';
-import { RiRulerLine, Ri24HoursFill } from 'react-icons/ri';
+import { RiRulerLine, Ri24HoursFill, RiContrastDropLine } from 'react-icons/ri';
 import {
     AiFillTags,
     AiOutlineQrcode,
@@ -34,6 +34,8 @@ import {
     AiOutlineSync,
 } from 'react-icons/ai';
 import { AiOutlineGroup } from 'react-icons/ai';
+import { MdOutlineQrCode } from 'react-icons/md';
+
 import EmployeeSort from '../sort/employeeSort/EmployeeSort';
 import * as authorizationn from '../authorization.json';
 import {
@@ -91,6 +93,8 @@ import {
     setQrDevicesData,
     setQrDeviceSendInfo,
 } from '../../redux/actions/qrDeviceActions';
+import qrLogo from '../../images/dukanda_logoo.svg';
+import Avatar from '@material-ui/core/Avatar';
 
 const authorization = authorizationn.default;
 //bunch of gibberish styles  mui
@@ -137,7 +141,7 @@ function Sidebar(props) {
             padding: theme.spacing(0, 1),
             // necessary for content to be below app bar
             ...theme.mixins.toolbar,
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             position: 'sticky',
             top: 0,
             left: 0,
@@ -238,7 +242,13 @@ function Sidebar(props) {
         setSidebarSearchValue(e.target.value);
     };
     useEffect(() => {
-        setSidebarSearchValue('');
+        if (
+            useelocation.pathname.includes(
+                'qrDevices' && !qrDeviceSendInfo.search
+            )
+        ) {
+            setSidebarSearchValue('');
+        }
     }, [useelocation]);
     const loci = (locii) => {
         return useelocation.pathname.includes(locii);
@@ -363,6 +373,7 @@ function Sidebar(props) {
             !loci('smanual') &&
             !loci('shistories') &&
             !loci('adminPage') &&
+            !loci('dukandaVersionControl') &&
             locNum() &&
             locQrDevice()
         );
@@ -452,8 +463,16 @@ function Sidebar(props) {
                 }}
             >
                 <div className={classes.drawerHeader}>
-                    <span>Dükanda</span>
-                    <IconButton onClick={() => setIsSidebarOpen(false)}>
+                    <Avatar
+                        alt="qr logo"
+                        src={qrLogo}
+                        variant="square"
+                        style={{ width: '110px', height: 'unset' }}
+                    />
+                    <IconButton
+                        onClick={() => setIsSidebarOpen(false)}
+                        style={{ padding: '5px' }}
+                    >
                         {theme.direction === 'ltr' ? (
                             <ChevronLeftIcon />
                         ) : (
@@ -732,9 +751,25 @@ function Sidebar(props) {
                             </Collapse>
                         </>
                     ) : null}
+                    {/* dukandaVersionControl */}
+                    {authorization[decodedToken.role].includes(
+                        'dukandaVersionControl'
+                    ) ? (
+                        <ListItem
+                            component={Link}
+                            to="/dukandaVersionControl"
+                            button
+                            key={'Dükanda wersia kontrol'}
+                        >
+                            <ListItemIcon>
+                                <MdOutlineQrCode className="sidebar-icon" />
+                            </ListItemIcon>
+                            <ListItemText primary={'Dükanda wersia kontrol'} />
+                        </ListItem>
+                    ) : null}
                 </List>
                 <div className={classes.drawerFooter}>
-                    <InstallButton />
+                    {/* <InstallButton /> */}
                     <span>{version}</span>
                 </div>
             </Drawer>

@@ -51,13 +51,13 @@ const columns = [
         align: 'center',
     },
     {
-        id: 'createdAt',
+        id: 'beginTime',
         label: 'Başlan wagty',
         minWidth: 100,
         align: 'center',
     },
     {
-        id: 'updatedAt',
+        id: 'endTime',
         label: 'Gutaran wagty',
         minWidth: 100,
         align: 'center',

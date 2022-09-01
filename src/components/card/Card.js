@@ -107,7 +107,9 @@ function Card(props) {
                 body: JSON.stringify({ ...productItemSendInfo }),
             },
             (data) => {
-                fetchAdminById();
+                if (data !== 'err') {
+                    fetchAdminById();
+                }
             }
         );
     };
@@ -122,7 +124,9 @@ function Card(props) {
                 params: { id: orderId ? orderId : id },
             },
             (data) => {
-                fetchCardById();
+                if (data !== 'err') {
+                    fetchCardById();
+                }
             }
         );
     };
@@ -149,10 +153,12 @@ function Card(props) {
                             updateMessage: 'Esasy surat bellendi',
                         },
                         (data) => {
-                            // fetchAdminById();
-                            var tem = normalImage;
-                            tem[0].main = true;
-                            setNormalImage(tem);
+                            if (data !== 'err') {
+                                // fetchAdminById();
+                                var tem = normalImage;
+                                tem[0].main = true;
+                                setNormalImage(tem);
+                            }
                         }
                     );
                 } else {

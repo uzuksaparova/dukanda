@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 import { setDecodedToken } from '../../redux/actions/signInActions';
 import { IconButton } from '@mui/material';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import qrLogo from '../../images/qrIcon.svg';
+import qrLogo from '../../images/dukanda_logoo.svg';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         margin: theme.spacing(1),
-        width: '50px',
-        height: '50px',
+        width: 'unset',
+        height: 'unset',
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -83,14 +83,16 @@ function Signin({ setDecodedToken }) {
                     updateMessage: 'Success',
                 },
                 (data) => {
-                    var decoded = jwt_decode(data.token);
-                    // var expDate = new Date(decoded.exp * 1000);
-                    setDecodedToken(decoded);
-                    Cookies.set('admin_token', data.token, { expires: 1 });
-                    localStorage.setItem('full_name', data.fullName);
-                    localStorage.setItem('image', data.image);
-                    if (Object.keys(data).length) {
-                        newLocation('/adminPage');
+                    if (data !== 'err') {
+                        var decoded = jwt_decode(data.token);
+                        // var expDate = new Date(decoded.exp * 1000);
+                        setDecodedToken(decoded);
+                        Cookies.set('admin_token', data.token, { expires: 1 });
+                        localStorage.setItem('full_name', data.fullName);
+                        localStorage.setItem('image', data.image);
+                        if (Object.keys(data).length) {
+                            newLocation('/adminPage');
+                        }
                     }
                 }
             );
@@ -121,9 +123,9 @@ function Signin({ setDecodedToken }) {
                     variant="square"
                 />
 
-                <Typography component="h1" variant="h5">
+                {/* <Typography component="h1" variant="h5">
                     Giriş
-                </Typography>
+                </Typography> */}
                 <form className={classes.form}>
                     <TextField
                         variant="outlined"

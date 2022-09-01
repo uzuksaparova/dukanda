@@ -70,7 +70,9 @@ function BrandItem(props) {
                 params: { id },
             },
             (data) => {
-                fetchBrandById();
+                if (data !== 'err') {
+                    fetchBrandById();
+                }
             }
         );
     };
@@ -88,7 +90,9 @@ function BrandItem(props) {
                 updateMessage: 'Saved',
             },
             (data) => {
-                fetchBrandById();
+                if (data !== 'err') {
+                    fetchBrandById();
+                }
             }
         );
     };

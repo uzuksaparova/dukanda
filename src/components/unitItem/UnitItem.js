@@ -92,7 +92,9 @@ function UnitItem(props) {
                 method: 'PUT',
             },
             (data) => {
-                fetchUnitById(unitInfoSend.id, 'update');
+                if (data !== 'err') {
+                    fetchUnitById(unitInfoSend.id, 'update');
+                }
             }
         );
     };
@@ -126,7 +128,9 @@ function UnitItem(props) {
                 params: { id },
             },
             (data) => {
-                fetchUnitById();
+                if (data !== 'err') {
+                    fetchUnitById();
+                }
             }
         );
     };

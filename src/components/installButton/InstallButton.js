@@ -8,6 +8,7 @@ const InstallButton = () => {
 
     useEffect(() => {
         const handler = (e) => {
+            console.log('in handler');
             e.preventDefault();
             setSupportsPWA(true);
             setPromptInstall(e);
@@ -24,9 +25,9 @@ const InstallButton = () => {
         }
         promptInstall.prompt();
     };
-    if (!supportsPWA) {
-        return null;
-    }
+    // if (!supportsPWA) {
+    //     return null;
+    // }
     return (
         <div onClick={onClick} className="install-button">
             <BsDownload />

@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { activeCell, notification } from '../../../../../functions';
+import {
+    activeCell,
+    BACKEND_URL,
+    fetchForAdminWithUpdateToast,
+    notification,
+} from '../../../../../functions';
 import {
     setQrDevicesData,
     setQrDeviceSendInfo,
@@ -19,8 +24,10 @@ function ClientCardsTab(props) {
         setQrDevicesData,
         qrDeviceSendInfo,
         qrDevicesData,
+        decodedToken,
     } = props;
     const [isClientQrModalOpen, setIsClientQrModalOpen] = useState(false);
+    const [qrObject, setQrObject] = useState({});
 
     const [cardInfo, setCardInfo] = useState({ qrCardDevices: [] });
 
@@ -78,12 +85,32 @@ function ClientCardsTab(props) {
         setQrDeviceSendInfo(menuSend);
     };
     const handleQrClick = (row) => {
-        if (clientData.active) {
-            setIsClientQrModalOpen(true);
-            setCardInfo(row);
-        } else {
-            notification('Müşderiniň bu hasaby ulanylmaýar');
-        }
+        setCardInfo(row);
+        let bodySend = {
+            employeeId: decodedToken.id,
+            cardNo: row?.cardNo,
+            clientId: row?.clientId,
+            clientCardId: row?.id,
+            firmUUID: clientData?.firmUUID,
+        };
+        fetchForAdminWithUpdateToast(
+            {
+                url: `${BACKEND_URL}/admin/clients/qrDevice/qrGenerate`,
+                body: bodySend,
+            },
+            (data) => {
+                if (data !== 'err') {
+                    setQrObject(data.qrData);
+                    if (clientData.active) {
+                        setIsClientQrModalOpen(true);
+                    } else {
+                        notification('Müşderiniň bu hasaby ulanylmaýar');
+                    }
+                } else {
+                    notification('QR kodynda näsazlyk döredi');
+                }
+            }
+        );
     };
     const tableButton = (row) => {
         return (
@@ -111,6 +138,7 @@ function ClientCardsTab(props) {
                 <EmptyComponent />
             )}
             <ClientQrModal
+                qrObject={qrObject}
                 cardInfo={cardInfo}
                 isClientQrModalOpen={isClientQrModalOpen}
                 setIsClientQrModalOpen={setIsClientQrModalOpen}
@@ -123,6 +151,7 @@ const mapStateToProps = (state) => {
         clientData: state.clientData,
         qrDevicesData: state.qrDevicesData,
         qrDeviceSendInfo: state.qrDeviceSendInfo,
+        decodedToken: state.decodedToken.decodedToken,
     };
 };
 const mapDispatchToProps = (dispatch) => {
