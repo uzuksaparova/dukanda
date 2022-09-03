@@ -62,8 +62,8 @@ var bearer = 'Bearer ' + token;
 export const BACKEND_URL =
     process.env.NODE_ENV === 'production'
         ? 'https://timar.com.tm/api'
-        : 'https://timar.com.tm/api';
-//   'http://172.10.18.3:8053/api';
+        : // : 'https://timar.com.tm/api';
+          'http://172.16.100.100:8066/api';
 
 export function newLocation(path) {
     window.location.href = path;

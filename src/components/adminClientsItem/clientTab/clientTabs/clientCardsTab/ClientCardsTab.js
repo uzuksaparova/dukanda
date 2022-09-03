@@ -14,6 +14,7 @@ import { setSidebarSearchValue } from '../../../../../redux/actions/sidebarActio
 import EmptyComponent from '../../../../emptyComponent/EmptyComponent';
 import TableButtonsComponent from '../../../../tableButtonsComponent/TableButtonsComponent';
 import TableComponent from '../../../../tableComponent/TableComponent';
+import ClientCardCounterModal from './clientCardCounterModal/ClientCardCounterModal';
 import ClientQrModal from './clientQrModal/ClientQrModal';
 
 function ClientCardsTab(props) {
@@ -28,8 +29,11 @@ function ClientCardsTab(props) {
     } = props;
     const [isClientQrModalOpen, setIsClientQrModalOpen] = useState(false);
     const [qrObject, setQrObject] = useState({});
+    const [isClientCardCounterModalOpen, setIsClientCardCounterModalOpen] =
+        useState(false);
 
     const [cardInfo, setCardInfo] = useState({ qrCardDevices: [] });
+    const [clickedRow, setClickedRow] = useState({});
 
     const columns = [
         { id: 'cardNo', label: 'Kart No', minWidth: 170 },
@@ -85,12 +89,21 @@ function ClientCardsTab(props) {
         setQrDeviceSendInfo(menuSend);
     };
     const handleQrClick = (row) => {
-        setCardInfo(row);
+        setClickedRow(row);
+        if (row.qrCardDevices.length === 1 || row.qrCardDevices.length > 2) {
+            setIsClientCardCounterModalOpen(true);
+        } else {
+            qrGenerator();
+        }
+    };
+
+    const qrGenerator = () => {
+        setCardInfo(clickedRow);
         let bodySend = {
             employeeId: decodedToken.id,
-            cardNo: row?.cardNo,
-            clientId: row?.clientId,
-            clientCardId: row?.id,
+            cardNo: clickedRow?.cardNo,
+            clientId: clickedRow?.clientId,
+            clientCardId: clickedRow?.id,
             firmUUID: clientData?.firmUUID,
         };
         fetchForAdminWithUpdateToast(
@@ -142,6 +155,14 @@ function ClientCardsTab(props) {
                 cardInfo={cardInfo}
                 isClientQrModalOpen={isClientQrModalOpen}
                 setIsClientQrModalOpen={setIsClientQrModalOpen}
+            />
+            <ClientCardCounterModal
+                isClientCardCounterModalOpen={isClientCardCounterModalOpen}
+                setIsClientCardCounterModalOpen={
+                    setIsClientCardCounterModalOpen
+                }
+                clickedRow={clickedRow}
+                qrGenerator={qrGenerator}
             />
         </>
     );

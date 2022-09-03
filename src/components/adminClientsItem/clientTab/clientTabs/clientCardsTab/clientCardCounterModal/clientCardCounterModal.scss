@@ -1,0 +1,54 @@
+$primary_color: #e9601f;
+
+.client-card-counter-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .card-counter-writings {
+        margin-top: 10px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .buttons {
+        display: flex;
+        height: 70px;
+        justify-content: flex-end;
+        flex-direction: row;
+        align-items: center;
+        margin: 10px;
+        .Mui-disabled {
+            opacity: 0.5;
+        }
+        .save-button {
+            margin-right: 20px;
+            color: white;
+            width: 100px;
+            background-color: $primary_color;
+            font-size: 0.8rem;
+        }
+        .cancel-button {
+            font-size: 0.8rem;
+            border-radius: 3px;
+            border-color: $primary_color;
+            color: $primary_color;
+            a {
+                color: $primary_color;
+                text-decoration: none;
+            }
+        }
+    }
+}
+@media (max-width: 950px) {
+    .client-card-counter-modal {
+        .card-counter-writings {
+            margin-top: 10px;
+            font-size: 13px;
+            text-align: center;
+        }
+    }
+}

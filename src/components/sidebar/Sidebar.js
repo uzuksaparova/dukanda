@@ -710,32 +710,43 @@ function Sidebar(props) {
                                     disablePadding
                                     className="inside-list"
                                 >
-                                    <ListItem
-                                        component={Link}
-                                        to="/syncs/smanual"
-                                        button
-                                        key={'Manuel Sinhronlar '}
-                                    >
-                                        <ListItemIcon>
-                                            <Ri24HoursFill className="sidebar-icon" />
-                                        </ListItemIcon>
-                                        <ListItemText
-                                            primary={'Manuel Sinhronlar'}
-                                        />
-                                    </ListItem>
-                                    <ListItem
-                                        component={Link}
-                                        to="/syncs/sschedules"
-                                        button
-                                        key={'Tertip Sinhronlar'}
-                                    >
-                                        <ListItemIcon>
-                                            <AiOutlineSchedule className="sidebar-icon" />
-                                        </ListItemIcon>
-                                        <ListItemText
-                                            primary={'Tertip Sinhronlar'}
-                                        />
-                                    </ListItem>
+                                    {decodedToken.role !== 'picker' &&
+                                    decodedToken.role !== 'designer' &&
+                                    decodedToken.role !== 'deliverer' &&
+                                    decodedToken.role !== 'seller' ? (
+                                        <>
+                                            <ListItem
+                                                component={Link}
+                                                to="/syncs/smanual"
+                                                button
+                                                key={'Manuel Sinhronlar '}
+                                            >
+                                                <ListItemIcon>
+                                                    <Ri24HoursFill className="sidebar-icon" />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={
+                                                        'Manuel Sinhronlar'
+                                                    }
+                                                />
+                                            </ListItem>
+                                            <ListItem
+                                                component={Link}
+                                                to="/syncs/sschedules"
+                                                button
+                                                key={'Tertip Sinhronlar'}
+                                            >
+                                                <ListItemIcon>
+                                                    <AiOutlineSchedule className="sidebar-icon" />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={
+                                                        'Tertip Sinhronlar'
+                                                    }
+                                                />
+                                            </ListItem>
+                                        </>
+                                    ) : null}
                                     <ListItem
                                         component={Link}
                                         to="/syncs/shistories"

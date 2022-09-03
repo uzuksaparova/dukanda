@@ -36,6 +36,7 @@ function ClientsItemTab(props) {
         clientItemSendInfo,
         setClientItemSendInfo,
         setClientDivisionData,
+        decodedToken,
     } = props;
 
     const [clientTabValue, setClientTabValue] = useState(0);
@@ -83,7 +84,10 @@ function ClientsItemTab(props) {
                     variant="scrollable"
                 >
                     <Tab label={<span>Maglumat</span>} />
-                    <Tab label={<span>Profil</span>} />
+                    <Tab
+                        label={<span>Profil</span>}
+                        disabled={decodedToken.role === 'picker'}
+                    />
                     <Tab label={<span>Bellik</span>} />
                     <Tab label={<span>Kartlar</span>} />
                 </Tabs>

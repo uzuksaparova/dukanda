@@ -68,7 +68,9 @@
         "seeProductStock",
         "updateSyncSchedule",
         "syncAllQuick",
-        "syncs"
+        "syncs",
+        "clients",
+        "updateClient"
     ],
     "developer": [
         "products",
