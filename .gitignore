@@ -11,13 +11,6 @@
 # production
 /build
 
-#images
-/src/images
-*.png
-*.svg
-*.jpg
-*.gif
-*.mp4   
 
 # misc
 .DS_Store

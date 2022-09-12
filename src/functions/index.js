@@ -64,10 +64,9 @@ const backendIpAddress = new Url(window.location.pathname);
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VJZCI6MTQ4LCJpYXQiOjE2NTY1NzE0ODYsImV4cCI6MjUyMDU3MTQ4Nn0.APOjN1dHeayd9d_I9qVqUfY8AWY6Oz6ObK5uGQbN0IM
 export const BACKEND_URL =
     process.env.NODE_ENV === 'production'
-        ? 'https://timar.com.tm/api'
+        ? `${backendIpAddress.protocol}//${backendIpAddress.hostname}:8066/api`
         : // : 'https://timar.com.tm/api';
-          //   'http://172.16.100.100:8066';
-          `${backendIpAddress.protocol}//${backendIpAddress.hostname}:8066/api`;
+          'http://172.16.100.100:8066/api';
 
 export function newLocation(path) {
     window.location.href = path;
