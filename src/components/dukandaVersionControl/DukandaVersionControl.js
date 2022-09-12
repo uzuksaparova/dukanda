@@ -85,7 +85,6 @@ function DukandaVersionControl(props) {
                 var tempo = dukandaVersionControlsData.data;
                 var tempoFilter = tempo.filter((temp) => temp.id !== id);
                 if (tempoFilter.length === 0) {
-                    console.log('in length 0');
                     setDukandaVersionControlsData({
                         ...dukandaVersionControlsData,
                         isEnd: true,
@@ -135,7 +134,6 @@ function DukandaVersionControl(props) {
 
     return (
         <div className={`smart-sections`}>
-            {console.log(dukandaVersionControlsData)}
             {!dukandaVersionControlsData.data.length ? (
                 isError ? (
                     <ErrorComponent />

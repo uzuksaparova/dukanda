@@ -11,6 +11,7 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
+    FaBalanceScaleLeft,
     FaBoxOpen,
     FaBuilding,
     FaHistory,
@@ -21,6 +22,7 @@ import { IoIosPeople } from 'react-icons/io';
 import { BsFillInboxesFill } from 'react-icons/bs';
 import { Ri24HoursFill, RiRulerLine } from 'react-icons/ri';
 import './breadcrumb.scss';
+import { MdOutlineQrCode } from 'react-icons/md';
 
 function Breadcrumb(props) {
     const {
@@ -203,6 +205,13 @@ function Breadcrumb(props) {
                         path: '/units',
                     });
                     break;
+                case 'dukandaVersionControl':
+                    tempPath.push({
+                        icon: <MdOutlineQrCode />,
+                        value: 'Dükanda wersia kontrol',
+                        path: '/dukandaVersionControl',
+                    });
+                    break;
                 case 'syncs':
                     tempPath.push({
                         icon: <RiRulerLine />,
@@ -231,7 +240,13 @@ function Breadcrumb(props) {
                         path: '/syncs/shistories',
                     });
                     break;
-
+                case 'scalingSystems':
+                    tempPath.push({
+                        icon: <FaBalanceScaleLeft />,
+                        value: 'Terazi sistemi',
+                        path: '/scalingSystems',
+                    });
+                    break;
                 case 'employee':
                     tempPath.push({
                         icon: <FaBoxOpen />,
@@ -313,7 +328,7 @@ function Breadcrumb(props) {
                     });
                     break;
                 default:
-                    path !== 'adminPage' &&
+                    path !== 'welcomePage' &&
                         tempPath.push({
                             icon: <FaBoxOpen />,
                             value: path,

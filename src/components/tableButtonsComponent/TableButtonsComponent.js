@@ -224,13 +224,13 @@ function TableButtonsComponent(props) {
                 >
                     <IconButton
                         disabled={
-                            disabledValue
-                                ? authorization[decodedToken.role].includes(
-                                      disabledValue
-                                  )
-                                    ? false
-                                    : true
-                                : false
+                            authorization[decodedToken.role].includes(
+                                disabledValue
+                            ) &&
+                            decodedToken.role !== 'operator' &&
+                            decodedToken.role !== 'moderator'
+                                ? false
+                                : true
                         }
                         className="second-button"
                         onClick={() => handleQrClick(row)}

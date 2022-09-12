@@ -90,22 +90,33 @@ function ClientCardsTab(props) {
     };
     const handleQrClick = (row) => {
         setClickedRow(row);
-        if (row.qrCardDevices.length === 1 || row.qrCardDevices.length > 2) {
+        if (row.qrCardDevices.length === 1 || row.qrCardDevices.length > 1) {
             setIsClientCardCounterModalOpen(true);
         } else {
-            qrGenerator();
+            qrGenerator(row);
         }
     };
 
-    const qrGenerator = () => {
-        setCardInfo(clickedRow);
-        let bodySend = {
-            employeeId: decodedToken.id,
-            cardNo: clickedRow?.cardNo,
-            clientId: clickedRow?.clientId,
-            clientCardId: clickedRow?.id,
-            firmUUID: clientData?.firmUUID,
-        };
+    const qrGenerator = (row = false) => {
+        row ? setCardInfo(row) : setCardInfo(clickedRow);
+        let bodySend = {};
+        if (row) {
+            bodySend = {
+                employeeId: decodedToken.id,
+                cardNo: row?.cardNo,
+                clientId: row?.clientId,
+                clientCardId: row?.id,
+                firmUUID: clientData?.firmUUID,
+            };
+        } else {
+            bodySend = {
+                employeeId: decodedToken.id,
+                cardNo: clickedRow?.cardNo,
+                clientId: clickedRow?.clientId,
+                clientCardId: clickedRow?.id,
+                firmUUID: clientData?.firmUUID,
+            };
+        }
         fetchForAdminWithUpdateToast(
             {
                 url: `${BACKEND_URL}/admin/clients/qrDevice/qrGenerate`,

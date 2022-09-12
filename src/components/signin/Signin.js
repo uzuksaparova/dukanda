@@ -91,7 +91,7 @@ function Signin({ setDecodedToken }) {
                         localStorage.setItem('full_name', data.fullName);
                         localStorage.setItem('image', data.image);
                         if (Object.keys(data).length) {
-                            newLocation('/adminPage');
+                            newLocation('/welcomePage');
                         }
                     }
                 }

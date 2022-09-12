@@ -96,7 +96,8 @@
         "syncAllQuick",
         "syncAll",
         "dukandaVersionControl",
-        "updateDukandaVersionControl"
+        "updateDukandaVersionControl",
+        "scalingSystems"
     ],
     "ceo": [
         "products",

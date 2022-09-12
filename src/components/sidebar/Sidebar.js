@@ -25,8 +25,14 @@ import { VscGroupByRefType } from 'react-icons/vsc';
 import './sidebar.scss';
 import { BsFillInboxesFill } from 'react-icons/bs';
 import { IoIosPeople } from 'react-icons/io';
-import { FaLayerGroup, FaUsers, FaBuilding, FaHistory } from 'react-icons/fa';
-import { RiRulerLine, Ri24HoursFill, RiContrastDropLine } from 'react-icons/ri';
+import {
+    FaLayerGroup,
+    FaUsers,
+    FaBuilding,
+    FaHistory,
+    FaBalanceScaleLeft,
+} from 'react-icons/fa';
+import { RiRulerLine, Ri24HoursFill } from 'react-icons/ri';
 import {
     AiFillTags,
     AiOutlineQrcode,
@@ -337,14 +343,14 @@ function Sidebar(props) {
     useEffect(() => {
         if (
             !groups.length &&
-            (loci('products') || loci('subgroups') || loci('adminPage'))
+            (loci('products') || loci('subgroups') || loci('welcomePage'))
         ) {
             fetchFunction(
                 loci('products')
                     ? 'products'
                     : loci('subgroups')
                     ? 'subgroups'
-                    : 'adminPage'
+                    : 'welcomePage'
             );
         }
         if (loci('employees') || loci('employee'))
@@ -372,8 +378,9 @@ function Sidebar(props) {
             !loci('sschedules') &&
             !loci('smanual') &&
             !loci('shistories') &&
-            !loci('adminPage') &&
+            !loci('welcomePage') &&
             !loci('dukandaVersionControl') &&
+            !loci('scalingSystems') &&
             locNum() &&
             locQrDevice()
         );
@@ -776,6 +783,22 @@ function Sidebar(props) {
                                 <MdOutlineQrCode className="sidebar-icon" />
                             </ListItemIcon>
                             <ListItemText primary={'Dükanda wersia kontrol'} />
+                        </ListItem>
+                    ) : null}
+                    {/* terazi sistem */}
+                    {authorization[decodedToken.role].includes(
+                        'scalingSystems'
+                    ) ? (
+                        <ListItem
+                            component={Link}
+                            to="/scalingSystems"
+                            button
+                            key={'Terazi sistemi'}
+                        >
+                            <ListItemIcon>
+                                <FaBalanceScaleLeft className="sidebar-icon" />
+                            </ListItemIcon>
+                            <ListItemText primary={'Terazi sistemi'} />
                         </ListItem>
                     ) : null}
                 </List>

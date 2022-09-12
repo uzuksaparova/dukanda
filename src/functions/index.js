@@ -45,6 +45,7 @@ import {
     setDukandaVersionControlsData,
     setDukandaVersionControlSendInfo,
 } from '../redux/actions/dukandaVersionControlActions';
+import Url from 'url-parse';
 
 const forParettoState = {};
 export const parettoInfo = [
@@ -58,12 +59,15 @@ parettoInfo.forEach((paretto) => {
 
 var token = Cookies.get('admin_token');
 var bearer = 'Bearer ' + token;
+
+const backendIpAddress = new Url(window.location.pathname);
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2VJZCI6MTQ4LCJpYXQiOjE2NTY1NzE0ODYsImV4cCI6MjUyMDU3MTQ4Nn0.APOjN1dHeayd9d_I9qVqUfY8AWY6Oz6ObK5uGQbN0IM
 export const BACKEND_URL =
     process.env.NODE_ENV === 'production'
         ? 'https://timar.com.tm/api'
         : // : 'https://timar.com.tm/api';
-          'http://172.16.100.100:8066/api';
+          //   'http://172.16.100.100:8066';
+          `${backendIpAddress.protocol}//${backendIpAddress.hostname}:8066/api`;
 
 export function newLocation(path) {
     window.location.href = path;
@@ -1070,6 +1074,8 @@ export const functionTranslator = (func) => {
             return 'ÄHLISI';
         case 'clientCardsTruncate':
             return 'MÜŞDERI KARTLARYNY POZUP TÄZEDEN SINHRONLAMAK';
+        case 'stocksTruncate':
+            return 'STOKLARY POZUP TÄZEDEN SINHRONLAMAK';
         case 'discountsTruncate':
             return 'ARZANLADYŞLARY POZUP TÄZEDEN SINHRONLAMAK';
         case 'mainGroupLanguages':

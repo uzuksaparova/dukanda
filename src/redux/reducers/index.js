@@ -73,6 +73,10 @@ import {
     dukandaVersionControlItemSendInfo,
     dukandaVersionControlSendInfo,
 } from './dukandaVersionControlReducer';
+import {
+    scalingSystemsData,
+    scalingSystemItemSendInfo,
+} from './scalingSystemReducer';
 
 const forParettoState = {};
 const parettoInfo = [
@@ -172,4 +176,7 @@ export default combineReducers({
     dukandaVersionControlsData,
     dukandaVersionControlItemSendInfo,
     dukandaVersionControlSendInfo,
+
+    scalingSystemsData,
+    scalingSystemItemSendInfo,
 });

@@ -12,6 +12,9 @@ import Loading from './components/Loading';
 const DukandaVersionControl = lazy(() =>
     import('./components/dukandaVersionControl/DukandaVersionControl')
 );
+const ScalingSystems = lazy(() =>
+    import('./components/scalingSystems/ScalingSystems')
+);
 const GroupItem = lazy(() => import('./components/groupItem/GroupItem'));
 const QrDevicesItem = lazy(() =>
     import('./components/qrDevicesItem/QrDevicesItem')
@@ -84,7 +87,7 @@ const App = () => {
                         <>
                             <Sidebar />
                             <Route
-                                path="/adminPage"
+                                path="/welcomePage"
                                 component={AdminPage}
                                 exact
                             />
@@ -206,6 +209,11 @@ const App = () => {
                             <Route
                                 path="/dukandaVersionControl"
                                 component={DukandaVersionControl}
+                                exact
+                            />
+                            <Route
+                                path="/scalingSystems"
+                                component={ScalingSystems}
                                 exact
                             />
 

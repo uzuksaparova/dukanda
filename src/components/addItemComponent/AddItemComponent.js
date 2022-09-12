@@ -39,9 +39,13 @@ function AddItemComponent(props) {
             <Button
                 component={Link}
                 disabled={
-                    authorization[decodedToken.role].includes(disabledValue)
-                        ? false
-                        : true
+                    disabledValue
+                        ? authorization[decodedToken.role].includes(
+                              disabledValue
+                          )
+                            ? false
+                            : true
+                        : false
                 }
                 onClick={onClickHandler}
                 to={{

@@ -213,7 +213,7 @@ function CardTab(props) {
                         style={{
                             height: orderId
                                 ? 'calc(100vh - 232px)'
-                                : 'calc(100vh - 175px)',
+                                : 'calc(100vh - 210px)',
                         }}
                     >
                         <ProductStock
