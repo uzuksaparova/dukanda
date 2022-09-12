@@ -55,7 +55,7 @@
         "dev": "SET NODE_ENV=development&&react-scripts start",
         "build": "SET node ./src/versionBuild.js&&SET NODE_ENV=production&&react-scripts build",
         "start": "HTTPS=true SET NODE_ENV=production&&react-scripts start",
-        "build_ubuntu": "node ./src/versionBuild.js & NODE_ENV=production & react-scripts build"
+        "build_cross": "cross-env NODE_ENV=production BUILD_PATH=../qr_price/build/  react-scripts build&node ./src/versionBuild.js"
     },
     "eslintConfig": {
         "extends": [
@@ -78,6 +78,7 @@
     "devDependencies": {
         "assert": "^2.0.0",
         "buffer": "^6.0.3",
+        "cross-env": "^7.0.3",
         "crypto-browserify": "^3.12.0",
         "https-browserify": "^1.0.0",
         "os-browserify": "^0.3.0",
