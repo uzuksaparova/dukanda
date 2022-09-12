@@ -55,7 +55,7 @@
         "dev": "SET NODE_ENV=development&&react-scripts start",
         "build": "SET node ./src/versionBuild.js&&SET NODE_ENV=production&&react-scripts build",
         "start": "HTTPS=true SET NODE_ENV=production&&react-scripts start",
-        "build_cross": "cross-env NODE_ENV=production BUILD_PATH=../qr_price/build/  react-scripts build&node ./src/versionBuild.js"
+        "build_cross": "cross-env NODE_ENV=production BUILD_PATH=../qr_price/build/  react-scripts build"
     },
     "eslintConfig": {
         "extends": [
