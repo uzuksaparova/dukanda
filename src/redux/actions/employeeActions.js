@@ -18,6 +18,12 @@ export const setEmployeeSendInfo = (employeeSendInfo) => {
         payload: employeeSendInfo,
     };
 };
+export const setEmployeeItemSendInfo = (info) => {
+    return {
+        type: 'SET_EMPLOYEE_ITEM_SEND_INFO',
+        payload: info,
+    };
+};
 
 export const setRoles = (roles) => {
     return {
@@ -29,5 +35,17 @@ export const setRolesSend = (roles) => {
     return {
         type: 'SET_ROLES_SEND',
         payload: roles,
+    };
+};
+export const setStockPermissions = (permissions) => {
+    return {
+        type: 'SET_STOCK_PERMISSIONS',
+        payload: permissions,
+    };
+};
+export const setStockPermissionsSend = (permissions) => {
+    return {
+        type: 'SET_STOCK_PERMISSIONS_SEND',
+        payload: permissions,
     };
 };

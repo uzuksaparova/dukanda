@@ -21,6 +21,9 @@ import {
     employeeSendInfo,
     roles,
     rolesSend,
+    employeeItemSendInfo,
+    stockPermissions,
+    stockPermissionsSend,
 } from './employeeReducer';
 import { brandsData, brandData, brandIds, brandSendInfo } from './brandReducer';
 
@@ -128,6 +131,9 @@ export default combineReducers({
     employeesData,
     employeeData,
     employeeSendInfo,
+    employeeItemSendInfo,
+    stockPermissions,
+    stockPermissionsSend,
 
     roles,
     brandsData,

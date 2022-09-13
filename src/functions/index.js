@@ -65,8 +65,8 @@ const backendIpAddress = new Url(window.location.pathname);
 export const BACKEND_URL =
     process.env.NODE_ENV === 'production'
         ? `${backendIpAddress.protocol}//${backendIpAddress.hostname}:8066/api`
-        : // : 'https://timar.com.tm/api';
-          'http://172.16.100.100:8066/api';
+        : 'http://172.10.18.15:8066/api';
+// 'http://172.16.100.100:8066/api';
 
 export function newLocation(path) {
     window.location.href = path;
@@ -1097,6 +1097,10 @@ export const functionTranslator = (func) => {
             return 'QR KART ENJAMLARY ESASY SERWERE UGRATMAK';
         case 'qrItemLogsPost':
             return 'QR OKADYLAN HARYTLARY ESASY SERWERE UGRATMAK';
+        case 'qrApp':
+            return 'DÜKANDA PROGRAMMASY';
+        case 'barcodeScaleSystemsTruncate':
+            return 'BARKOD TERAZI SISTEM POZUP TÄZEDEN SINHRONLAMAK';
 
         default:
             return func;

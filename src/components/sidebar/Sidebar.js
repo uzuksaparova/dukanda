@@ -155,7 +155,7 @@ function Sidebar(props) {
             zIndex: 222,
             borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
             minHeight: 'unset !important',
-            height: '50px',
+            height: '60px',
         },
         drawerFooter: {
             color: 'grey',

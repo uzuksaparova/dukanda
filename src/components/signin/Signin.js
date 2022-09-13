@@ -63,12 +63,12 @@ function Signin({ setDecodedToken }) {
                     ? JSON.stringify({
                           password: password,
                           userName: username,
-                          program: 'web',
+                          program: 'qr web',
                       })
                     : JSON.stringify({
                           password: password,
                           userName: username,
-                          program: 'web',
+                          program: 'qr web',
                           longitude: 45.5,
                           latitude: 12.3,
                       });
