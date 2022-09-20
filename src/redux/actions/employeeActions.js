@@ -43,9 +43,9 @@ export const setStockPermissions = (permissions) => {
         payload: permissions,
     };
 };
-export const setStockPermissionsSend = (permissions) => {
+export const setStockPermissionsEvents = (permissions) => {
     return {
-        type: 'SET_STOCK_PERMISSIONS_SEND',
+        type: 'SET_STOCK_PERMISSIONS_EVENTS',
         payload: permissions,
     };
 };

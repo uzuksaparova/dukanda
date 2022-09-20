@@ -16,7 +16,7 @@ import {
 import { connect } from 'react-redux';
 import {
     setStockPermissions,
-    setStockPermissionsSend,
+    setStockPermissionsEvents,
 } from '../../../redux/actions/employeeActions';
 
 function TabContainer(props) {
@@ -42,8 +42,7 @@ function EmployeeItemTab(props) {
         addEmployeeImageClickReferencing,
         handleEmployeeImageDeleteButton,
         setStockPermissions,
-        setStockPermissionsSend,
-        stockPermissions,
+        setStockPermissionsEvents,
     } = props;
     const [tabValue, setTabValue] = useState(0);
     const [divisionInfo, setDivisionInfo] = useState([]);
@@ -83,12 +82,19 @@ function EmployeeItemTab(props) {
             },
             (data) => {
                 let tempStockPermissions = {
-                    data: data,
                     noData: data.length ? false : true,
                     isError: false,
                 };
-                setStockPermissionsSend(tempStockPermissions);
-                setStockPermissions(tempStockPermissions);
+                setStockPermissionsEvents(tempStockPermissions);
+                setStockPermissions(
+                    data.sort((a, b) => {
+                        return a.type && !b.type
+                            ? -1
+                            : a.type && b.type
+                            ? a.priority - b.priority
+                            : 9999;
+                    })
+                );
             }
         );
         if (!employeesData?.data.length) {
@@ -101,7 +107,7 @@ function EmployeeItemTab(props) {
         let tempDiv = divisionCheckbox;
         var chipNames = [];
         employeeItemSendInfo?.divisions?.forEach((d, i) => {
-            chipNames.push(d.name);
+            chipNames.push(d?.name);
             tempDiv.forEach((t, i) => {
                 if (Number(d.id) === Number(Object.keys(t)[0])) {
                     t[d.id] = true;
@@ -168,7 +174,6 @@ const mapStateToProps = (state) => {
         employeeData: state.employeeData.employeeData,
         isSidebarOpen: state.isSidebarOpen.isSidebarOpen,
         employeesData: state.employeesData,
-        stockPermissions: state.stockPermissions,
         employeeItemSendInfo: state.employeeItemSendInfo,
     };
 };
@@ -176,8 +181,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setStockPermissions: (data) => dispatch(setStockPermissions(data)),
-        setStockPermissionsSend: (data) =>
-            dispatch(setStockPermissionsSend(data)),
+        setStockPermissionsEvents: (data) =>
+            dispatch(setStockPermissionsEvents(data)),
     };
 };
 

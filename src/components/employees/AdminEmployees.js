@@ -150,7 +150,7 @@ function AdminEmployees(props) {
     };
     const divisionIdentifier = (row) => {
         return row?.divisions?.map((d, i) => {
-            return d.name + (i === row?.divisions?.length - 1 ? '' : ', ');
+            return d?.name + (i === row?.divisions?.length - 1 ? '' : ', ');
         });
     };
 

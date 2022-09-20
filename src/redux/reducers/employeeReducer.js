@@ -25,8 +25,8 @@ const intialItemUpdateState = {
     divisions: [],
     active: true,
 };
-const initialStockPermissionsState = {
-    data: [],
+
+const initialStockPermissionsEventsState = {
     noData: false,
     isError: false,
 };
@@ -88,26 +88,23 @@ export const rolesSend = (state = { rolesSend: [] }, action) => {
             return state;
     }
 };
-export const stockPermissions = (
-    state = initialStockPermissionsState,
-    action
-) => {
+export const stockPermissions = (state = { stockPermissions: [] }, action) => {
     switch (action.type) {
         case 'SET_STOCK_PERMISSIONS':
             return {
                 ...state,
-                ...action.payload,
+                stockPermissions: action.payload,
             };
         default:
             return state;
     }
 };
-export const stockPermissionsSend = (
-    state = initialStockPermissionsState,
+export const stockPermissionsEvents = (
+    state = initialStockPermissionsEventsState,
     action
 ) => {
     switch (action.type) {
-        case 'SET_STOCK_PERMISSIONS_SEND':
+        case 'SET_STOCK_PERMISSIONS_EVENTS':
             return {
                 ...state,
                 ...action.payload,

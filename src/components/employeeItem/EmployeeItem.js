@@ -40,7 +40,7 @@ function EmployeeItem(props) {
         employeesData,
         employeeItemSendInfo,
         setEmployeeItemSendInfo,
-        stockPermissionsSend,
+        stockPermissions,
     } = props;
 
     const [employeeImage, setEmployeeImage] = useState('');
@@ -191,10 +191,9 @@ function EmployeeItem(props) {
             );
         }
         const depoSend = [];
-        stockPermissionsSend.data.forEach((stock) => {
-            depoSend.push({ nr: stock.nr, type: stock.type });
+        stockPermissions.forEach((stock, i) => {
+            depoSend.push({ nr: stock.nr, type: stock.type, priority: i + 1 });
         });
-        console.log(depoSend);
         fetchForAdminWithUpdateToast(
             {
                 url: `${BACKEND_URL}/admin/employees/${id}/stockPermission`,
@@ -320,7 +319,7 @@ const mapStateToProps = (state) => {
         isSidebarOpen: state.isSidebarOpen.isSidebarOpen,
         employeesData: state.employeesData,
         employeeItemSendInfo: state.employeeItemSendInfo,
-        stockPermissionsSend: state.stockPermissionsSend,
+        stockPermissions: state.stockPermissions.stockPermissions,
     };
 };
 
