@@ -65,8 +65,8 @@ const backendIpAddress = new Url(window.location.pathname);
 export const BACKEND_URL =
     process.env.NODE_ENV === 'production'
         ? `${backendIpAddress.protocol}//${backendIpAddress.hostname}:8066/api`
-        : 'http://172.10.18.15:8066/api';
-// 'http://172.16.100.100:8066/api';
+        : // 'http://172.10.18.15:8066/api';
+          'http://172.16.100.100:8066/api';
 
 export function newLocation(path) {
     window.location.href = path;

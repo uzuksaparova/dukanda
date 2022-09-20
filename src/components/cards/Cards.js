@@ -95,7 +95,18 @@ const Cards = (props) => {
         { id: 'name', label: 'Ady', minWidth: 170, align: 'left' },
         { id: 'code', label: 'Kody', minWidth: 120, align: 'left' },
         { id: 'mainUnit', label: 'Birimi', minWidth: 120, align: 'left' },
-        { id: 'group', label: 'Grupbasy', minWidth: 120, align: 'left' },
+        {
+            id: 'mainGroup',
+            label: 'Ana Grupbasy',
+            minWidth: 150,
+            align: 'left',
+        },
+        {
+            id: 'lastGroup',
+            label: 'Alt Grupbasy',
+            minWidth: 150,
+            align: 'left',
+        },
         { id: 'paretto', label: 'Paretto', minWidth: 120, align: 'left' },
         { id: 'active', label: 'Kullanımı', minWidth: 150, align: 'left' },
         { id: 'nameTm', label: 'Tm ady', minWidth: 150, align: 'left' },
@@ -107,8 +118,10 @@ const Cards = (props) => {
     const handleRowValue = (column, row, i) => {
         return column.id === 'image'
             ? handleImageCell(row)
-            : column.id === 'group'
-            ? row?.lastGroup.name
+            : column.id === 'mainGroup'
+            ? row?.mainGroup?.name
+            : column.id === 'lastGroup'
+            ? row?.lastGroup?.name
             : column.id === 'paretto'
             ? handleParettoCell(row)
             : column.id === 'active'

@@ -28,7 +28,9 @@ function HistoryMessageModal(props) {
                                 }
                             />
                         </span>
-                        <pre>{JSON.stringify(props.info, null, 2)}</pre>
+                        <pre style={{ overflow: 'auto' }}>
+                            {JSON.stringify(props.info, null, 2)}
+                        </pre>
                     </Box>
                 </Fade>
             </Modal>

@@ -20,11 +20,11 @@ function ProductTab1(props) {
         setProductItemSendInfo,
     } = props;
 
-    const handleQrDownload = () => {
-        window.location.replace(
-            `${BACKEND_URL}/admin/items/QR/${productData.id}`
-        );
-    };
+    // const handleQrDownload = () => {
+    //     window.location.replace(
+    //         `${BACKEND_URL}/admin/items/QR/${productData.id}`
+    //     );
+    // };
 
     return (
         <TabContainer>
@@ -102,10 +102,19 @@ function ProductTab1(props) {
                 <div className="card-tab-one-row">
                     <div className="left">
                         <FaLayerGroup className="card-tab-icon" />
-                        <span>Grup</span>
+                        <span>Ana Grupbasy</span>
                     </div>
                     <div className="right">
-                        <span>{productData.lastGroup.name}</span>
+                        <span>{productData?.mainGroup?.name}</span>
+                    </div>
+                </div>
+                <div className="card-tab-one-row">
+                    <div className="left">
+                        <FaLayerGroup className="card-tab-icon" />
+                        <span>Alt Grupbasy</span>
+                    </div>
+                    <div className="right">
+                        <span>{productData?.lastGroup?.name}</span>
                     </div>
                 </div>
                 <div className="card-tab-one-row">
@@ -126,7 +135,7 @@ function ProductTab1(props) {
                         <span>{productData.subsGoodCode}</span>
                     </div>
                 </div>
-                <div className="card-tab-one-row">
+                {/* <div className="card-tab-one-row">
                     <div className="left">
                         <FaExchangeAlt className="card-tab-icon" />
                         <span>QR kody</span>
@@ -140,7 +149,7 @@ function ProductTab1(props) {
                             Ýükle
                         </Button>
                     </div>
-                </div>
+                </div> */}
                 <div className="card-tab-one-row unit-row">
                     <div className="left">
                         <RiRulerLine className="card-tab-icon" />
