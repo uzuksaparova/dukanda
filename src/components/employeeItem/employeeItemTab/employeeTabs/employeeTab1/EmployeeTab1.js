@@ -263,7 +263,7 @@ function EmployeeTab1(props) {
                                 return selected.join(', ');
                             }}
                         >
-                            {divisionInfo.length ? (
+                            {divisionInfo.length && divisionCheckbox.length ? (
                                 divisionInfo.map((div, i) => {
                                     return (
                                         <div className="one-group" key={i}>
@@ -339,4 +339,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps)(EmployeeTab1);
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeTab1);

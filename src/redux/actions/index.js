@@ -10,3 +10,9 @@ export const setIsError = (isError) => {
         payload: isError,
     };
 };
+export const setIsEmployeeModalOpen = (open) => {
+    return {
+        type: 'SET_IS_EMPLOYEE_MODAL_OPEN',
+        payload: open,
+    };
+};

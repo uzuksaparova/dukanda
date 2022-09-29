@@ -1,6 +1,32 @@
+$primary_color: #e9601f;
 .employee-tab2 {
     .MuiTypography-root {
         padding: unset;
         height: auto !important;
+    }
+
+    .employee-tab2-top {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        .employee-tab2-top-buttons {
+            display: flex;
+            .MuiButton-root {
+                background-color: $primary_color;
+                margin-right: 10px;
+                &:hover {
+                    background-color: $primary_color;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .employee-tab2 {
+        .employee-tab2-top {
+            flex-direction: column-reverse;
+            align-items: flex-end;
+        }
     }
 }

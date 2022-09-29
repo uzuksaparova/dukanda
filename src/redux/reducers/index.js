@@ -113,6 +113,18 @@ const isError = (state = { isError: false }, action) => {
             return state;
     }
 };
+const isEmployeeModalOpen = (
+    state = { isEmployeeModalOpen: false },
+    action
+) => {
+    switch (action.type) {
+        case 'SET_IS_EMPLOYEE_MODAL_OPEN': {
+            return { ...state, isEmployeeModalOpen: action.payload };
+        }
+        default:
+            return state;
+    }
+};
 export default combineReducers({
     decodedToken,
     isFilterOpen,
@@ -185,4 +197,5 @@ export default combineReducers({
 
     scalingSystemsData,
     scalingSystemItemSendInfo,
+    isEmployeeModalOpen,
 });

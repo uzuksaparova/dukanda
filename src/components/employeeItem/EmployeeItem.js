@@ -21,6 +21,7 @@ import CircleImageComponent from '../circleImageComponent/CircleImageComponent';
 import TopButtons from '../topButtons/TopButtons';
 import { useMediaQuery } from 'react-responsive';
 import EmployeeItemTab from './employeeItemTab/EmployeeItemTab';
+import EmployeeModal from '../employeeModal/EmployeeModal';
 
 var token = Cookies.get('admin_token');
 var bearer = 'Bearer ' + token;
@@ -304,6 +305,7 @@ function EmployeeItem(props) {
                     handleEmployeeImageDeleteButton
                 }
             />
+            <EmployeeModal renderedIn="employee" />
 
             <ToastContainer
                 position="bottom-right"

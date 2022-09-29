@@ -7,8 +7,8 @@ import SearchComponent from '../searchComponent/SearchComponent';
 import TableComponent from '../tableComponent/TableComponent';
 
 const columns = [
-    { id: 'warehouseNr', label: 'NR', minWidth: 100 },
-    { id: 'warehouse', label: 'Ady', minWidth: 100 },
+    { id: 'nr', label: 'NR', minWidth: 100 },
+    { id: 'name', label: 'Ady', minWidth: 100 },
 
     { id: 'onhand', label: 'Bar bolan', minWidth: 100 },
 
@@ -22,6 +22,7 @@ const columns = [
 
 function ProductStock(props) {
     const { id, renderedIn } = props;
+
     const [searchValue, setSearchValue] = useState('');
     const [noProductStock, setNoProductStock] = useState(false);
     const [productStockInfo, setProductStockInfo] = useState([]);
@@ -62,7 +63,19 @@ function ProductStock(props) {
     };
 
     const handleRowValue = (column, row) => {
-        return column.id === 'warehouse' ? row[column.id].name : row[column.id];
+        return column.id === 'onhand'
+            ? row?.permissionType === 'amount'
+                ? row[column.id]
+                : row?.onhand > 0
+                ? 'Bar'
+                : 'Yok'
+            : column.id === 'reserved'
+            ? row?.permissionType === 'amount'
+                ? row[column.id]
+                : row?.reserved > 0
+                ? 'Bar'
+                : 'Yok'
+            : row[column.id];
     };
     return (
         <div style={{ minHeight: '500px' }}>
@@ -86,7 +99,11 @@ function ProductStock(props) {
                     data={productStockInfo}
                     handleRowValue={handleRowValue}
                     lazy={false}
-                    inTab={renderedIn === 'productTab' ? true : false}
+                    inTab={
+                        renderedIn === 'productTab' || renderedIn === 'products'
+                            ? true
+                            : false
+                    }
                 />
             )}
         </div>

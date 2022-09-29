@@ -48,7 +48,7 @@ function StockModal(props) {
 
                         <ProductStock
                             id={stockId ? stockId : id}
-                            renderedIn="modal"
+                            renderedIn="products"
                         />
                     </Box>
                 </Fade>

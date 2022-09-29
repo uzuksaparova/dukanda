@@ -1,0 +1,75 @@
+$primary_color: #e9601f;
+$background_color: #f2f2f2;
+$primary_icon_color: #7e7c7c;
+$primary_font_color: rgb(55, 53, 47);
+
+.employee-modal {
+    .MuiBox-root {
+        width: auto;
+        min-height: unset;
+        max-height: calc(100% - 100px);
+        min-height: 50vh;
+        margin: 5px;
+        outline: none !important;
+        padding: 20px;
+        margin-top: 0;
+
+        .buttons {
+            display: flex;
+            height: 70px;
+            justify-content: center;
+            flex-direction: row;
+            align-items: center;
+            background-color: #fff;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            .save-button {
+                margin-right: 20px;
+                color: white !important;
+                width: 80px;
+                background-color: $primary_color !important;
+                font-size: 0.8rem;
+            }
+            .cancel-button {
+                font-size: 0.8rem;
+                border-radius: 3px;
+                border-color: $primary_color;
+                color: $primary_color !important;
+                width: 80px;
+
+                a {
+                    color: $primary_color !important;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .modal-top {
+        display: flex;
+        position: sticky;
+        top: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        width: 100%;
+        background-color: #fff;
+        z-index: 200;
+    }
+
+    .modal-bottom {
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        overflow-y: auto;
+        height: 100%;
+    }
+}
+
+.infinite-scroll-component__outerdiv {
+    width: 100%;
+}

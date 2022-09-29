@@ -48,7 +48,8 @@
         "divisions",
         "updateSyncSchedule",
         "syncAllQuick",
-        "syncs"
+        "syncs",
+        "seeProductStock"
     ],
     "operator": [
         "products",
@@ -62,7 +63,13 @@
         "syncAllQuick",
         "syncs"
     ],
-    "deliverer": ["orders", "updateSyncSchedule", "syncAllQuick", "syncs"],
+    "deliverer": [
+        "orders",
+        "updateSyncSchedule",
+        "syncAllQuick",
+        "syncs",
+        "seeProductStock"
+    ],
     "picker": [
         "products",
         "seeProductStock",
@@ -122,6 +129,7 @@
         "updateBrand",
         "updateSyncSchedule",
         "syncAllQuick",
-        "syncs"
+        "syncs",
+        "seeProductStock"
     ]
 }

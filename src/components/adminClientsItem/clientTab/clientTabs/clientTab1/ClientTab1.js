@@ -144,7 +144,14 @@ function ClientTab1(props) {
             case 'currency':
                 return {
                     leftIcon: <RiCurrencyFill className="row-icon" />,
-                    leftName: 'Pul birligi',
+                    leftName: 'İşlem dövüz para birimi',
+                    rightValue: value.name,
+                };
+            case 'displayCurrency':
+                return {
+                    leftIcon: <RiCurrencyFill className="row-icon" />,
+                    leftName:
+                        'Müşderiniň E-commerce-de görýän bahasynyň pul birligi',
                     rightValue: value.name,
                 };
             case 'exchangeRateType':

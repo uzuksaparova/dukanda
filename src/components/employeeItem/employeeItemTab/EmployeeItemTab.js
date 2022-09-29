@@ -49,6 +49,31 @@ function EmployeeItemTab(props) {
     const [tigerEmployees, setTigerEmployees] = useState([]);
     const [chipDivisionNames, setChipDivisionNames] = useState([]);
 
+    const fetchStockPermissions = () => {
+        fetchForAdmin(
+            {
+                url: `${BACKEND_URL}/admin/employees/${id}/stockPermission`,
+                method: 'GET',
+            },
+            (data) => {
+                let tempStockPermissions = {
+                    noData: data.length ? false : true,
+                    isError: false,
+                };
+                setStockPermissionsEvents(tempStockPermissions);
+                setStockPermissions(
+                    data.sort((a, b) => {
+                        return a.type && !b.type
+                            ? -1
+                            : a.type && b.type
+                            ? a.priority - b.priority
+                            : 9999;
+                    })
+                );
+            }
+        );
+    };
+
     useEffect(() => {
         fetchForAdmin(
             {
@@ -75,28 +100,7 @@ function EmployeeItemTab(props) {
                 setTigerEmployees(data);
             }
         );
-        fetchForAdmin(
-            {
-                url: `${BACKEND_URL}/admin/employees/${id}/stockPermission`,
-                method: 'GET',
-            },
-            (data) => {
-                let tempStockPermissions = {
-                    noData: data.length ? false : true,
-                    isError: false,
-                };
-                setStockPermissionsEvents(tempStockPermissions);
-                setStockPermissions(
-                    data.sort((a, b) => {
-                        return a.type && !b.type
-                            ? -1
-                            : a.type && b.type
-                            ? a.priority - b.priority
-                            : 9999;
-                    })
-                );
-            }
-        );
+        fetchStockPermissions();
         if (!employeesData?.data.length) {
             fetchEmployeesInfo(true);
         }
@@ -162,7 +166,9 @@ function EmployeeItemTab(props) {
             )}
             {tabValue === 1 && (
                 <TabContainer>
-                    <EmployeeTab2 />
+                    <EmployeeTab2
+                        fetchStockPermissions={fetchStockPermissions}
+                    />
                 </TabContainer>
             )}
         </div>

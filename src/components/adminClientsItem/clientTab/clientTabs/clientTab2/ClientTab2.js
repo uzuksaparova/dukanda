@@ -243,18 +243,23 @@ function ClientTab2(props) {
                         <FormControlLabel
                             control={
                                 <Checkbox
-                                    checked={clientItemSendInfo.fixedDivision}
-                                    onChange={(e) =>
+                                    checked={
+                                        !!!clientItemSendInfo.fixedDivision
+                                    }
+                                    onChange={(e) => {
                                         setClientItemSendInfo({
                                             ...clientItemSendInfo,
-                                            fixedDivision: e.target.checked,
-                                        })
-                                    }
+                                            fixedDivision: !e.target.checked,
+                                        });
+                                        console.log(e.target.checked);
+                                    }}
                                     name="fixedDivision"
                                 />
                             }
                             label={
-                                clientItemSendInfo.fixedDivision ? 'Ýok' : 'Bar'
+                                !!clientItemSendInfo.fixedDivision
+                                    ? 'Ýok'
+                                    : 'Bar'
                             }
                         />
                     </div>

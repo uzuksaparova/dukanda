@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from '@mui/material';
+import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -13,13 +13,23 @@ import TableComponent from '../../../../tableComponent/TableComponent';
 import './employeeTab2.scss';
 import DraggableTable from '../../../../draggableTable/DraggableTable';
 import { useMediaQuery } from 'react-responsive';
+import {
+    BACKEND_URL,
+    fetchForAdminWithUpdateToast,
+} from '../../../../../functions';
+import { useParams } from 'react-router-dom';
+import { setIsEmployeeModalOpen } from '../../../../../redux/actions';
 
 function EmployeeTab2(props) {
+    const { id } = useParams();
+
     const {
         stockPermissions,
         stockPermissionsEvents,
         setStockPermissionsEvents,
         setStockPermissions,
+        fetchStockPermissions,
+        setIsEmployeeModalOpen,
     } = props;
     const [afterSearch, setAfterSearch] = useState(stockPermissions);
     const [firstTime, setFirstTime] = useState(true);
@@ -100,79 +110,60 @@ function EmployeeTab2(props) {
         console.log('searched');
     };
 
-    const handleAccessChange = (e, row) => {
-        e.stopPropagation();
+    const handleAccessChangeEach = (row, checked, type) => {
         let tempAfterSearchDeposData = afterSearch;
         let tempDeposData = stockPermissions;
+        console.log(
+            row,
+            checked,
+            type,
+            !checked && type === 'access' ? '' : type
+        );
 
-        if (e.target.name === 'access') {
-            if (e.target.checked) {
-                tempDeposData = tempDeposData.map((depo) => {
-                    if (depo.id === row.id) {
-                        return { ...row, type: 'available' };
-                    }
-                    return depo;
-                });
-                tempAfterSearchDeposData = tempAfterSearchDeposData.map(
-                    (depo) => {
-                        if (depo.id === row.id) {
-                            return { ...row, type: 'available' };
-                        }
-                        return depo;
-                    }
-                );
-            } else {
-                tempDeposData = tempDeposData.map((depo) => {
-                    if (depo.id === row.id) {
-                        return { ...row, type: '' };
-                    }
-                    return depo;
-                });
-                tempAfterSearchDeposData = tempAfterSearchDeposData.map(
-                    (depo) => {
-                        if (depo.id === row.id) {
-                            return { ...row, type: '' };
-                        }
-                        return depo;
-                    }
-                );
+        tempDeposData = tempDeposData.map((depo) => {
+            if (depo.id === row.id) {
+                return {
+                    ...row,
+                    type:
+                        !checked && type === 'access'
+                            ? ''
+                            : type === 'access'
+                            ? 'available'
+                            : type,
+                };
             }
-        } else {
-            if (e.target.checked) {
-                tempAfterSearchDeposData = tempAfterSearchDeposData.map(
-                    (depo) => {
-                        if (depo.id === row.id) {
-                            return { ...row, type: 'amount' };
-                        }
-                        return depo;
-                    }
-                );
-                tempDeposData = tempDeposData.map((depo) => {
-                    if (depo.id === row.id) {
-                        return { ...row, type: 'amount' };
-                    }
-                    return depo;
-                });
-            } else {
-                tempDeposData = tempDeposData.map((depo) => {
-                    if (depo.id === row.id) {
-                        return { ...row, type: 'available' };
-                    }
-                    return depo;
-                });
-                tempAfterSearchDeposData = tempAfterSearchDeposData.map(
-                    (depo) => {
-                        if (depo.id === row.id) {
-                            return { ...row, type: 'available' };
-                        }
-                        return depo;
-                    }
-                );
+            return depo;
+        });
+        tempAfterSearchDeposData = tempAfterSearchDeposData.map((depo) => {
+            if (depo.id === row.id) {
+                return {
+                    ...row,
+                    type:
+                        !checked && type === 'access'
+                            ? ''
+                            : type === 'access'
+                            ? 'available'
+                            : type,
+                };
             }
-        }
-
+            return depo;
+        });
         setStockPermissions([...tempDeposData]);
         setAfterSearch([...tempAfterSearchDeposData]);
+    };
+
+    const handleAccessChange = (e, row) => {
+        e.stopPropagation();
+
+        if (e.target.name === 'access') {
+            handleAccessChangeEach(row, e.target.checked, 'access');
+        } else {
+            if (e.target.checked) {
+                handleAccessChangeEach(row, e.target.checked, 'amount');
+            } else {
+                handleAccessChangeEach(row, e.target.checked, 'available');
+            }
+        }
     };
 
     const handleDragRowValue = (cell) => {
@@ -249,13 +240,46 @@ function EmployeeTab2(props) {
         );
     };
 
+    const handleClearAll = () => {
+        const depoSend = [];
+        stockPermissions.forEach((stock, i) => {
+            depoSend.push({ nr: stock.nr, type: '', priority: i + 1 });
+        });
+        fetchForAdminWithUpdateToast(
+            {
+                url: `${BACKEND_URL}/admin/employees/${id}/stockPermission`,
+                notifyMessage: 'Arassalanyar...',
+                updateMessage: 'Arassalandy',
+                body: depoSend,
+
+                method: 'PUT',
+            },
+            (data) => {
+                fetchStockPermissions();
+            }
+        );
+    };
+
     return (
         <div className="employee-tab2">
-            <SearchComponent
-                searchValue={searchValue}
-                handleInputChange={handleInputChange}
-                onSearchIconClick={onSearchIconClick}
-            />
+            <div className="employee-tab2-top">
+                <div className="employee-tab2-top-buttons">
+                    <Button variant="contained" onClick={handleClearAll}>
+                        Arassala
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => setIsEmployeeModalOpen(true)}
+                    >
+                        Kopyala
+                    </Button>
+                </div>
+                <SearchComponent
+                    searchValue={searchValue}
+                    handleInputChange={handleInputChange}
+                    onSearchIconClick={onSearchIconClick}
+                />
+            </div>
             {!afterSearch.length && !stockPermissions.length ? (
                 isError ? (
                     <ErrorComponent />
@@ -292,6 +316,8 @@ const mapDispatchToProps = (dispatch) => {
         setStockPermissionsEvents: (data) =>
             dispatch(setStockPermissionsEvents(data)),
         setStockPermissions: (data) => dispatch(setStockPermissions(data)),
+        setIsEmployeeModalOpen: (data) =>
+            dispatch(setIsEmployeeModalOpen(data)),
     };
 };
 

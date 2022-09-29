@@ -123,9 +123,12 @@ function DukandaVersionControl(props) {
     };
 
     const handleDownloadClick = (row) => {
+        let splitted = BACKEND_URL.split('/');
+        splitted.pop();
+        const BACKEND_URL_WITHOUT_API = splitted.join('/');
         fetchWithoutParams(
             {
-                url: `https://timar.com.tm/api/app/${row?.fileName}`,
+                url: `${BACKEND_URL_WITHOUT_API}/app/${row?.fileName}`,
                 method: 'GET',
             },
             (data) => console.log(data)
