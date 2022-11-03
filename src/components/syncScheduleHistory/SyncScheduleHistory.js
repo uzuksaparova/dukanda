@@ -29,7 +29,13 @@ const columns = [
         id: 'functionName',
         label: 'Funksiýa Ady',
         minWidth: 100,
-        align: 'left',
+        align: 'center',
+    },
+    {
+        id: 'employee',
+        label: 'Işgär',
+        minWidth: 200,
+        align: 'center',
     },
 
     {
@@ -149,6 +155,12 @@ function SyncScheduleHistory(props) {
             </div>
         ) : column.id === 'functionName' ? (
             functionTranslator(row[column.id])
+        ) : column.id === 'employee' ? (
+            'employee' in row && row[column.id] ? (
+                `${row.employee.firstName} ${row.employee.lastName}`
+            ) : (
+                ''
+            )
         ) : column.id === 'isQuickSync' ? (
             <div
                 className="chip-div"

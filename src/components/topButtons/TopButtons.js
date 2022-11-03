@@ -21,6 +21,7 @@ function TopButtons(props) {
         resetEnable = false,
         syncAllQuick = false,
     } = props;
+    const syncAccess = localStorage.getItem('syncAccess');
 
     return (
         <div className="top-buttons">
@@ -67,11 +68,7 @@ function TopButtons(props) {
             {sync ? (
                 <Tooltip title='Maglumaty "Tigerdan" täzele'>
                     <Button
-                        disabled={
-                            !authorization[decodedToken.role].includes(
-                                disabledValue
-                            )
-                        }
+                        disabled={syncAccess !== 'true'}
                         onClick={handleSyncClick}
                         className="save-button every-button"
                     >

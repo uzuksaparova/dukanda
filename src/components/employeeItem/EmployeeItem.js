@@ -58,31 +58,7 @@ function EmployeeItem(props) {
             (data) => {
                 setEmployeeData({ ...data });
                 setEmployeeImage({ local: false, image: data.image, send: '' });
-                const {
-                    id,
-                    role,
-                    firstName,
-                    lastName,
-                    userName,
-                    email,
-                    phoneNumber,
-                    divisions,
-                    active,
-                    tigerEmployeeId,
-                } = data;
-                var tempSendInfo = {
-                    id,
-                    role,
-                    firstName,
-                    lastName,
-                    userName,
-                    email,
-                    phoneNumber,
-                    divisions,
-                    active,
-                    tigerEmployeeId,
-                };
-                setEmployeeItemSendInfo(tempSendInfo);
+
                 if (add === 'add') {
                     setEmployeesData({
                         ...employeesData,
@@ -103,12 +79,62 @@ function EmployeeItem(props) {
                         data: tempAdminEmployeeInfo,
                     });
                 }
+                if (data.divisions && data.divisions.length) {
+                    data.divisions = data.divisions.map((d) => {
+                        return { value: d.id, label: d.name };
+                    });
+                }
+                const {
+                    id,
+                    role,
+                    firstName,
+                    lastName,
+                    userName,
+                    email,
+                    phoneNumber,
+                    divisions,
+                    active,
+                    tigerEmployeeId,
+                    qrClientCardShareAccess,
+                    syncAccess,
+                } = data;
+                var tempSendInfo = {
+                    id,
+                    role,
+                    firstName,
+                    lastName,
+                    userName,
+                    email,
+                    phoneNumber,
+                    divisions,
+                    active,
+                    tigerEmployeeId,
+                    qrClientCardShareAccess,
+                    syncAccess,
+                };
+                setEmployeeItemSendInfo(tempSendInfo);
             }
         );
     };
 
     useEffect(() => {
-        id && id !== '0' && fetchEmployeeId();
+        if (id && id !== '0') {
+            setEmployeeItemSendInfo({
+                id: '',
+                role: '',
+                firstName: '',
+                lastName: '',
+                userName: '',
+                email: '',
+                phoneNumber: '',
+                divisions: '',
+                active: true,
+                syncAccess: false,
+                qrClientCardShareAccess: false,
+                tigerEmployeeId: 'def',
+            });
+            fetchEmployeeId();
+        }
     }, []);
 
     const employeeImageChange = (e) => {
@@ -122,36 +148,54 @@ function EmployeeItem(props) {
             });
         }
     };
+    const emptyTranslate = (emptyValue) => {
+        switch (emptyValue) {
+            case 'role':
+                return 'Wezipesi';
+            case 'firstName':
+                return 'Ady';
+            case 'lastName':
+                return 'Familýasy';
+            case 'userName':
+                return 'Ulanyjy ady';
+            case 'email':
+                return 'E-poçta';
+            case 'phoneNumber':
+                return 'Telefon nomeri';
+            case 'divisions':
+                return 'Bölümi';
+            default:
+                return emptyValue;
+        }
+    };
 
     const onEmployeeSaveClick = () => {
-        var trues = [];
-        divisionCheckbox.forEach((w, i) => {
-            if (Object.values(w)[0]) {
-                trues.push(Number(Object.keys(w)[0]));
+        var tempEmployeeSendInfo = { ...employeeItemSendInfo };
+        tempEmployeeSendInfo.divisions = tempEmployeeSendInfo.divisions.map(
+            (div) => {
+                return div.value;
             }
-        });
-        var tempEmployeeSendInfo = employeeItemSendInfo;
-        tempEmployeeSendInfo.divisions = trues;
-        setEmployeeItemSendInfo({ ...tempEmployeeSendInfo });
-        const {
-            role,
-            firstName,
-            lastName,
-            userName,
-            email,
-            phoneNumber,
-            divisions,
-        } = employeeItemSendInfo;
-        if (
-            !role ||
-            !firstName ||
-            !lastName ||
-            !email ||
-            !phoneNumber ||
-            !userName ||
-            !divisions.length
-        ) {
-            notification('Açar sözünden başgasynyň doldurulmagy hökmany');
+        );
+        let emptyArrVal = [
+            'role',
+            'firstNames',
+            'lastName',
+            'userName',
+            'email',
+            'phoneNumber',
+            'divisions',
+        ];
+        emptyArrVal = emptyArrVal.filter((val) =>
+            val === 'divisions'
+                ? !employeeItemSendInfo.divisions.length
+                : employeeItemSendInfo[val] === ''
+        );
+        if (emptyArrVal.length) {
+            notification(
+                `Boş ýerleri dolduruň : ${emptyArrVal
+                    .map((v) => emptyTranslate(v))
+                    .join(', ')}`
+            );
         } else {
             const formData = new FormData();
             if (employeeImage.local) {
@@ -162,7 +206,7 @@ function EmployeeItem(props) {
             }
             for (var key in employeeItemSendInfo) {
                 if (key === 'divisions') {
-                    formData.append(key, `[${employeeItemSendInfo[key]}]`);
+                    formData.append(key, `[${tempEmployeeSendInfo[key]}]`);
                 } else {
                     formData.append(key, employeeItemSendInfo[key]);
                 }
@@ -172,8 +216,8 @@ function EmployeeItem(props) {
                     url: `${BACKEND_URL}/admin/employees/${
                         id === '0' ? '' : id
                     }`,
-                    notifyMessage: 'Saving...',
-                    updateMessage: 'Saved',
+                    notifyMessage: 'Çalışan bilgileri kaydediliyor...',
+                    updateMessage: 'Çalışan bilgileri kaydedildi',
                     body: formData,
                     headers: {
                         Authorization: bearer,
@@ -198,8 +242,8 @@ function EmployeeItem(props) {
         fetchForAdminWithUpdateToast(
             {
                 url: `${BACKEND_URL}/admin/employees/${id}/stockPermission`,
-                notifyMessage: 'Saving...',
-                updateMessage: 'Saved',
+                notifyMessage: 'Yetkiler kaydediliyor...',
+                updateMessage: 'Yetkiler kaydedildi',
                 body: depoSend,
                 headers: {
                     Authorization: bearer,

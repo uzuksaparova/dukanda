@@ -48,6 +48,7 @@ function EmployeeTab2(props) {
 
     const dragColumns = [
         { accessor: 'name', Header: 'Depo ady', minWidth: 100 },
+        { accessor: 'warehouseType', Header: 'Depo görnüşi', minWidth: 100 },
 
         {
             accessor: 'nr',
@@ -70,6 +71,7 @@ function EmployeeTab2(props) {
     ];
     const columns = [
         { id: 'name', label: 'Depo ady', minWidth: 100 },
+        { id: 'warehouseType', label: 'Depo görnüşi', minWidth: 100 },
 
         {
             id: 'nr',
@@ -113,12 +115,6 @@ function EmployeeTab2(props) {
     const handleAccessChangeEach = (row, checked, type) => {
         let tempAfterSearchDeposData = afterSearch;
         let tempDeposData = stockPermissions;
-        console.log(
-            row,
-            checked,
-            type,
-            !checked && type === 'access' ? '' : type
-        );
 
         tempDeposData = tempDeposData.map((depo) => {
             if (depo.id === row.id) {
@@ -200,6 +196,12 @@ function EmployeeTab2(props) {
                 }
                 label={`${row.original.type === 'amount' ? 'Bar' : 'Ýok'}`}
             />
+        ) : column.id === 'warehouseType' ? (
+            row.original?.warehouseType === 'real' ? (
+                'Hakyky'
+            ) : (
+                'Suni'
+            )
         ) : (
             cell.render('Cell')
         );
@@ -235,6 +237,12 @@ function EmployeeTab2(props) {
                 }
                 label={`${row.type === 'amount' ? 'Bar' : 'Ýok'}`}
             />
+        ) : column.id === 'warehouseType' ? (
+            row?.warehouseType === 'real' ? (
+                'Hakyky'
+            ) : (
+                'Suni'
+            )
         ) : (
             row[column.id]
         );

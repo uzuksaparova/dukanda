@@ -223,15 +223,6 @@ function TableButtonsComponent(props) {
                     className="tooltip"
                 >
                     <IconButton
-                        disabled={
-                            authorization[decodedToken.role].includes(
-                                disabledValue
-                            ) &&
-                            decodedToken.role !== 'operator' &&
-                            decodedToken.role !== 'moderator'
-                                ? false
-                                : true
-                        }
                         className="second-button"
                         onClick={() => handleQrClick(row)}
                         style={{

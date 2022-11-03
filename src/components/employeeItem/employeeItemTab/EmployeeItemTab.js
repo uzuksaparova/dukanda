@@ -18,6 +18,7 @@ import {
     setStockPermissions,
     setStockPermissionsEvents,
 } from '../../../redux/actions/employeeActions';
+import EmployeeTab3 from './employeeTabs/employeeTab3/EmployeeTab3';
 
 function TabContainer(props) {
     return <Typography component="div">{props.children}</Typography>;
@@ -30,9 +31,7 @@ function EmployeeItemTab(props) {
     const { id } = useParams();
 
     const {
-        setDivisionCheckbox,
         employeesData,
-        divisionCheckbox,
         employeeItemSendInfo,
         employeeImageRef,
         employeeImage,
@@ -47,7 +46,6 @@ function EmployeeItemTab(props) {
     const [tabValue, setTabValue] = useState(0);
     const [divisionInfo, setDivisionInfo] = useState([]);
     const [tigerEmployees, setTigerEmployees] = useState([]);
-    const [chipDivisionNames, setChipDivisionNames] = useState([]);
 
     const fetchStockPermissions = () => {
         fetchForAdmin(
@@ -73,8 +71,16 @@ function EmployeeItemTab(props) {
             }
         );
     };
+    const selectOptionProducer = (data, label, value) => {
+        return data.map((d) => {
+            return { value: d[value], label: d[label] };
+        });
+    };
 
     useEffect(() => {
+        if (!employeesData?.data.length) {
+            fetchEmployeesInfo(true);
+        }
         fetchForAdmin(
             {
                 url: `${BACKEND_URL}/admin/divisions`,
@@ -84,11 +90,10 @@ function EmployeeItemTab(props) {
                 var tempDiv = [];
                 data.forEach((div) => {
                     var obj = {};
-                    obj[div.id] = false;
+                    obj = { value: div.id, label: div.name };
                     tempDiv.push(obj);
                 });
-                setDivisionCheckbox(tempDiv);
-                setDivisionInfo(data);
+                setDivisionInfo(tempDiv);
             }
         );
         fetchForAdmin(
@@ -97,31 +102,14 @@ function EmployeeItemTab(props) {
                 method: 'GET',
             },
             (data) => {
+                data = selectOptionProducer(data, 'name', 'id');
                 setTigerEmployees(data);
             }
         );
         fetchStockPermissions();
-        if (!employeesData?.data.length) {
-            fetchEmployeesInfo(true);
-        }
+
         // eslint-disable-next-line
     }, []);
-
-    useEffect(() => {
-        let tempDiv = divisionCheckbox;
-        var chipNames = [];
-        employeeItemSendInfo?.divisions?.forEach((d, i) => {
-            chipNames.push(d?.name);
-            tempDiv.forEach((t, i) => {
-                if (Number(d.id) === Number(Object.keys(t)[0])) {
-                    t[d.id] = true;
-                }
-            });
-        });
-        setChipDivisionNames(chipNames);
-        setDivisionCheckbox([...tempDiv]);
-        // eslint-disable-next-line
-    }, [employeeItemSendInfo.divisions, divisionInfo]);
 
     const handleTabChange = (event, value) => {
         setTabValue(value);
@@ -139,15 +127,12 @@ function EmployeeItemTab(props) {
                 >
                     <Tab label={<span>Maglumat</span>} />
                     <Tab label={<span>Stoklara yetki</span>} />
+                    <Tab label={<span>Beýleki yetkiler</span>} />
                 </Tabs>
             </AppBar>
             {tabValue === 0 && (
                 <TabContainer>
                     <EmployeeTab1
-                        divisionCheckbox={divisionCheckbox}
-                        setDivisionCheckbox={setDivisionCheckbox}
-                        chipDivisionNames={chipDivisionNames}
-                        setChipDivisionNames={setChipDivisionNames}
                         employeeImageRef={employeeImageRef}
                         employeeImage={employeeImage}
                         employeeImageChange={employeeImageChange}
@@ -169,6 +154,11 @@ function EmployeeItemTab(props) {
                     <EmployeeTab2
                         fetchStockPermissions={fetchStockPermissions}
                     />
+                </TabContainer>
+            )}
+            {tabValue === 2 && (
+                <TabContainer>
+                    <EmployeeTab3 divisionInfo={divisionInfo} />
                 </TabContainer>
             )}
         </div>

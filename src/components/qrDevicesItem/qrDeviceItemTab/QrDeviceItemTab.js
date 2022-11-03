@@ -10,6 +10,7 @@ import QrTab1 from './qrTabs/qrTab1/QrTab1';
 import QrTab2 from './qrTabs/qrTab2/QrTab2';
 import { BACKEND_URL, fetchWithParams } from '../../../functions';
 import { useParams } from 'react-router-dom';
+import dateFormat from 'dateformat';
 
 function TabContainer(props) {
     return <Typography component="div">{props.children}</Typography>;
@@ -44,6 +45,12 @@ function QrDeviceItemTab(props) {
                     : { ...qrDeviceItemSendInfo },
             },
             (data) => {
+                data.forEach((dvc) => {
+                    dvc.createdAt = dateFormat(
+                        dvc.createdAt,
+                        'yyyy-mm-dd HH:MM'
+                    );
+                });
                 let tempQrDeviceItemData = qrDeviceItemData;
                 if (firstTime) {
                     tempQrDeviceItemData.data = data;

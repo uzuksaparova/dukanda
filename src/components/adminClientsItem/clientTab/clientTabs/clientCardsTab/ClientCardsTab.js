@@ -27,6 +27,9 @@ function ClientCardsTab(props) {
         qrDevicesData,
         decodedToken,
     } = props;
+    const qrClientCardShareAccess = localStorage.getItem(
+        'qrClientCardShareAccess'
+    );
     const [isClientQrModalOpen, setIsClientQrModalOpen] = useState(false);
     const [qrObject, setQrObject] = useState({});
     const [isClientCardCounterModalOpen, setIsClientCardCounterModalOpen] =
@@ -141,7 +144,9 @@ function ClientCardsTab(props) {
             <TableButtonsComponent
                 disabledValue="updateClient"
                 handleDevicesClick={handleDevicesClick}
-                handleQrClick={handleQrClick}
+                handleQrClick={
+                    qrClientCardShareAccess === 'true' ? handleQrClick : ''
+                }
                 row={row}
             />
         );

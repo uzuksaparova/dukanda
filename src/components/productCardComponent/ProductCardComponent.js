@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { FiExternalLink } from 'react-icons/fi';
+import { FaClock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { BACKEND_URL } from '../../functions';
 import brokenImage from '../../images/brokenImage.png';
@@ -28,10 +29,13 @@ function ProductCardComponent(props) {
         inQrDevice = false,
     } = props;
 
-    const oneRow = (icon, name, value) => {
+    const oneRow = (icon, name, value, createdAt = false) => {
         return (
             <div className="one-line">
-                <div className="row-left">
+                <div
+                    className="row-left"
+                    style={{ alignItems: createdAt ? 'flex-start' : 'center' }}
+                >
                     {icon}
                     <span className="key-names">{name} :</span>
                 </div>
@@ -134,6 +138,12 @@ function ProductCardComponent(props) {
                                 <BsCreditCardFill />,
                                 'Kart no',
                                 card.cardNo
+                            )}
+                            {oneRow(
+                                <FaClock />,
+                                'Gyzyklanan wagty',
+                                card.createdAt,
+                                true
                             )}
                         </>
                     ) : null}

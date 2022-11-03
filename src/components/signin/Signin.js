@@ -89,6 +89,11 @@ function Signin({ setDecodedToken }) {
                         setDecodedToken(decoded);
                         Cookies.set('admin_token', data.token, { expires: 1 });
                         localStorage.setItem('full_name', data.fullName);
+                        localStorage.setItem('syncAccess', data.syncAccess);
+                        localStorage.setItem(
+                            'qrClientCardShareAccess',
+                            data.qrClientCardShareAccess
+                        );
                         localStorage.setItem('image', data.image);
                         if (Object.keys(data).length) {
                             newLocation('/welcomePage');
@@ -108,6 +113,8 @@ function Signin({ setDecodedToken }) {
 
     useEffect(() => {
         Cookies.remove('admin_token');
+        localStorage.removeItem('qrClientCardShareAccess');
+        localStorage.removeItem('syncAccess');
         // eslint-disable-next-line
     }, []);
 

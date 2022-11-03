@@ -165,10 +165,7 @@ function EmployeeModal(props) {
                     tempSelectedEmployees.push(emp.id);
                 }
             });
-            console.log({
-                employeeIds: tempSelectedEmployees,
-                stockPermissions: depoSend,
-            });
+
             fetchForAdminWithUpdateToast(
                 {
                     url: `${BACKEND_URL}/admin/employees/stockPermission`,

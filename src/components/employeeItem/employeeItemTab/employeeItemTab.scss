@@ -8,6 +8,19 @@ $primary_color: #e9601f;
         padding: 10px 10px 0 30px;
         box-sizing: border-box !important;
     }
+    .react-select-container {
+        width: 300px;
+        .react-select__control {
+            &:hover {
+                border-color: $primary_color;
+                box-shadow: 0 0 0 1px $primary_color;
+            }
+        }
+        .react-select__control--is-focused {
+            border-color: $primary_color;
+            box-shadow: 0 0 0 1px $primary_color;
+        }
+    }
 }
 .MuiPaper-elevation4 {
     box-shadow: 0 0px 20px -10px rgba(150, 170, 180, 0.5) !important;

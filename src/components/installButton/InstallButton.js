@@ -8,7 +8,6 @@ const InstallButton = () => {
 
     useEffect(() => {
         const handler = (e) => {
-            console.log('in handler');
             e.preventDefault();
             setSupportsPWA(true);
             setPromptInstall(e);

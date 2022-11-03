@@ -15,7 +15,10 @@ import { GiPalette } from 'react-icons/gi';
 import { BACKEND_URL, fetchEmployeesInfo } from '../../functions';
 import { connect } from 'react-redux';
 import { setSidebarSearchValue } from '../../redux/actions/sidebarActions';
-import { setEmployeeData } from '../../redux/actions/employeeActions';
+import {
+    setEmployeeData,
+    setEmployeeItemSendInfo,
+} from '../../redux/actions/employeeActions';
 import ErrorComponent from '../errorComponent/ErrorComponent';
 import EmptyComponent from '../emptyComponent/EmptyComponent';
 import AddItemComponent from '../addItemComponent/AddItemComponent';
@@ -62,6 +65,7 @@ function AdminEmployees(props) {
         setSidebarSearchValue,
         isSidebarOpen,
         setEmployeeData,
+        setEmployeeItemSendInfo,
         isError,
     } = props;
     const { data, isEnd, noData } = employeesData;
@@ -75,7 +79,7 @@ function AdminEmployees(props) {
     }, []);
 
     const handleEmployeeAdd = () => {
-        setEmployeeData({
+        setEmployeeItemSendInfo({
             id: '',
             role: '',
             firstName: '',
@@ -85,6 +89,9 @@ function AdminEmployees(props) {
             phoneNumber: '',
             divisions: '',
             active: true,
+            syncAccess: false,
+            qrClientCardShareAccess: false,
+            tigerEmployeeId: '',
         });
     };
 
@@ -211,6 +218,8 @@ const mapDispatchToProps = (dispatch) => {
         setSidebarSearchValue: (value) =>
             dispatch(setSidebarSearchValue(value)),
         setEmployeeData: (value) => dispatch(setEmployeeData(value)),
+        setEmployeeItemSendInfo: (value) =>
+            dispatch(setEmployeeItemSendInfo(value)),
     };
 };
 

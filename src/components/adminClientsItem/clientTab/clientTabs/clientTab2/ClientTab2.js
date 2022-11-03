@@ -251,7 +251,6 @@ function ClientTab2(props) {
                                             ...clientItemSendInfo,
                                             fixedDivision: !e.target.checked,
                                         });
-                                        console.log(e.target.checked);
                                     }}
                                     name="fixedDivision"
                                 />

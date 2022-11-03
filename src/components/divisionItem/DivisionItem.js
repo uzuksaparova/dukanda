@@ -18,9 +18,9 @@ import {
 } from '../../redux/actions/divisionActions';
 import { connect } from 'react-redux';
 import DivisionTab1 from './tabs/AddressTab';
-import DivisionTab2 from './tabs/entegrasyonTab/EntegrasyonTab';
+import EntegrasyonTab from './tabs/entegrasyonTab/EntegrasyonTab';
 import DivisionTop from './divisionTop/DivisionTop';
-import DivisionTab3 from './tabs/DivisionQrTab/DivisionQrTab';
+import DivisionQrTab from './tabs/divisionQrTab/DivisionQrTab';
 
 function DivisionItem(props) {
     const { id } = useParams();
@@ -102,12 +102,12 @@ function DivisionItem(props) {
 
                     {divisionTabValue === 1 && (
                         <TabContainer>
-                            <DivisionTab2 clientChip={clientChip} />
+                            <EntegrasyonTab clientChip={clientChip} />
                         </TabContainer>
                     )}
                     {divisionTabValue === 2 && (
                         <TabContainer>
-                            <DivisionTab3 />
+                            <DivisionQrTab />
                         </TabContainer>
                     )}
                 </div>

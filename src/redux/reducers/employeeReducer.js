@@ -24,6 +24,9 @@ const intialItemUpdateState = {
     phoneNumber: '',
     divisions: [],
     active: true,
+    syncAccess: false,
+    qrClientCardShareAccess: false,
+    tigerEmployeeId: 'def',
 };
 
 const initialStockPermissionsEventsState = {

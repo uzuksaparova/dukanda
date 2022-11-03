@@ -73,16 +73,34 @@ function DivisionTop(props) {
     const addDivisionImageClickReferencing = () => {
         divisionImageRef.current.click();
     };
+    const emptyTranslate = (emptyValue) => {
+        switch (emptyValue) {
+            case 'code':
+                return 'Kody';
+            case 'name':
+                return 'Ady';
+            case 'address':
+                return 'Adres';
+
+            case 'clientId':
+                return 'Torba Cari';
+            default:
+                return emptyValue;
+        }
+    };
 
     const onDivisionSaveClick = () => {
-        if (
-            !divisionItemSendInfo.code ||
-            !divisionItemSendInfo.nr ||
-            !divisionItemSendInfo.name ||
-            !divisionItemSendInfo.address ||
-            !divisionItemSendInfo.clientId
-        ) {
-            notification('Boş ýerleri dolduruň');
+        let emptyArrVal = ['code', 'nr', 'name', 'address', 'clientId'];
+        emptyArrVal = emptyArrVal.filter(
+            (val) => divisionItemSendInfo[val] === ''
+        );
+
+        if (emptyArrVal.length) {
+            notification(
+                `Boş ýerleri dolduruň : ${emptyArrVal
+                    .map((v) => emptyTranslate(v))
+                    .join(', ')}`
+            );
         } else {
             const formData = new FormData();
             if (divisionImage.local) {

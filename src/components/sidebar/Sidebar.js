@@ -87,6 +87,7 @@ import {
     handleGroupResetButton,
     handleProductResetButton,
     fetchQrDevicesInfo,
+    roleTranslator,
 } from '../../functions';
 
 import version from '../../version.js';
@@ -198,6 +199,7 @@ function Sidebar(props) {
     const classes = useStyles();
     const theme = useTheme();
     let useelocation = useLocation();
+    const syncAccess = localStorage.getItem('syncAccess');
 
     const [groupsCollapseOpen, setGroupsCollapseOpen] = useState(false);
     const [clientsCollapseOpen, setClientsCollapseOpen] = useState(false);
@@ -360,12 +362,15 @@ function Sidebar(props) {
                     method: 'GET',
                 },
                 (data) => {
-                    setRoles([...data]);
                     var temp = {};
                     data.forEach((role) => {
                         temp[role] = true;
                     });
                     setRolesSend({ ...temp });
+                    let rolesData = data.map((d) => {
+                        return { value: d, label: roleTranslator(d) };
+                    });
+                    setRoles([...rolesData]);
                 }
             );
 
@@ -505,7 +510,7 @@ function Sidebar(props) {
                     ) : null}
 
                     {/* gruplar */}
-                    {authorization[decodedToken.role].includes('groups') ? (
+                    {/* {authorization[decodedToken.role].includes('groups') ? (
                         <>
                             <ListItem
                                 button
@@ -573,7 +578,7 @@ function Sidebar(props) {
                                 </List>
                             </Collapse>
                         </>
-                    ) : null}
+                    ) : null} */}
                     {/* employees */}
                     {authorization[decodedToken.role].includes('employees') ? (
                         <ListItem
@@ -660,7 +665,7 @@ function Sidebar(props) {
                         </ListItem>
                     ) : null}
                     {/* brands */}
-                    {authorization[decodedToken.role].includes('brands') ? (
+                    {/* {authorization[decodedToken.role].includes('brands') ? (
                         <ListItem
                             component={Link}
                             to="/brands"
@@ -672,9 +677,9 @@ function Sidebar(props) {
                             </ListItemIcon>
                             <ListItemText primary={'Brendler'} />
                         </ListItem>
-                    ) : null}
+                    ) : null} */}
                     {/* units */}
-                    {authorization[decodedToken.role].includes('units') ? (
+                    {/* {authorization[decodedToken.role].includes('units') ? (
                         <ListItem
                             component={Link}
                             to="/units"
@@ -686,9 +691,9 @@ function Sidebar(props) {
                             </ListItemIcon>
                             <ListItemText primary={'Birimler'} />
                         </ListItem>
-                    ) : null}
+                    ) : null} */}
                     {/* syncs */}
-                    {authorization[decodedToken.role].includes('syncs') ? (
+                    {syncAccess === 'true' ? (
                         <>
                             <ListItem
                                 button
