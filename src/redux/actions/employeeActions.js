@@ -49,3 +49,9 @@ export const setStockPermissionsEvents = (permissions) => {
         payload: permissions,
     };
 };
+export const setEmployeeEmptyValues = (permissions) => {
+    return {
+        type: 'SET_EMPLOYEE_EMPTY_VALUES',
+        payload: permissions,
+    };
+};

@@ -8,6 +8,7 @@ $primary_icon_color: #938f8f;
     }
 
     .MuiAppBar-colorPrimary {
+        height: unset;
         background-color: #fff !important;
         color: $primary_color !important;
     }

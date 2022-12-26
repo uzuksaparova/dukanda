@@ -67,3 +67,12 @@ export const isDivisionClientModalOpen = (
             return state;
     }
 };
+
+export const emptyValues = (state = { emptyValues: [] }, action) => {
+    switch (action.type) {
+        case 'SET_EMPTY_VALUES':
+            return { ...state, emptyValues: action.payload };
+        default:
+            return state;
+    }
+};

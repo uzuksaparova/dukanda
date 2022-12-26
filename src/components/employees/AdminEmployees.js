@@ -79,6 +79,7 @@ function AdminEmployees(props) {
     }, []);
 
     const handleEmployeeAdd = () => {
+        setEmployeeData({});
         setEmployeeItemSendInfo({
             id: '',
             role: '',
@@ -90,7 +91,9 @@ function AdminEmployees(props) {
             divisions: '',
             active: true,
             syncAccess: false,
+            productAnalyzeAccess: false,
             qrClientCardShareAccess: false,
+            barcodePrintAccess: false,
             tigerEmployeeId: '',
         });
     };
@@ -195,11 +198,11 @@ function AdminEmployees(props) {
                     isRowClickable={true}
                 />
             )}
-            <AddItemComponent
+            {/* <AddItemComponent
                 disabledValue="updateEmployee"
                 onClickHandler={handleEmployeeAdd}
                 pathname={`/employees/0`}
-            />
+            /> */}
         </div>
     );
 }

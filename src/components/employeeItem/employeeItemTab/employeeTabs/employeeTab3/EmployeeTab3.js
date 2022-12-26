@@ -1,12 +1,16 @@
 import React from 'react';
 import { FaBuilding } from 'react-icons/fa';
-import { AiOutlineSync } from 'react-icons/ai';
+import { AiOutlinePrinter, AiOutlineSync } from 'react-icons/ai';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { setEmployeeItemSendInfo } from '../../../../../redux/actions/employeeActions';
+import {
+    setEmployeeEmptyValues,
+    setEmployeeItemSendInfo,
+} from '../../../../../redux/actions/employeeActions';
 import { default as ReactSelect } from 'react-select';
 import { MdOutlineQrCodeScanner } from 'react-icons/md';
 import { HiOutlineBriefcase } from 'react-icons/hi';
+import { FaSearch } from 'react-icons/fa';
 import './employeeTab3.scss';
 
 function EmployeeTab3(props) {
@@ -15,6 +19,8 @@ function EmployeeTab3(props) {
         divisionInfo,
         setEmployeeItemSendInfo,
         roles,
+        employeeEmptyValues,
+        setEmployeeEmptyValues,
     } = props;
 
     const getDefaultValue = (defaultValue, options, multiple) => {
@@ -41,6 +47,9 @@ function EmployeeTab3(props) {
                 [type]: e,
             });
         }
+        let tempEmptyValues = employeeEmptyValues;
+        tempEmptyValues = tempEmptyValues.filter((v) => v !== type);
+        setEmployeeEmptyValues(tempEmptyValues);
     };
 
     const employeeSelectRow = (
@@ -75,6 +84,17 @@ function EmployeeTab3(props) {
                             isMulti={multiple}
                         />
                     ) : null}
+                    {employeeEmptyValues.includes(type) ? (
+                        <span
+                            style={{
+                                marginTop: '5px',
+                                color: 'red',
+                                fontSize: 13,
+                            }}
+                        >
+                            **{leftName} saýlanmadyk!
+                        </span>
+                    ) : null}
                 </div>
             </div>
         );
@@ -88,7 +108,6 @@ function EmployeeTab3(props) {
                     <span>{leftName}</span>
                 </div>
                 <div className="right">
-                    {console.log(employeeItemSendInfo)}
                     <FormControlLabel
                         sx={{ height: '15px !important' }}
                         control={
@@ -102,7 +121,7 @@ function EmployeeTab3(props) {
                                 }
                             />
                         }
-                        label={leftName}
+                        label={employeeItemSendInfo[type] ? 'Bar' : 'Ýok'}
                     />
                 </div>
             </div>
@@ -120,6 +139,16 @@ function EmployeeTab3(props) {
                 <AiOutlineSync className="employee-icon" />,
                 'Sinhronlamak',
                 'syncAccess'
+            )}
+            {employeeCheckboxRow(
+                <FaSearch className="employee-icon" />,
+                'Haryt Analizyna yetki',
+                'productAnalyzeAccess'
+            )}
+            {employeeCheckboxRow(
+                <AiOutlinePrinter className="employee-icon" />,
+                'Barkod çap etmek',
+                'barcodePrintAccess'
             )}
             {employeeSelectRow(
                 <HiOutlineBriefcase className="employee-icon" />,
@@ -146,6 +175,7 @@ const mapStateToProps = (state) => {
         roles: state.roles.roles,
         employeesData: state.employeesData,
         employeeItemSendInfo: state.employeeItemSendInfo,
+        employeeEmptyValues: state.employeeEmptyValues.employeeEmptyValues,
     };
 };
 
@@ -153,6 +183,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setEmployeeItemSendInfo: (info) =>
             dispatch(setEmployeeItemSendInfo(info)),
+        setEmployeeEmptyValues: (info) =>
+            dispatch(setEmployeeEmptyValues(info)),
     };
 };
 

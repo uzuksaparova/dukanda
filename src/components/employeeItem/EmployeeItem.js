@@ -13,6 +13,7 @@ import {
 } from '../../functions';
 import {
     setEmployeeData,
+    setEmployeeEmptyValues,
     setEmployeeItemSendInfo,
     setEmployeesData,
 } from '../../redux/actions/employeeActions';
@@ -42,11 +43,11 @@ function EmployeeItem(props) {
         employeeItemSendInfo,
         setEmployeeItemSendInfo,
         stockPermissions,
+        setEmployeeEmptyValues,
     } = props;
 
     const [employeeImage, setEmployeeImage] = useState('');
     const [employeePassword, setEmployeePassword] = useState('');
-    const [divisionCheckbox, setDivisionCheckbox] = useState([]);
     const employeeImageRef = useRef(null);
 
     const fetchEmployeeId = (iddd = id, add) => {
@@ -58,7 +59,6 @@ function EmployeeItem(props) {
             (data) => {
                 setEmployeeData({ ...data });
                 setEmployeeImage({ local: false, image: data.image, send: '' });
-
                 if (add === 'add') {
                     setEmployeesData({
                         ...employeesData,
@@ -97,6 +97,8 @@ function EmployeeItem(props) {
                     tigerEmployeeId,
                     qrClientCardShareAccess,
                     syncAccess,
+                    productAnalyzeAccess,
+                    barcodePrintAccess,
                 } = data;
                 var tempSendInfo = {
                     id,
@@ -111,6 +113,8 @@ function EmployeeItem(props) {
                     tigerEmployeeId,
                     qrClientCardShareAccess,
                     syncAccess,
+                    productAnalyzeAccess,
+                    barcodePrintAccess,
                 };
                 setEmployeeItemSendInfo(tempSendInfo);
             }
@@ -130,11 +134,16 @@ function EmployeeItem(props) {
                 divisions: '',
                 active: true,
                 syncAccess: false,
+                productAnalyzeAccess: false,
                 qrClientCardShareAccess: false,
+                barcodePrintAccess: false,
                 tigerEmployeeId: 'def',
             });
             fetchEmployeeId();
         }
+        return () => {
+            setEmployeeEmptyValues([]);
+        };
     }, []);
 
     const employeeImageChange = (e) => {
@@ -168,17 +177,18 @@ function EmployeeItem(props) {
                 return emptyValue;
         }
     };
-
     const onEmployeeSaveClick = () => {
+        console.log(employeeItemSendInfo);
         var tempEmployeeSendInfo = { ...employeeItemSendInfo };
-        tempEmployeeSendInfo.divisions = tempEmployeeSendInfo.divisions.map(
-            (div) => {
-                return div.value;
-            }
-        );
+        if (tempEmployeeSendInfo.divisions)
+            tempEmployeeSendInfo.divisions = tempEmployeeSendInfo.divisions.map(
+                (div) => {
+                    return div.value;
+                }
+            );
         let emptyArrVal = [
             'role',
-            'firstNames',
+            'firstName',
             'lastName',
             'userName',
             'email',
@@ -190,6 +200,7 @@ function EmployeeItem(props) {
                 ? !employeeItemSendInfo.divisions.length
                 : employeeItemSendInfo[val] === ''
         );
+        setEmployeeEmptyValues(emptyArrVal);
         if (emptyArrVal.length) {
             notification(
                 `Boş ýerleri dolduruň : ${emptyArrVal
@@ -335,8 +346,6 @@ function EmployeeItem(props) {
                 />
             </div>
             <EmployeeItemTab
-                setDivisionCheckbox={setDivisionCheckbox}
-                divisionCheckbox={divisionCheckbox}
                 employeeImageRef={employeeImageRef}
                 employeeImage={employeeImage}
                 employeeImageChange={employeeImageChange}
@@ -373,6 +382,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setEmployeesData: (data) => dispatch(setEmployeesData(data)),
         setEmployeeData: (value) => dispatch(setEmployeeData(value)),
+        setEmployeeEmptyValues: (value) =>
+            dispatch(setEmployeeEmptyValues(value)),
         setEmployeeItemSendInfo: (value) =>
             dispatch(setEmployeeItemSendInfo(value)),
     };

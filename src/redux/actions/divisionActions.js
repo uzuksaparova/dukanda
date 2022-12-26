@@ -29,3 +29,9 @@ export const setDivisionItemSendInfo = (info) => {
         payload: info,
     };
 };
+export const setEmptyValues = (info) => {
+    return {
+        type: 'SET_EMPTY_VALUES',
+        payload: info,
+    };
+};

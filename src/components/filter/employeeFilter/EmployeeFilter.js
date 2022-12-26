@@ -146,25 +146,26 @@ function EmployeeFilter(props) {
                                                                       checked={
                                                                           rolesSend[
                                                                               role
+                                                                                  .value
                                                                           ]
                                                                               ? rolesSend[
                                                                                     role
+                                                                                        .value
                                                                                 ]
                                                                               : false
                                                                       }
                                                                       defaultValue={
                                                                           rolesSend[
                                                                               role
+                                                                                  .value
                                                                           ]
                                                                       }
                                                                       name={
-                                                                          role
+                                                                          role.value
                                                                       }
                                                                   />
                                                               }
-                                                              label={roleTranslator(
-                                                                  role
-                                                              )}
+                                                              label={role.label}
                                                           />
                                                       </MenuItem>
                                                   </div>

@@ -10,6 +10,7 @@ import {
     setDivisionData,
     setDivisionItemSendInfo,
     setDivisionsData,
+    setEmptyValues,
 } from '../../../redux/actions/divisionActions';
 import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -31,6 +32,7 @@ function DivisionTop(props) {
         divisionData,
         setDivisionItemSendInfo,
         setDivisionsData,
+        setEmptyValues,
     } = props;
     const divisionImageRef = useRef(null);
 
@@ -84,6 +86,7 @@ function DivisionTop(props) {
 
             case 'clientId':
                 return 'Torba Cari';
+
             default:
                 return emptyValue;
         }
@@ -92,8 +95,11 @@ function DivisionTop(props) {
     const onDivisionSaveClick = () => {
         let emptyArrVal = ['code', 'nr', 'name', 'address', 'clientId'];
         emptyArrVal = emptyArrVal.filter(
-            (val) => divisionItemSendInfo[val] === ''
+            (val) =>
+                divisionItemSendInfo[val] === '' ||
+                divisionItemSendInfo[val] === null
         );
+        setEmptyValues(emptyArrVal);
 
         if (emptyArrVal.length) {
             notification(
@@ -224,6 +230,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(setDivisionItemSendInfo(info)),
         setDivisionsData: (data) => dispatch(setDivisionsData(data)),
         setDivisionData: (data) => dispatch(setDivisionData(data)),
+        setEmptyValues: (data) => dispatch(setEmptyValues(data)),
     };
 };
 

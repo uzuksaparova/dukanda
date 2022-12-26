@@ -8,6 +8,10 @@ $primary_color: #e9601f;
         padding: 10px 10px 0 30px;
         box-sizing: border-box !important;
     }
+    .MuiBadge-badge {
+        top: 3px;
+        right: -5px;
+    }
     .react-select-container {
         width: 300px;
         .react-select__control {

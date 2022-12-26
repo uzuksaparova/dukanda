@@ -19,6 +19,7 @@ import {
     setStockPermissionsEvents,
 } from '../../../redux/actions/employeeActions';
 import EmployeeTab3 from './employeeTabs/employeeTab3/EmployeeTab3';
+import { Badge } from '@mui/material';
 
 function TabContainer(props) {
     return <Typography component="div">{props.children}</Typography>;
@@ -42,6 +43,7 @@ function EmployeeItemTab(props) {
         handleEmployeeImageDeleteButton,
         setStockPermissions,
         setStockPermissionsEvents,
+        employeeEmptyValues,
     } = props;
     const [tabValue, setTabValue] = useState(0);
     const [divisionInfo, setDivisionInfo] = useState([]);
@@ -115,6 +117,24 @@ function EmployeeItemTab(props) {
         setTabValue(value);
     };
 
+    const badgeHandler = (checkValues, name) => {
+        let show = employeeEmptyValues.some((a) => checkValues.includes(a));
+        return show ? (
+            <Badge
+                color="error"
+                variant="dot"
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                {name}
+            </Badge>
+        ) : (
+            <span>{name}</span>
+        );
+    };
+
     return (
         <div className="employee-item-tab">
             <AppBar position="static" color="default">
@@ -125,9 +145,25 @@ function EmployeeItemTab(props) {
                     variant="scrollable"
                     scrollButtons={true}
                 >
-                    <Tab label={<span>Maglumat</span>} />
+                    <Tab
+                        label={badgeHandler(
+                            [
+                                'firstName',
+                                'lastName',
+                                'userName',
+                                'email',
+                                'phoneNumber',
+                            ],
+                            'Maglumat'
+                        )}
+                    />
                     <Tab label={<span>Stoklara yetki</span>} />
-                    <Tab label={<span>Beýleki yetkiler</span>} />
+                    <Tab
+                        label={badgeHandler(
+                            ['divisions', 'role'],
+                            'Beýleki yetkiler'
+                        )}
+                    />
                 </Tabs>
             </AppBar>
             {tabValue === 0 && (
@@ -169,6 +205,7 @@ const mapStateToProps = (state) => {
     return {
         employeeData: state.employeeData.employeeData,
         isSidebarOpen: state.isSidebarOpen.isSidebarOpen,
+        employeeEmptyValues: state.employeeEmptyValues.employeeEmptyValues,
         employeesData: state.employeesData,
         employeeItemSendInfo: state.employeeItemSendInfo,
     };

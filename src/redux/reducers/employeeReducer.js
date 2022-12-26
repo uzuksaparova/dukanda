@@ -26,6 +26,8 @@ const intialItemUpdateState = {
     active: true,
     syncAccess: false,
     qrClientCardShareAccess: false,
+    productAnalyzeAccess: false,
+    barcodePrintAccess: false,
     tigerEmployeeId: 'def',
 };
 
@@ -111,6 +113,20 @@ export const stockPermissionsEvents = (
             return {
                 ...state,
                 ...action.payload,
+            };
+        default:
+            return state;
+    }
+};
+export const employeeEmptyValues = (
+    state = { employeeEmptyValues: [] },
+    action
+) => {
+    switch (action.type) {
+        case 'SET_EMPLOYEE_EMPTY_VALUES':
+            return {
+                ...state,
+                employeeEmptyValues: action.payload,
             };
         default:
             return state;

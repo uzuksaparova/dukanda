@@ -24,6 +24,7 @@ import {
     employeeItemSendInfo,
     stockPermissions,
     stockPermissionsEvents,
+    employeeEmptyValues,
 } from './employeeReducer';
 import { brandsData, brandData, brandIds, brandSendInfo } from './brandReducer';
 
@@ -55,6 +56,7 @@ import {
     divisionSendInfo,
     isDivisionClientModalOpen,
     divisionItemSendInfo,
+    emptyValues,
 } from './divisionReducer';
 
 import {
@@ -146,6 +148,7 @@ export default combineReducers({
     employeeItemSendInfo,
     stockPermissions,
     stockPermissionsEvents,
+    employeeEmptyValues,
 
     roles,
     brandsData,
@@ -174,9 +177,8 @@ export default combineReducers({
     divisionsData,
     divisionData,
     divisionSendInfo,
-
+    emptyValues,
     divisionItemSendInfo,
-
     isDivisionClientModalOpen,
     syncHistoryData,
     syncHistoriesData,

@@ -99,6 +99,7 @@ $primary_font_color: rgb(55, 53, 47);
             align-items: center;
 
             .employee-icon {
+                fill: #7e7c7c !important;
                 margin-right: 8px;
             }
         }
@@ -187,9 +188,9 @@ $primary_font_color: rgb(55, 53, 47);
         }
 
         .employee-body {
-            height: calc(100% - 30px);
             overflow: auto;
             padding-top: 10px;
+            height: calc(100% - 30px);
         }
 
         .employee-one-row {

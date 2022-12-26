@@ -15,12 +15,14 @@ import {
 import {
     setDivisionData,
     setDivisionItemSendInfo,
+    setEmptyValues,
 } from '../../redux/actions/divisionActions';
 import { connect } from 'react-redux';
 import DivisionTab1 from './tabs/AddressTab';
 import EntegrasyonTab from './tabs/entegrasyonTab/EntegrasyonTab';
 import DivisionTop from './divisionTop/DivisionTop';
 import DivisionQrTab from './tabs/divisionQrTab/DivisionQrTab';
+import { Badge } from '@mui/material';
 
 function DivisionItem(props) {
     const { id } = useParams();
@@ -29,6 +31,8 @@ function DivisionItem(props) {
         divisionsData,
         isSidebarOpen,
         setDivisionItemSendInfo,
+        emptyValues,
+        setEmptyValues,
     } = props;
 
     const { data } = divisionsData;
@@ -54,8 +58,27 @@ function DivisionItem(props) {
                 setDivisionData({ ...data });
                 setDivisionImage({ local: false, image: data.image, send: '' });
                 setClientChip(data?.client?.name);
+                const {
+                    active,
+                    code,
+                    name,
+                    address,
+                    nr,
+                    clientId,
+                    QRLocalServerUrl,
+                    firmUUID,
+                    client,
+                } = data;
                 setDivisionItemSendInfo({
-                    ...data,
+                    active,
+                    code,
+                    name,
+                    address,
+                    nr,
+                    clientId,
+                    QRLocalServerUrl,
+                    firmUUID,
+                    client,
                     longitude: '156.35',
                     latitude: '841.564',
                 });
@@ -68,8 +91,29 @@ function DivisionItem(props) {
         id && id !== '0' && fetchDivisionId();
         !data.length && fetchDivisionsInfo(true);
 
+        return () => {
+            setEmptyValues([]);
+        };
+
         // eslint-disable-next-line
     }, []);
+    const badgeHandler = (checkValues, name) => {
+        let show = emptyValues.some((a) => checkValues.includes(a));
+        return show ? (
+            <Badge
+                color="error"
+                variant="dot"
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                {name}
+            </Badge>
+        ) : (
+            <span>{name}</span>
+        );
+    };
 
     return (
         <div className={`division-item ${isSidebarOpen ? 'sidebar-open' : ''}`}>
@@ -87,8 +131,18 @@ function DivisionItem(props) {
                         textColor="secondary"
                         variant="scrollable"
                     >
-                        <Tab label={<span>Salgy</span>} />
-                        <Tab label={<span>Entegrasyon</span>} />
+                        <Tab
+                            label={badgeHandler(
+                                ['code', 'name', 'address'],
+                                'Salgy'
+                            )}
+                        />
+                        <Tab
+                            label={badgeHandler(
+                                ['nr', 'clientId'],
+                                'Entegrasyon'
+                            )}
+                        />
                         <Tab label={<span>QR maglumaty</span>} />
                     </Tabs>
                 </AppBar>
@@ -127,6 +181,7 @@ const mapStateToProps = (state) => {
         divisionData: state.divisionData.divisionData,
         divisionsData: state.divisionsData,
         isSidebarOpen: state.isSidebarOpen.isSidebarOpen,
+        emptyValues: state.emptyValues.emptyValues,
     };
 };
 
@@ -135,6 +190,7 @@ const mapDispatchToProps = (dispatch) => {
         setDivisionData: (data) => dispatch(setDivisionData(data)),
         setDivisionItemSendInfo: (item) =>
             dispatch(setDivisionItemSendInfo(item)),
+        setEmptyValues: (item) => dispatch(setEmptyValues(item)),
     };
 };
 

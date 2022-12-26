@@ -1105,6 +1105,10 @@ export const functionTranslator = (func) => {
             return 'STOK YETKILERINI POZUP TÄZEDEN SINHRONLAMAK';
         case 'itemImagesTruncate':
             return 'HARYT SURATLARYNY POZUP TÄZEDEN SINHRONLAMAK';
+        case 'saleAnalyzes':
+            return 'SATYŞ ANALIZINI SINHRONLAMAK';
+        case 'saleAnalyzesTruncate':
+            return 'SATYŞ ANALIZINI POZUP TÄZEDEN SINHRONLAMAK';
 
         default:
             return func;

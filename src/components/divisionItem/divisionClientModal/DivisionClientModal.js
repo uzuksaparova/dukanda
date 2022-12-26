@@ -17,6 +17,7 @@ import {
 import {
     setDivisionItemSendInfo,
     setIsDivisionClientModalOpen,
+    setEmptyValues,
 } from '../../../redux/actions/divisionActions';
 
 import {
@@ -67,6 +68,8 @@ function DivisionClientModal(props) {
         isError,
         decodedToken,
         shouldFetch = true,
+        emptyValues,
+        setEmptyValues,
     } = props;
 
     const { data, noData, isEnd } = clientsData;
@@ -107,6 +110,9 @@ function DivisionClientModal(props) {
                 clientId: e.target.value,
             });
             setClientChip(e.target.name);
+            let tempEmptyValues = emptyValues;
+            tempEmptyValues = tempEmptyValues.filter((v) => v !== 'clientId');
+            setEmptyValues(tempEmptyValues);
         }
     };
     const handleOkButton = () => {
@@ -275,6 +281,7 @@ const mapStateToProps = (state) => {
         isError: state.isError.isError,
         clientSendInfo: state.clientSendInfo,
         decodedToken: state.decodedToken.decodedToken,
+        emptyValues: state.emptyValues.emptyValues,
     };
 };
 
@@ -286,6 +293,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(setIsDivisionClientModalOpen(open)),
         setDivisionItemSendInfo: (info) =>
             dispatch(setDivisionItemSendInfo(info)),
+        setEmptyValues: (info) => dispatch(setEmptyValues(info)),
     };
 };
 

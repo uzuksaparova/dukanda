@@ -9,17 +9,13 @@ import { FaPhone, FaUser } from 'react-icons/fa';
 import { RiLockPasswordFill, RiUser5Fill } from 'react-icons/ri';
 import { HiMail } from 'react-icons/hi';
 import { AiFillEye, AiFillEyeInvisible, AiOutlineSlack } from 'react-icons/ai';
-import {
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    MenuItem,
-    Select,
-} from '@material-ui/core';
-import { roleTranslator } from '../../../../../functions';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { default as ReactSelect } from 'react-select';
-import { setEmployeeItemSendInfo } from '../../../../../redux/actions/employeeActions';
+import {
+    setEmployeeEmptyValues,
+    setEmployeeItemSendInfo,
+} from '../../../../../redux/actions/employeeActions';
 
 function EmployeeTab1(props) {
     const [showPassword, setShowPassword] = useState(false);
@@ -34,10 +30,21 @@ function EmployeeTab1(props) {
         setEmployeePassword,
         addEmployeeImageClickReferencing,
         handleEmployeeImageDeleteButton,
-        divisionInfo,
         setEmployeeItemSendInfo,
+        employeeEmptyValues,
+        setEmployeeEmptyValues,
     } = props;
     const isMobileScreen = useMediaQuery({ query: '(max-width: 950px)' });
+
+    const handleInputChange = (value, type) => {
+        setEmployeeItemSendInfo({
+            ...employeeItemSendInfo,
+            [type]: value,
+        });
+        let tempEmptyValues = employeeEmptyValues;
+        tempEmptyValues = tempEmptyValues.filter((v) => v !== type);
+        setEmployeeEmptyValues(tempEmptyValues);
+    };
 
     const employeeInputRow = (rowObj) => {
         const { leftName, leftIcon, rowType, inputType = 'text' } = rowObj;
@@ -53,12 +60,25 @@ function EmployeeTab1(props) {
                         placeholder={leftName}
                         value={employeeItemSendInfo[rowType]}
                         onChange={(e) =>
-                            setEmployeeItemSendInfo({
-                                ...employeeItemSendInfo,
-                                [rowType]: e.target.value,
-                            })
+                            handleInputChange(e.target.value, rowType)
                         }
+                        style={{
+                            boxShadow: employeeEmptyValues.includes(rowType)
+                                ? '0px 0px 4px 0px  red'
+                                : 'unset',
+                        }}
                     />
+                    {employeeEmptyValues.includes(rowType) ? (
+                        <span
+                            style={{
+                                marginTop: '5px',
+                                color: 'red',
+                                fontSize: 13,
+                            }}
+                        >
+                            **{leftName} girizilmedik!
+                        </span>
+                    ) : null}
                 </div>
             </div>
         );
@@ -85,6 +105,14 @@ function EmployeeTab1(props) {
                     <span>{leftName}</span>
                 </div>
                 <div className="right">
+                    {/* {console.log(
+                        getDefaultValue(
+                            employeeItemSendInfo[type],
+                            options,
+                            false,
+                            type
+                        )
+                    )} */}
                     {options.length ? (
                         <ReactSelect
                             defaultValue={getDefaultValue(
@@ -92,18 +120,60 @@ function EmployeeTab1(props) {
                                 options,
                                 false
                             )}
-                            onChange={(e) => {
-                                setEmployeeItemSendInfo({
-                                    ...employeeItemSendInfo,
-                                    [type]: e.value,
-                                });
-                            }}
+                            onChange={(e) => handleInputChange(e.value, type)}
                             options={options}
                             isSearchable={true}
                             className="react-select-container"
                             classNamePrefix="react-select"
                             placeholder="Saýlaň..."
+                            styles={{
+                                boxShadow: employeeEmptyValues.includes(type)
+                                    ? '0px 0px 4px 0px  red'
+                                    : 'unset',
+                            }}
                         />
+                    ) : //     <FormControl className="form-control">
+                    //         <Select
+                    //             placeholder="Işgär saylan"
+                    //             code="demo-simple-select-outlined"
+                    //             value={employeeItemSendInfo[type]}
+                    //             onChange={(e) =>
+                    //                 setEmployeeItemSendInfo({
+                    //                     ...employeeItemSendInfo,
+                    //                     [type]: e.target.value,
+                    //                 })
+                    //             }
+                    //         >
+                    //             {options.map((opt, i) => {
+                    //                 return (
+                    //                     <MenuItem
+                    //                         value={
+                    //                             type === 'role'
+                    //                                 ? opt
+                    //                                 : Number(opt.id)
+                    //                         }
+                    //                         key={i}
+                    //                     >
+                    //                         {type === 'role'
+                    //                             ? roleTranslator(opt)
+                    //                             : opt.name}
+                    //                     </MenuItem>
+                    //                 );
+                    //             })}
+                    //         </Select>
+                    //     </FormControl>
+                    // ) :
+                    null}
+                    {employeeEmptyValues.includes(type) ? (
+                        <span
+                            style={{
+                                marginTop: '5px',
+                                color: 'red',
+                                fontSize: 13,
+                            }}
+                        >
+                            **{leftName} saýlanmadyk!
+                        </span>
                     ) : null}
                 </div>
             </div>
@@ -230,6 +300,7 @@ const mapStateToProps = (state) => {
         roles: state.roles.roles,
         employeesData: state.employeesData,
         employeeItemSendInfo: state.employeeItemSendInfo,
+        employeeEmptyValues: state.employeeEmptyValues.employeeEmptyValues,
     };
 };
 
@@ -237,6 +308,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setEmployeeItemSendInfo: (info) =>
             dispatch(setEmployeeItemSendInfo(info)),
+        setEmployeeEmptyValues: (info) =>
+            dispatch(setEmployeeEmptyValues(info)),
     };
 };
 

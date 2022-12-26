@@ -4,10 +4,27 @@ import { AiOutlineSlack } from 'react-icons/ai';
 import { BiExclude, BiRename } from 'react-icons/bi';
 import { MdLocationOn } from 'react-icons/md';
 import { connect } from 'react-redux';
-import { setDivisionItemSendInfo } from '../../../redux/actions/divisionActions';
+import {
+    setDivisionItemSendInfo,
+    setEmptyValues,
+} from '../../../redux/actions/divisionActions';
 import './divisionTabs.scss';
 
-function Tab1({ divisionItemSendInfo, setDivisionItemSendInfo }) {
+function Tab1({
+    divisionItemSendInfo,
+    setDivisionItemSendInfo,
+    emptyValues,
+    setEmptyValues,
+}) {
+    const handleInputChange = (e, type) => {
+        setDivisionItemSendInfo({
+            ...divisionItemSendInfo,
+            [type]: e.target.value,
+        });
+        let tempEmptyValues = emptyValues;
+        tempEmptyValues = tempEmptyValues.filter((v) => v !== type);
+        setEmptyValues(tempEmptyValues);
+    };
     const divisionTabRow = (leftIcon, leftName, type, placeholder) => {
         return (
             <div className="division-one-row">
@@ -20,14 +37,25 @@ function Tab1({ divisionItemSendInfo, setDivisionItemSendInfo }) {
                         key="code"
                         type="text"
                         placeholder={placeholder}
-                        onChange={(e) =>
-                            setDivisionItemSendInfo({
-                                ...divisionItemSendInfo,
-                                [type]: e.target.value,
-                            })
-                        }
+                        onChange={(e) => handleInputChange(e, type)}
+                        style={{
+                            boxShadow: emptyValues.includes(type)
+                                ? '0px 0px 4px 0px  red'
+                                : 'unset',
+                        }}
                         value={divisionItemSendInfo[type]}
                     />
+                    {emptyValues.includes(type) ? (
+                        <span
+                            style={{
+                                marginTop: '5px',
+                                color: 'red',
+                                fontSize: 13,
+                            }}
+                        >
+                            **{leftName} girizilmedik!
+                        </span>
+                    ) : null}
                 </div>
             </div>
         );
@@ -89,12 +117,14 @@ const mapStateToProps = (state) => {
     return {
         divisionItemSendInfo: state.divisionItemSendInfo,
         divisionData: state.divisionData.divisionData,
+        emptyValues: state.emptyValues.emptyValues,
     };
 };
 const mapDispatchToProps = (dispatch) => {
     return {
         setDivisionItemSendInfo: (info) =>
             dispatch(setDivisionItemSendInfo(info)),
+        setEmptyValues: (info) => dispatch(setEmptyValues(info)),
     };
 };
 
